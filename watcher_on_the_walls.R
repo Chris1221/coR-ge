@@ -10,5 +10,5 @@ while(l != 80){
   l <- length(list.files())
 }
 
-command <- paste0("qsub /home/hpc2862/Scripts/scripts/R/sFDR/clean_comb.sh $", i, " $", j)
+command <- paste0("qsub /home/hpc2862/Scripts/sFDR/clean_comb.sh $", i, " $", j)
 system(command)

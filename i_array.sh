@@ -12,7 +12,7 @@ do
   #submit watcher script
 done
 #qsub -N m_watcher -V -t 1-${nj}:1 /home/hpc2862/Scripts/scripts/R/sFDR/lord_commander_mormont.sh ${i}
-qsub -N j_array_${i} -v i=${i} -t 1-${nj}:1 /home/hpc2862/Scripts/scripts/R/sFDR/j_array.sh ${i}
+qsub -N j_array_${i} -v i=${i} -t 1-${nj}:1 /home/hpc2862/Scripts/sFDR/j_array.sh ${i}
 
 #rscript, wait for the previous ones to finish, wait until folder 10 has been deleted
 #Rscript hold_your_horses.R

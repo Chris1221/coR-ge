@@ -11,4 +11,4 @@
 i=$1
 j=$SGE_TASK_ID
 
-qsub -N k_jobs_${i}_${j} /home/hpc2862/Scripts/scripts/R/sFDR/k_hapgen.sh ${i} ${j}
+qsub -N k_jobs_${i}_${j} /home/hpc2862/Scripts/sFDR/k_hapgen.sh ${i} ${j}

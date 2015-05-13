@@ -8,4 +8,4 @@
 #$ -j y
 #$ -o /home/hpc2862/logs/m_watcher.txt
 
-Rscript /home/hpc2862/Scripts/scripts/R/sFDR/watcher_on_the_walls.R $1 ${SGE_TASK_ID}
+Rscript /home/hpc2862/Scripts/sFDR/watcher_on_the_walls.R $1 ${SGE_TASK_ID}
