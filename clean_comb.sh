@@ -4,7 +4,7 @@
 #$ -l qname=abaqus.q
 #$ -cwd
 #$ -V
-#$ -l mf=192G
+#$ -l mf=75G
 #$ -j y
 #$ -o /home/hpc2862/logs/test.txt
 
