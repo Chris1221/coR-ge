@@ -56,13 +56,14 @@
 <code>R</code> version &gt; 3.0.0 able to run <code>dplyr</code> and <code>data.frame</code>
 </li>
 <li>
-<code>Rscript</code> in <code>$PATH</code>
+<code>Rscript</code> in <code>$PATH</code> or located at <code>/usr/bin/Rscript</code>
 </li>
 <li>
 <code>Python</code> v. 2.7.*</li>
 <li>A temporary storage drive with n*560G free space, where n is the number of runs you would like to perform simultaneously. </li>
 <li>156G RAM recommended. Be aware that improper allocation of jobs can easily cause swapping of nodes on the cluster.  We have included a delayed submission script to ameliorate this problem. </li>
-<li>Latest build of 1000 Genomes in IMPUTE2 format (<code>*.legend</code>, <code>*.haps</code>, <code>*.sample</code>)</li>
+<li>Latest build of 1000 Genomes in IMPUTE2 format (<code>*.legend</code>, <code>*.haps</code>, <code>*.sample</code>) in any directory that has sufficient storage room.  Name this directory; it will hereafter be named <code>$REF</code>
+</li>
 </ul>
 
 <h3>
@@ -70,13 +71,18 @@
 
 <p>Clone the repository to your working directory (hereafter known as <code>$WD</code>):</p>
 
-<p>``</p>
+<p><code>$ cd $WD</code>
+<code>$ git clone https://github.com/Chris1221/sFDR</code>
+<code>$ git checkout master</code></p>
 
-<p>hell o</p>
+<p>Ensure that you are on the master branch for now.  </p>
 
-<p>code</p>
+<p>Several files will have to be edited, and these will be addressed in turn. </p>
 
-<p>``</p>
+<h3>
+<a id="disease-model" class="anchor" href="#disease-model" aria-hidden="true"><span class="octicon octicon-link"></span></a>Disease Model</h3>
+
+<p>The file <code>$WD/rand.R</code> contains the information for the disease model. We will edit a few things here to specify individual parameters for the run.  </p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Chris1221">Chris1221</a></p>
