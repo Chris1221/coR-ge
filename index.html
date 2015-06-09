@@ -33,16 +33,36 @@
 
 <p>Welcome to the landing page for <strong>coR-ge</strong> (<strong>cor</strong>ection of <strong>ge</strong>nomes in <strong>R</strong>). This software is in active development, and pull requests are welcome on any of the branches. Please find below instructions for use cases. For more complex use, please contact the maintainer by <a href="https://github.com/Chris1221/sFDR/issues/new">raising an issue</a> on the project repository.</p>
 
-<p>This project was presented at the High Powered Computer Symposium in June 2015. The <a href="https://github.com/Chris1221">abstract</a> and <a href="https://github.com/Chris1221">poster PDF</a> are also found in the repository. </p>
+<p>This project was presented at the Compute Canada's High Powered Computer Symposium in June 2015. The <a href="https://github.com/Chris1221">abstract</a> and <a href="https://github.com/Chris1221">poster PDF</a> are also found in the repository. </p>
 
 <h3>
 <a id="program-structure" class="anchor" href="#program-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Program Structure</h3>
 
 <p>Heuristically, <strong>coR-ge</strong> is structured as follows.  </p>
 
-<p><img src="http://puu.sh/iivgo/9682715306.png" alt="Logic Flow"></p>
+<p><img src="https://raw.githubusercontent.com/Chris1221/sFDR/gh-pages/assets/images/logic_flow.png" alt="Logic Flow"></p>
 
 <p>In reality, these three steps are divided into different files in the repository.  The quick start guide will nonetheless follow this logic flow in order to simplify matters.   </p>
+
+<h3>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h3>
+
+<p><strong>coR-ge</strong> requires the following: </p>
+
+<ul>
+<li>This program requires a cluster system set up on either <code>SGE</code> or <code>PBS</code> architecture, running <code>qsub</code>.  It can be easily modified to use <code>bsub</code> as well with minimal effort.</li>
+<li>Any base unix system to run on.  The program has been tested on <code>CentOS</code> and <code>OSX</code>.  Dependency issues should be reported as an <a href="https://github.com/Chris1221/sFDR/issues/new">issue</a> on the main repository. </li>
+<li>
+<code>R</code> version &gt; 3.0.0 able to run <code>dplyr</code> and <code>data.frame</code>
+</li>
+<li>
+<code>Rscript</code> in <code>$PATH</code>
+</li>
+<li>
+<code>Python</code> v. 2.7.*</li>
+<li>A temporary storage drive with n*560G free space, where n is the number of runs you would like to perform simultaneously. </li>
+<li>156G RAM recommended. Be aware that improper allocation of jobs can easily cause swapping of nodes on the cluster.  We have included a delayed submission script to ameliorate this problem. </li>
+</ul>
 
 <h3>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
