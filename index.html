@@ -74,6 +74,7 @@
 <pre><code>$ cd $WD
 $ git clone https://github.com/Chris1221/sFDR
 $ git checkout master
+$ cd sFDR/
 </code></pre>
 
 <p>Ensure that you are on the master branch for now.  </p>
@@ -83,7 +84,16 @@ $ git checkout master
 <h3>
 <a id="disease-model" class="anchor" href="#disease-model" aria-hidden="true"><span class="octicon octicon-link"></span></a>Disease Model</h3>
 
-<p>The file <code>$WD/sFDR/rand.R</code> contains the information for the disease model. We will edit a few things here to specify individual parameters for the run.  </p>
+<p>The file <code>rand.R</code> contains the information for the disease model. We will edit a few things here to specify individual parameters for the run.  At the top of the script, you must edit the following parameters.  Defaults are displayed, and must be edited:</p>
+
+<pre><code>heritability &lt;- 0.45
+noise_var &lt;- 0.55
+sim_file_path &lt;- getwd()
+wd &lt;- getwd()
+snp_summary &lt;- "snp_summary.out"
+</code></pre>
+
+<p>To filter based on minor allele frequency, you must generate a file named <code>snp_summary.out</code> (or whatever you set the file name as in <code>rand.R</code>) using SNPTEST2. See <a href="https://mathgen.stats.ox.ac.uk/genetics_software/snptest/old/snptest.html#Data_Summaries_">here</a> for an example of this.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Chris1221">Chris1221</a></p>
