@@ -168,6 +168,35 @@ done
 for ease of use. </p>
 
 <p>This will begin the submission of many small jobs.  If any jobs fail on your system, please post the full log file in an issue.</p>
+
+<h3>
+<a id="analysis-and-comparison-of-mtc-methodologies" class="anchor" href="#analysis-and-comparison-of-mtc-methodologies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysis and Comparison of MTC Methodologies.</h3>
+
+<p>In <code>correct_and_report.R</code>, rename the <code>path</code> variable to the location of your simulated genotypes. Again specify the location of the <code>snp_summary.out</code> file in the <code>summary</code> object. This script inherits properties from <code>correct.R</code>, and will run as long as the <code>snps</code> object was passed correctly.  </p>
+
+<p>Reported by default are: </p>
+
+<ul>
+<li>Aggregated FDR True Positive</li>
+<li>Aggregated FDR False Positive</li>
+<li>Aggregated FDR True Negative</li>
+<li>Aggregated FDR False Negative</li>
+<li>Bonferroni True Positive</li>
+<li>Bonferroni False Positive</li>
+<li>Bonferroni True Negative</li>
+<li>Bonferroni False Negative</li>
+<li>Stratified FDR True Positive</li>
+<li>Stratified FDR False Positive</li>
+<li>Stratified FDR True Negative</li>
+<li>Stratified FDR False Negative</li>
+</ul>
+
+<p>In that order, written to a file named <code>results.txt</code>.  The strata for sFDR are by default randomly selected in a stepwise manner, but this behaviour can be easily modified.</p>
+
+<h3>
+<a id="example-use-cases" class="anchor" href="#example-use-cases" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example use cases</h3>
+
+<p><strong>coR-ge</strong> has been used successfully to demonstrate an increase in true positives and a decrease in false negatives when tests are stratified with prior information:</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Chris1221">Chris1221</a></p>
