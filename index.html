@@ -94,6 +94,19 @@ snp_summary &lt;- "snp_summary.out"
 </code></pre>
 
 <p>To filter based on minor allele frequency, you must generate a file named <code>snp_summary.out</code> (or whatever you set the file name as in <code>rand.R</code>) using SNPTEST2. See <a href="https://mathgen.stats.ox.ac.uk/genetics_software/snptest/old/snptest.html#Data_Summaries_">here</a> for an example of this.</p>
+
+<p>In <code>i_array.sh</code>, <code>j_array.sh</code>, and <code>k_array.sh</code>, set the <code>$dir</code> variable with the directory where you are storing the reference genotypes. </p>
+
+<p>Start the generation of resampled genotypes.  For 30 trials (approximately 1.7 TB of free space required):</p>
+
+<pre><code>for i in {1..3}
+do
+  for j in {1..10}
+  do
+    bash i_array $i $j
+  done
+done
+</code></pre>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Chris1221">Chris1221</a></p>
