@@ -95,9 +95,30 @@ snp_summary &lt;- "snp_summary.out"
 
 <p>To filter based on minor allele frequency, you must generate a file named <code>snp_summary.out</code> (or whatever you set the file name as in <code>rand.R</code>) using SNPTEST2. See <a href="https://mathgen.stats.ox.ac.uk/genetics_software/snptest/old/snptest.html#Data_Summaries_">here</a> for an example of this.</p>
 
-<p>In <code>i_array.sh</code>, <code>j_array.sh</code>, and <code>k_array.sh</code>, set the <code>$dir</code> variable with the directory where you are storing the reference genotypes. </p>
+<p>In this script, you can manually or randomly generate causal loci (~ line 160).  If you would like to manually assign variants, choose your SNPs and assign them a column named "causal" equal to one, and pass only causal SNPs to the <code>snps</code> data frame.  <code>snps</code> must contain four columns, an example is given below: </p>
 
-<p>Start the generation of resampled genotypes.  For 30 trials (approximately 1.7 TB of free space required):</p>
+<pre><code>rsid chromosomes bp all_maf
+rs_1 1           1  0.30
+rs_2 1           2  0.35
+rs_3 1           3  0.05
+</code></pre>
+
+<p>If the selection of the SNPs is based on some parameter, simply subset the <code>summary</code> object to select only causal loci.  Ex:</p>
+
+<pre><code>library(dplyr)
+summary %&gt;%
+    filter(all_maf &gt; 0.05) %&gt;% 
+        filter(all_maf &lt; 0.5) %&gt;% 
+            sample_n(50) %&gt;% 
+                select(rsid, chromosomes, bp, all_maf) -&gt; snps
+</code></pre>
+
+<h3>
+<a id="resampling-and-model-propagation" class="anchor" href="#resampling-and-model-propagation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resampling and Model Propagation</h3>
+
+<p>In <code>i_array.sh</code>, <code>j_array.sh</code>, and <code>k_array.sh</code>, set the <code>$DIR</code> variable with the directory where you are storing the reference genotypes. Set the <code>$OUT</code> variable for where you would like to house the output. Edit the directives to fit your cluster set-up.</p>
+
+<p>Start the generation of resampled genotypes with <code>hapgen2</code>.  For 30 trials (approximately 1.7 TB of free space required):</p>
 
 <pre><code>for i in {1..3}
 do
@@ -107,6 +128,12 @@ do
   done
 done
 </code></pre>
+
+<p>or
+    bash sub_script.sh $i_limit $j_limit
+for ease of use. </p>
+
+<p>This will begin the submission of many small jobs.  If any jobs fail on your system, please post the full log file in an issue.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Chris1221">Chris1221</a></p>
