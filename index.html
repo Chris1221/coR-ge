@@ -196,7 +196,62 @@ for ease of use. </p>
 <h3>
 <a id="example-use-cases" class="anchor" href="#example-use-cases" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example use cases</h3>
 
-<p><strong>coR-ge</strong> has been used successfully to demonstrate an increase in true positives and a decrease in false negatives when tests are stratified with prior information:</p>
+<p><strong>coR-ge</strong> has been used successfully to demonstrate an increase in true positives and a decrease in false negatives when tests are stratified with prior information.</p>
+
+<p>We present the following as a case study. Figures a and b display the differential true positive and false positive rates respectively between stratified FDR and FDR correction grouped by number of “nonsense” variants in priority strata. Displayed are the differences between the two methodologies with kernel density estimate. 50 causal loci simulated on 1000 Genomes CEU reference panel with 0.45 disease heritability assumed on chromosome 1 for 100 permutations.</p>
+
+<p>Improvement of true discovery rate between sFDR and FDR correction
+methodologies.
+<img src="https://raw.githubusercontent.com/Chris1221/sFDR/gh-pages/assets/images/fig_1.png" alt="TP"></p>
+
+<p>Decrease in false positive detection between sFDR and FDR correction methodologies.</p>
+
+<p><img src="https://raw.githubusercontent.com/Chris1221/sFDR/gh-pages/assets/images/fig_2.png" alt="FP"></p>
+
+<p>Continuing the case study, differential effects of causal variant minor allele frequencies are examined in stratified FDR and reported grouped by number of “nonsense” variants in the priority strata. Five causal loci with effect sizes following a uniform distribution were simulated in each of the MAF groups in order to further elucidate the heuristic qualities of stratified FDR correction in genomic environments. Five causal variants simulated in each category with equal effect sizes (Type II ANOVA P = 0.2026). Simulated on 1000 Genomes CEU population chromosome 1 using a disease model with 0.45 heritability for 100 permutations.</p>
+
+<p><img src="https://raw.githubusercontent.com/Chris1221/sFDR/gh-pages/assets/images/fig_3.png" alt="MAF"></p>
+
+<p><strong>coR-ge</strong> can be used for any methodology, for any grouping of SNPs, and any grouping of reporting.  If you have used <strong>coR-ge</strong> in any publication, kindly cite this page. Code for the previously mentioned examples can be found in the <code>master</code> and <code>MAF</code> branches respectively. </p>
+
+<h3>
+<a id="development-goals" class="anchor" href="#development-goals" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development Goals</h3>
+
+<ul>
+<li>More user-friendly interface</li>
+<li>Better documentation with comprehensive guide</li>
+<li>Compiled binary with <code>.config</code> file</li>
+</ul>
+
+<h3>
+<a id="help--guidance" class="anchor" href="#help--guidance" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help / Guidance</h3>
+
+<p>Please post an issue on the repository, or email the maintainer with the email mentioned on his profile.  We welcome assistance from individuals wishing to contribute to the development of <strong>coR-ge</strong>.  Any questions will be answered quickly and as completely as possible. </p>
+
+<h3>
+<a id="acknowledgements" class="anchor" href="#acknowledgements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Acknowledgements</h3>
+
+<p>The maintainer would like to thank Joanne Knight of CAMH, who has provided guidance throughout the development of this project.  He would also like to thank the statistical genetics group at CAMH for guidance and assistance during development. </p>
+
+<p>We would like to thank the R core team for the creation of an environment in which such projects are possible, as well as specifically Hadley Wickham for his <code>tidyr</code>-<code>dplyr</code>-<code>ggplot</code>/<code>ggvis</code> pipeline, which has proved invaluable. </p>
+
+<p>We acknowledge funding from The Institute of Medical Science at the University of Toronto, NSERC, the Centre for Addiction and Mental Health (CAMH) and the University of Ottawa. </p>
+
+<h3>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h3>
+
+<ol>
+<li><p>Sun, L., Craiu, R. V, Paterson, A. D., &amp; Bull, S. B. (2006). Stratified false discovery
+control for large-scale hypothesis testing with application to genome-wide association
+studies. Genetic Epidemiology, 30(6), 519–30.</p></li>
+<li><p>Su, Z., Marchini, J., &amp; Donnelly, P. (2011). HAPGEN2: simulation of multiple disease
+SNPs. Bioinformatics, 27(16), 2304–2305.</p></li>
+<li><p>Tune H. Pers, Juha M. Karjalainen, Yingleong Chan, Harm-Jan Westra, Andrew R.
+Wood, Jian Yang, Julian C. Lui, Sailaja Svedantam, Stefan Gustafsson, Tonu Esko, Tim
+Frayling, Elizabeth K. Speliotes, Genetic Investigation of ANthropometric Traits
+(GIANT) Con, L. F. (2015). Biological interpretation of genome-wide association studies
+using predicted gene functions.</p></li>
+</ol>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Chris1221">Chris1221</a></p>
