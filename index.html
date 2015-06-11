@@ -103,7 +103,7 @@ rs_2 1           2  0.35
 rs_3 1           3  0.05
 </code></pre>
 
-<p>If the selection of the SNPs is based on some parameter, simply subset the <code>summary</code> object to select only causal loci.  Ex:</p>
+<p>If the selection of the SNPs is based on some parameter, simply subset the <code>summary</code> object to select only causal loci.  In the following simple example, we select 50 random SNPs with minor allele frequency between 0.05 and 0.5 using the <code>dplyr</code> library. </p>
 
 <pre><code>library(dplyr)
 summary %&gt;%
@@ -112,6 +112,40 @@ summary %&gt;%
             sample_n(50) %&gt;% 
                 select(rsid, chromosomes, bp, all_maf) -&gt; snps
 </code></pre>
+
+<p>In a more complex situation, one may wish to select a group of genes, selecting one causal variant from each.  In the following example, we import a table of 10 genes with start and end positions, and randomly select one causal variant from each of the genes.  Additional information is retained so that the start and end positions can be used to decide a priority strata for sFDR.</p>
+
+<pre><code>#Read in list of genes.  First column is gene name, second is physical start position in bp, third is end position in bp.
+gene_list &lt;- read.table("gene_list.txt", h = T, sep = "\t")
+
+#select one random SNP from each gene
+for(i in 1:nrow(gene_list)){
+
+ name &lt;- paste0("gene_", i)
+
+ #grab only SNPs within gene boundaries 
+ summary %&gt;% filter(position &gt; gene_list[[i,2]]) %&gt;% filter(position &lt; gene_list[[i,3]]) %&gt;% select(rsid, chromosome,     position, all_maf) -&gt; gene
+ gene$select &lt;- 1
+ gene$causal &lt;- 0
+
+ #grab random snp
+ gene[ceiling(runif(1,1,nrow(gene))),"causal"] &lt;- 1
+ assign(name, gene)
+}
+
+genes &lt;- rbind(gene_1, gene_2, gene_3, gene_4, gene_5, gene_6, gene_7, gene_8, gene_9, gene_10)
+
+#or
+#genes &lt;- rbind(ls()[grepl("gene_[0-9]", ls())])
+
+genes %&gt;% filter(causal == 1) -&gt; snps
+
+#clear extra columns
+snps$causal &lt;- NULL
+snps$select &lt;- NULL
+</code></pre>
+
+<p>The previous examples illustrate the concept behind SNP selection, but any selection can be made as long as the correct columns are passed to <code>snps</code> prior to the renaming step. </p>
 
 <h3>
 <a id="resampling-and-model-propagation" class="anchor" href="#resampling-and-model-propagation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resampling and Model Propagation</h3>
