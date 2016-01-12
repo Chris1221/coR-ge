@@ -174,3 +174,10 @@ summary2 %>% filter(!is.na(k)) -> summary3
 > sum(summary3$k == 4)
 [1] 41475
 ```
+
+Writing the file back out, we can tailor the analysis to this
+
+```{r, eval = F}
+
+write.table(summary3, "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", quote = F, row.names = F, col.names = T)
+
