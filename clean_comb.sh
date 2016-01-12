@@ -27,7 +27,7 @@ do
   rm chr1_block_${i}_perm_${k}_k_${j}.controls.legend
 done
 
-Rscript /home/hpc2862/Scripts/sFDR/rand.R $i $j
+Rscript /home/hpc2862/repos/coR-ge/rand.R $i $j
 
 for k in {1..10}
 do
@@ -48,7 +48,7 @@ rm plink.nosex
 rm ${i}_${j}_out.ped
 rm ${i}_${j}_out.map
 
-Rscript /home/hpc2862/Scripts/sFDR/correct_and_report.R $i $j
+Rscript /home/hpc2862/repos/coR-ge/correct_and_report.R $i $j
 
 cd ..
 #rm -rf /scratch/hpc2862/CAMH/perm_container/container_${i}_${j}
