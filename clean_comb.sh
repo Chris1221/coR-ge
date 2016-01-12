@@ -51,4 +51,4 @@ rm ${i}_${j}_out.map
 Rscript /home/hpc2862/Scripts/sFDR/correct_and_report.R $i $j
 
 cd ..
-rm -rf /scratch/hpc2862/CAMH/perm_container/container_${i}_${j}
+#rm -rf /scratch/hpc2862/CAMH/perm_container/container_${i}_${j}

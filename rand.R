@@ -157,17 +157,29 @@ colnames(gen) <- paste0("V",1:ncol(gen))
 ## Select SNPs
 # Based on MAF 0.05 - 0.5, uniform
 
-summary <- fread("/scratch/hpc2862/CAMH/perm_container/snp_summary.out", h = T, sep = " ")
-summary %>% filter(all_maf > 0.05) %>% filter(all_maf < 0.5) %>% sample_n(50) %>% select(rsid, chromosome, position, all_maf) -> snps
+summary <- fread("/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", h = T, sep = " ")
+#summary %>% filter(all_maf > 0.05) %>% filter(all_maf < 0.5) %>% sample_n(50) %>% select(rsid, chromosome, position, all_maf) -> snps
 
-colnames(snps) <- c("rsid", "chromosomes", "V3", "all_maf")
+#k = 1
+
+snps <- NULL
+
+# add in each 1000 sample sequentially
+for(i in 1:max(summary$k)){
+
+	summary %>% filter(k==i) %>% sample_n(1000) %>% select(rsid, chromosome, position, all_maf, k) %>% rbind(snps, .) -> snps
+
+}
+
+
+colnames(snps) <- c("rsid", "chromosomes", "V3", "all_maf", "k")
 
 comb <- merge(gen, snps, by = "V3")
 comb <- as.data.frame(comb)
 
 ## eliminate overlap
 
-comb$rsid <- NULL; comb$chromosomes <- NULL; comb$all_maf <- NULL
+comb$rsid <- NULL; comb$chromosomes <- NULL; comb$all_maf <- NULL; comb$k <- NULL
 #comb$V1 <- NULL
 #comb$V2 <- NULL
 #comb$V4 <- NULL
@@ -254,6 +266,13 @@ samp$Z <- as.character(samp$Z)
 colnames(var) <- colnames(samp)
 samp <- rbind(var, samp)
 #samp$missing <- NULL
+
+#######   FOR CLUSTER ##################
+# add another column which is column ###
+#########################################
+
+
+
 
 
 write.table(samp, paste0(path,"phen_test.sample"), quote = FALSE, row.names=F, col.names = T, sep = "\t")

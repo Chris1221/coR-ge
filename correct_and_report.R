@@ -9,21 +9,28 @@ setwd(path)
 
 q <- read.table("plink.qassoc", h = T)
 snps <- read.table("snptlist.txt", h = T, sep = "\t")
-summary <- read.table("/scratch/hpc2862/CAMH/perm_container/snp_summary.out", h = T)
-colnames(snps) <- c("SNP", "CHR", "BP", "MAF")
+
+summary <- read.table("/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", h = T)
+summary <- summary[ ! summary$rsid %in% snps$rsid] ##remove any overlaps
+
+colnames(snps) <- c("SNP", "CHR", "BP", "MAF", "k")
 
 snps_back <- snps
 snps <- snps$SNP
 
 q %>% mutate(real = SNP %in% snps[]) -> q2
 
-n_snps <- c(0,10,50,100,500,5000,10000)
+##HARD CODED THIS IS BAD
+
+n_snps <- c(1,2,3,4)
 
 for(n in n_snps){
 
-  summary %>% filter(all_maf > 0.05) %>% filter(all_maf < 0.5) %>% sample_n(n) %>% select(rsid, chromosome, position, all_maf) -> fake_snps
+  summary %>% filter(k==i) %>% sample_n(3000) %>% select(rsid, chromosome, position, all_maf, k) -> fake_snps
 
-  colnames(fake_snps) <- c("SNP", "CHR", "BP", "MAF")
+  #summary %>% filter(all_maf > 0.05) %>% filter(all_maf < 0.5) %>% sample_n(n) %>% select(rsid, chromosome, position, all_maf) -> fake_snps
+
+  colnames(fake_snps) <- c("SNP", "CHR", "BP", "MAF", "k")
 
   q2 %>% mutate(fake = SNP %in% fake_snps$SNP) -> q3
 
@@ -64,8 +71,11 @@ for(n in n_snps){
   Sb_TN <- sum(b_stratum_1$real == FALSE & !(b_stratum_1$p.adj < 0.05)) + sum(b_minus_stratum$real == FALSE & !(b_minus_stratum$p.adj < 0.05))
   Sb_FN <- sum(b_stratum_1$real == TRUE & !(b_stratum_1$p.adj < 0.05)) + sum(b_minus_stratum$real == TRUE & !(b_minus_stratum$p.adj < 0.05))
 
-  write <- cbind(n, A_TP,A_FP,A_TN,A_FN,Ab_TP,Ab_FP,Ab_TN,Ab_FN,S_TP,S_FP,S_TN,S_FN,Sb_TP,Sb_FP,Sb_TN,Sb_FN)
-  write.table(write, file = "/scratch/hpc2862/CAMH/perm_container/out_DONTDELETE_files/results.txt", append = T, quote = F, sep = " ", row.name = F, col.name = F)
+  fdr <- A_FP / (A_TP + A_FP)
+  sfdr <- S_FP / (S_TP + S_FP)
+
+  write <- cbind(n, A_TP,A_FP,A_TN,A_FN,Ab_TP,Ab_FP,Ab_TN,Ab_FN,S_TP,S_FP,S_TN,S_FN,Sb_TP,Sb_FP,Sb_TN,Sb_FN, fdr, sfdr)
+  write.table(write, file = "/scratch/hpc2862/CAMH/perm_container/out_DONTDELETE_files/results_cluster.txt", append = T, quote = F, sep = " ", row.name = F, col.name = F)
 }
 
 
