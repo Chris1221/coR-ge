@@ -1,7 +1,7 @@
 ---
 title: "FDR by Cluster"
 author: "Christopher Cole"
-date: "January 11, 2016"
+date: "January 12, 2016"
 output: 
   html_document:
     highlight: pygments
@@ -180,4 +180,57 @@ Writing the file back out, we can tailor the analysis to this
 ```{r, eval = F}
 
 write.table(summary3, "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", quote = F, row.names = F, col.names = T)
+```
+
+Altering the following files:
+
+```{r, engine = 'bash', eval = FALSE}
+clean_comb.sh
+correct_and_report.sh
+rand.R
+```
+
+We do the following in the analysis stage:
+
+1. Read in `*.gen*` 
+2. Subset all possibly SNPs to be chosen to be only those with cluster information
+3. Select $n_{real}=1000$ SNPs from each of the strata ($k=4$)
+4. Assign effect sizes a la DEPICT
+5. Write out
+6. Plink analyze to `plink.qassoc`
+7. Read everything in again
+8. Randomly assign half the effect SNPs to stratum 1 $S_1$ and half to $S_2$
+8. Exclude already selected effect SNPs and randomly select $n_{fake}=3000$
+9. Correct and report aggregated and stratefied FDRs 
+
+Note that at the moment, the addition of the cluster is causing some problems in the scoring routine. Nothing too large.
+
+## Topics for discussion
+
+**Things which are done**
+
+1. Imputation (somatic)
+    + Just sending to Meghan
+2. LD Score vs. MAF clustering
+    + Almost, few small errors
+3. Polygenic risk score for SCZ paper
+    + [here](http://www.schres-journal.com/article/S0920-9964(15)30087-6/abstract?rss=yes)
+
+**Things which are not done**
+
+1. True positive gradient by $R^2$
+2. UK10K Application
+    + See email convo with Natalie
+3. mineR paper
+    + Journal of Open Research Software
+    + Bioinformatics
+    + Journal of Statistical Software
+  
+  
+**Things to do next**
+
+1. Co-op Position 
+2. Run entire analysis on UK10K Data when it becomes available
+    + After clustering is working, finish up mineR and hopefully submit
+3. When UK10K is available, rerun everything on it then decide what conclusions to make, decide where to go with coR-ge after that
 

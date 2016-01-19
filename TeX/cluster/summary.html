@@ -10,7 +10,7 @@
 
 <meta name="author" content="Christopher Cole" />
 
-<meta name="date" content="2016-01-11" />
+<meta name="date" content="2016-01-12" />
 
 <title>FDR by Cluster</title>
 
@@ -75,7 +75,7 @@ img {
 <div id="header">
 <h1 class="title">FDR by Cluster</h1>
 <h4 class="author"><em>Christopher Cole</em></h4>
-<h4 class="date"><em>January 11, 2016</em></h4>
+<h4 class="date"><em>January 12, 2016</em></h4>
 </div>
 
 
@@ -180,8 +180,70 @@ summary2 %&gt;%<span class="st"> </span><span class="kw">filter</span>(!<span cl
 [<span class="dv">1</span>] <span class="dv">4665</span>
 &gt;<span class="st"> </span><span class="kw">sum</span>(summary3$k ==<span class="st"> </span><span class="dv">3</span>)
 [<span class="dv">1</span>] <span class="dv">17741</span>
-&gt;<span class="st"> </span><span class="kw">sum</span>(summary3$k ==<span class="st"> </span><span class="dv">4</span>)</code></pre>
+&gt;<span class="st"> </span><span class="kw">sum</span>(summary3$k ==<span class="st"> </span><span class="dv">4</span>)
+[<span class="dv">1</span>] <span class="dv">41475</span></code></pre>
+<p>Writing the file back out, we can tailor the analysis to this</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.table</span>(summary3, <span class="st">&quot;/scratch/hpc2862/CAMH/perm_container/snp_summary2.out&quot;</span>, <span class="dt">quote =</span> F, <span class="dt">row.names =</span> F, <span class="dt">col.names =</span> T)</code></pre>
+<p>Altering the following files:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">clean_comb.sh</span>
+<span class="kw">correct_and_report.sh</span>
+<span class="kw">rand.R</span></code></pre>
+<p>We do the following in the analysis stage:</p>
+<ol style="list-style-type: decimal">
+<li>Read in <code>*.gen*</code></li>
+<li>Subset all possibly SNPs to be chosen to be only those with cluster information</li>
+<li>Select <span class="math">\(n_{real}=1000\)</span> SNPs from each of the strata (<span class="math">\(k=4\)</span>)</li>
+<li>Assign effect sizes a la DEPICT</li>
+<li>Write out</li>
+<li>Plink analyze to <code>plink.qassoc</code></li>
+<li>Read everything in again</li>
+<li>Randomly assign half the effect SNPs to stratum 1 <span class="math">\(S_1\)</span> and half to <span class="math">\(S_2\)</span></li>
+<li>Exclude already selected effect SNPs and randomly select <span class="math">\(n_{fake}=3000\)</span></li>
+<li>Correct and report aggregated and stratefied FDRs</li>
+</ol>
+<p>Note that at the moment, the addition of the cluster is causing some problems in the scoring routine. Nothing too large.</p>
 </div>
+</div>
+<div id="topics-for-discussion" class="section level2">
+<h2>Topics for discussion</h2>
+<p><strong>Things which are done</strong></p>
+<ol style="list-style-type: decimal">
+<li>Imputation (somatic)
+<ul>
+<li>Just sending to Meghan</li>
+</ul></li>
+<li>LD Score vs. MAF clustering
+<ul>
+<li>Almost, few small errors</li>
+</ul></li>
+<li>Polygenic risk score for SCZ paper
+<ul>
+<li><a href="http://www.schres-journal.com/article/S0920-9964(15)30087-6/abstract?rss=yes">here</a></li>
+</ul></li>
+</ol>
+<p><strong>Things which are not done</strong></p>
+<ol style="list-style-type: decimal">
+<li>True positive gradient by <span class="math">\(R^2\)</span></li>
+<li>UK10K Application
+<ul>
+<li>See email convo with Natalie</li>
+</ul></li>
+<li>mineR paper
+<ul>
+<li>Journal of Open Research Software</li>
+<li>Bioinformatics</li>
+<li>Journal of Statistical Software</li>
+</ul></li>
+</ol>
+<p><strong>Things to do next</strong></p>
+<ol style="list-style-type: decimal">
+<li>Co-op Position</li>
+<li>Run entire analysis on UK10K Data when it becomes available
+<ul>
+<li>After clustering is working, finish up mineR and hopefully submit</li>
+</ul></li>
+<li>When UK10K is available, rerun everything on it then decide what conclusions to make, decide where to go with coR-ge after that</li>
+</ol>
 </div>
 
 
