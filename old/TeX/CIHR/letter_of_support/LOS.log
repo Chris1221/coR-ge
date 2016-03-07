@@ -1,4 +1,8 @@
+<<<<<<< HEAD:TeX/CIHR/letter_of_support/LOS.log
 This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  24 JAN 2016 15:44
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  20 JAN 2016 09:24
+>>>>>>> b52abc346f976aae4a0e4b85944031e9dcd18c7f:old/TeX/CIHR/letter_of_support/LOS.log
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -257,13 +261,14 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-</Users/Chris/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png, id=1, 2229.32875pt x 
-896.34875pt>
-File: /Users/Chris/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png Graphic file (typ
-e png)
- <use /Users/Chris/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png>
-Package pdftex.def Info: /Users/Chris/repos/coR-ge/TeX/CIHR/Camh_logo_purple.pn
-g used on input line 68.
+</Users/yvesmarcel/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png, id=1, 2229.32875
+pt x 896.34875pt>
+File: /Users/yvesmarcel/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png Graphic file
+ (type png)
+
+<use /Users/yvesmarcel/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png>
+Package pdftex.def Info: /Users/yvesmarcel/repos/coR-ge/TeX/CIHR/Camh_logo_purp
+le.png used on input line 68.
 (pdftex.def)             Requested size: 95.24696pt x 38.30301pt.
 
 
@@ -274,17 +279,25 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 
 [1
 
+<<<<<<< HEAD:TeX/CIHR/letter_of_support/LOS.log
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map} </Users/
 Chris/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png>]
 File: /Users/Chris/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png Graphic file (typ
 e png)
+=======
+ </Users/yvesmarcel/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png>]
+File: /Users/yvesmarcel/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png Graphic file
+ (type png)
+>>>>>>> b52abc346f976aae4a0e4b85944031e9dcd18c7f:old/TeX/CIHR/letter_of_support/LOS.log
 
-<use /Users/Chris/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png>
-Package pdftex.def Info: /Users/Chris/repos/coR-ge/TeX/CIHR/Camh_logo_purple.pn
-g used on input line 76.
+<use /Users/yvesmarcel/repos/coR-ge/TeX/CIHR/Camh_logo_purple.png>
+Package pdftex.def Info: /Users/yvesmarcel/repos/coR-ge/TeX/CIHR/Camh_logo_purp
+le.png used on input line 76.
 (pdftex.def)             Requested size: 95.24696pt x 38.30301pt.
- [2] (./LOS.aux) ) 
+ [2]
+(./LOS.aux) ) 
 Here is how much of TeX's memory you used:
+<<<<<<< HEAD:TeX/CIHR/letter_of_support/LOS.log
  2887 strings out of 493089
  40590 string characters out of 6134842
  115606 words of memory out of 5000000
@@ -300,6 +313,22 @@ m/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mr9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti
 10.pfb>
 Output written on LOS.pdf (2 pages, 174866 bytes).
+=======
+ 2885 strings out of 493089
+ 40594 string characters out of 6134842
+ 115727 words of memory out of 5000000
+ 6352 multiletter control sequences out of 15000+600000
+ 4739 words of font info for 18 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 38i,14n,43p,1077b,353s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.
+pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.p
+fb>
+Output written on LOS.pdf (2 pages, 161674 bytes).
+>>>>>>> b52abc346f976aae4a0e4b85944031e9dcd18c7f:old/TeX/CIHR/letter_of_support/LOS.log
 PDF statistics:
  37 PDF objects out of 1000 (max. 8388607)
  24 compressed objects within 1 object stream
