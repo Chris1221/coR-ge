@@ -1,0 +1,276 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+\documentclass[11pt,a4paper,sans]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+% modern themes
+\moderncvstyle{banking}                            % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{black}                                % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+% character encoding
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+%\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
+
+% adjust the page margins
+\usepackage[scale=0.75]{geometry}
+%\setlength{\hintscolumnwidth}{3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+\usepackage{import}
+
+% personal data
+\name{Christopher}{Cole}
+%\title{BSc Candidate}                               % optional, remove / comment the line if not wanted
+\address{320 Clifton Road}{Ottawa}{ON}% optional, remove / comment the line if not wanted; the "postcode city" and and "country" arguments can be omitted or provided empty
+\phone[mobile]{613 301 0061}                   % optional, remove / comment the line if not wanted
+%\phone[fixed]{01234 123456}                    % optional, remove / comment the line if not wanted
+%\phone[fax]{+3~(456)~789~012}                      % optional, remove / comment the line if not wanted
+\email{CCole019@uOttawa.ca}                               % optional, remove / comment the line if not wanted
+\homepage{chrisbcole.me}                         % optional, remove / comment the line if not wanted
+%\extrainfo{additional information}                 % optional, remove / comment the line if not wanted
+%\photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+%\quote{Some quote}                                 % optional, remove / comment the line if not wanted
+
+% to show numerical labels in the bibliography (default is to show no labels); only useful if you make citations in your resume
+%\makeatletter
+%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
+%\makeatother
+%\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}% CONSIDER REPLACING THE ABOVE BY THIS
+
+% bibliography with mutiple entries
+%\usepackage{multibib}
+%\newcites{book,misc}{{Books},{Others}}
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+%\begin{CJK*}{UTF8}{gbsn}                          % to typeset your resume in Chinese using CJK
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+
+\small{Fourth year undergraduate CO-OP Biomedical Science student specializing in biostatistics seeking graduate positions in statistical genetics, mathematics, and bioinformatics.}
+
+
+\section{Education}
+
+\vspace{4pt}
+
+\begin{itemize}
+
+\item{\cventry{2012 -- Exp. Grad. 2017}{Undergraduate:}{Honours B.Sc. in Biomedical Science}{University of Ottawa}{\textit{Specialization in Biostatistics, CO-OP.}}{}}
+
+\end{itemize}
+
+
+\section{Technical Skills}
+
+\vspace{6pt}
+
+\begin{itemize}
+
+\item \textbf{Programming Languages:} R, MATLAB, Python, Unix Shell, BASH, RegEx, Julia, SQL, Perl, \LaTeX, (R)Markdown
+
+\vspace{6pt}
+
+\item \textbf{Programs:} MEGA Software 5.05, FastTree, BLAST, PLINK, Eigensoft, METAL, GCTA, BIMBAM, GWAMA, OXSTATGEN Suite (IMPUTE2, QCTOOLS, GTOOLS, SNPTEST2, META), PBS, Sun Grid Engine, HAPGEN2
+
+
+\vspace{6pt}
+
+\item \textbf{Environments:} Extensive experience in *nix command-line environments. Extensive experience in cluster environments and parallel computing on large data sets in SGE and PBS. 
+
+\end{itemize}
+
+\section{Research Experience}
+
+\vspace{5pt}
+
+\begin{itemize}
+
+\item{\cventry{January 2015 -- August 2015}{Centre for Addiction and Mental Health}{Statistical Genetics Group}{Dr. Jo Knight}{Toronto, ON}{\vspace{3pt} Utilize cutting edge mathematical and computational techniques to further the understanding of the human genome, especially relating to genome-wide association studies (GWAS) and multiple testing correction. Construct and design bioinformatics pipelines integrating multiple information sources.}}
+
+\vspace{6pt}
+
+\item{\cventry{May 2013 -- Present}{The University of Ottawa Heart Institute}{Ruddy Canadian Cardiovascular Genetics Centre}{Dr. Ruth McPherson}{Ottawa, ON}{\vspace{3pt} Planned and executed multiple independent, first author studies, on a wide array of mediums including linux, unix, and ms-dos.	Delved into regression mechanics, large data set analysis, Genome Wide Association Studies (GWAS), Bayesian statistics, program design and optimization, MPI, and pipeline design. }}
+
+\vspace{6pt}
+
+\item{\cventry{September 2012 -- May 2013}{University of Ottawa}{Aris-Brosou Laboratory}{Dr. Stephane Aris-Brosou}{Ottawa, ON}{\vspace{3pt} Learned and used the R programming language to discover novel predictors of the emergence of influenza viruses through stochastic genetic network generation in order to create and use a rejection algorithm based on Bayesian inference in phylogenies. Designed and used Monte-Carlo simulation, Barabasi simulation, Erdos Renyi simulation, Forest Fire simulation, and Watts Strogatz simulations to test the efficacy of differing descriptive statistics in modeling and observing networks. }}
+
+\end{itemize}
+
+\vspace{5pt}
+
+\section{Publications} % (fold)
+\label{sec:publications}
+
+\vspace{6pt}
+
+\begin{enumerate}
+	\item \textbf{Cole, C. B.}, Nikpay, M., Lau, P., Stewart, A. F. R., Davies, R. W., Wells, G. A., … McPherson, R. (2014). Adiposity Significantly Modifies Genetic Risk for Dyslipidemia. Journal of Lipid Research. doi:10.1194/jlr.P052522
+
+	\item \textbf{Christopher B Cole}, Majid Nikpay, Ruth McPherson. (2014). Gene–environment interaction in dyslipidemia. Current Opinions in Lipidology. doi: 10.1097/MOL.0000000000000160
+
+
+	\item \textbf{Christopher B Cole}, Majid Nikpay, George Wells, Ruth McPherson. (2015). Increased Genetic Risk for Obesity in Premature Coronary Artery Disease. European Journal of Human Genetics (EJHJ). doi:10.1038/ejhg.2015.162
+
+	\item Nuwan C. Hettige, \textbf{Christopher B. Cole}, Sarah Khalid, Vincenzo De Luca. (2015). Polygenic Risk Score Prediction of Antipsychotic dosage in Schizophrenia. Schizophr Res. doi: 10.1016/j.schres.2015.12.015
+
+\end{enumerate}
+
+
+
+\section{Selected Awards and Anchievements} % (fold)
+\label{sec:published_abstracts_&_non_refereed_publications}
+
+
+\begin{itemize}
+
+\vspace{6pt}
+	
+	\item{\cventry{January 23, 2016}{University of Ottawa Healthcare Symposium}{Elevator Pitch Presentation First Place}{\$75 CAD}{}{\vspace{3pt} First place 5 minute elevator pitch for research, unanimous vote by four independant judges. }}
+
+	\item{\cventry{August 2015}{University of Toronto McLaughin Centre}{Early Career Investigator Award}{\$500 USD}{}{\vspace{3pt} Travel scholarship with access to mentorship program at the World Congress for Psychiatric Genetics 2015.}}
+
+	%\vspace{6pt}
+
+	\item{\cventry{April 2015 -- August 2015}{University of Toronto Institute of Medical Science}{Summer Undergraduate Program Funding}{\$4,800 CAD}{}{\vspace{3pt} Selected to be part of the University of Toronto’s IMS SURP program for the summer of 2015. Granted access to weekly seminars, networking opportunities, and poster day }}
+
+	%\vspace{6pt}
+
+	\item{\cventry{May 2014}{Canadian Society of Epidemiology and Biostatistics}{Poster \& Publication Award}{}{}{\vspace{3pt} Selected among the ~250 presentations at the Canadian Society of Epidemiology and Biostatistics National Student Conference at McMaster University as one of the top 25 presenters. Entitled to publication of abstract in the Journal of Epidemiology and Community Medicine. }}
+
+	%\vspace{6pt}
+
+	\item{\cventry{May 2014 -- Semptember 2014}{Institute of Genetics, Canadian Institutes of Health Research}{Comp. Bio. Undergraduate Summer Student Health Research Award}{\$6,250 CAD}{}{\vspace{3pt} Top 5 Applicant; ranked ``Outstanding'' by selection committee. Awarded to 20 Undergraduates across Canada for Research Excellence in Computational Biology. }}
+
+	%\vspace{6pt}
+
+	\item{\cventry{September 2012}{University of Ottawa}{Entrace Scholarship}{\$12,000 CAD}{}{\vspace{3pt} Entering average of 90\% or higher. }}
+
+	%\vspace{6pt}
+
+
+
+\vspace{6pt}
+
+\end{itemize}
+
+\section{Published Abstracts \& Non-Refereed Publications} % (fold)
+\label{sec:published_abstracts_&_non_refereed_publications}
+
+\begin{enumerate}
+
+\vspace{6pt}
+
+	\item Shifman, A., \textbf{Cole, C. B.} The Best and the Sneakiest. Minimizing the cost associated with false publication histories. Proceedings of the National Institute of Science. HARD (2015).
+	\item \textbf{Christopher B. Cole}, Joanne Knight. ``coR-ge: Investigation of Stratified False Discovery Rate Control in Environments of Complex Correlation'', Proceedings of World Congress of Psychiatric Genetics.
+	\item Nuwan Hettige, \textbf{Christopher B. Cole}, Vincenzo De Luca. ``A Polygenic Risk Analysis for Antipsychotic Dosage Using Genomewide Significant Markers for Schizophrenia'' 
+	\item \textbf{Christopher B. Cole}, Joanne Knight. ``coR-ge: Investigation of Stratified False Discovery Rate Control in Environments of Complex Correlation'', Proceedings of the Institute of Medical Science Undergraduate Research Day
+	\item \textbf{Christopher B. Cole}, Joanne Knight. ``coR-ge: Investigation of Stratified False Discovery Rate Control in Environments of Complex Correlation'', Proceedings of Compute Canada’s High Powered Computing Symposium.
+	\item \textbf{Cole, C. B.}, Nikpay, M., Lau, P., Stewart, A. F. R., Davies, R. W., Wells, G. A., … McPherson, R. (2014). Adiposity Significantly Modifies Genetic Risk for Dyslipidemia. Journal of Epidemiology and Community Health. doi:10.1136/jech-2014-205217.7
+	\item ``Genetic Predisposition for Hypertriglyceridemia is Modified by Extremes of Adiposity'', \textbf{C.Cole}, M. Nikpay, R. Dent, R. McPherson, 2013, in the proceedings of The American Society of Human Genetics, Boston, 2013.  860F
+	\item ``Obesity Exacerbates Genetic Predisposition for Hypertriglyceridemia'', \textbf{Christopher Cole}, Majid Nikpay, Mary-Ellen Harper, Robert Dent, Ruth McPherson, in Proceedings of the Obesity Society, Atlanta, 2013, T-645-P
+
+\vspace{6pt}
+
+\end{enumerate}
+
+\section{Conference Presentations} % (fold)
+\label{sec:published_abstracts_&_non_refereed_publications}
+
+
+\begin{enumerate}
+
+\vspace{6pt}
+
+	\item ``Predicting Complex Disease Risk through Machine Learning and Optimal Polygenic Risk Scores'', University of Ottawa Healthcare Symposium, Ottawa, ON, January 23, 2016. \textbf{Oral Presentation - Best Presentation}.
+	\item ``coR-Ge: Investigation of Stratified False Discovery Rate Control in Environments of Complex Correlation'', World Congress of Psychatric Genetics, Toronto ON, Oct 16-20, 2015. Sa33, \textbf{Poster}.
+	\item ``Interactive Visualization with R: New Opportunities and Old Challenges'', Center for Addiction and Mental Health Peers Teaching Peers (PTP) Tutorial Series, Toronto ON, August 8th 2015, \textbf{Invited Lecture}.
+	\item ``coR-ge: Investigation of Stratified False Discovery Rate Control in Environments of Complex Correlation'', Institute of Medical Science Undergraduate Research Day, Toronto ON, August 21st 2015, Poster A8. \textbf{Poster}.
+	\item ``coR-ge: Investigation of Stratified False Discovery Rate Control in Environments of Complex Correlation'', Compute Canada’s High Powered Computing Symposium, Montreal QC, Jun 15-19th 2015, Poster 6. \textbf{Poster}.
+	\item ``Investigation of Stratified False Discovery Rate Control in Environments of Complex Correlation'', Harvey Stancer Research Day, Toronto ON, Genetics.  \textbf{Oral Presentation}.
+	\item Canadian Society for Epidemiology and Biostatistics National Student Conference, Hamilton, Ontario, May 9-10 2014. \textbf{Poster}.
+	\item University of Ottawa Healthcare Symposium, Student Poster Competition, Ottawa, ON, March 29 2014. \textbf{Poster}.
+	\item ``Genetic Predisposition for Hypertriglyceridemia is Modified by Extremes of Adiposity'', American Society of Human Genetics Annual Meeting, Boston MA, Oct 22-26 2013. 860F. \textbf{Poster}.
+
+
+\vspace{6pt}
+
+\end{enumerate}
+
+
+\section{Open Source Software}
+
+\vspace{6pt}
+
+\begin{itemize}
+
+\item \textbf{coR-ge}:  Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments in R. 
+
+
+\item \textbf{mineR}: Identification of key classifications based on a dictionary and word matching in R.
+
+
+
+
+\item \textbf{Bandwidth Daemon:} Retrieval and display of bandwidth information from ISP’s API through SMTP in Python. 
+
+\end{itemize}
+
+
+\section{Volunteer Work}
+
+\vspace{5pt}
+
+\begin{itemize}
+
+\item{\cventry{September 2014 -- Present}{Statistics Without Borders}{Pro-Bono Consultant}{Ottawa}{ON}{\vspace{3pt} Provide pro-bono private consulting and contracting in the areas of mathematics, statistics, computer science, genetics, and bioinformatics to non-profits and charities in need of assistance in humanitarian efforts. Worked and lead operations for The United Nations, AfricaRice, CorStone International, etc.}}
+\vspace{6pt}
+
+\item{\cventry{January 2013 -- Present}{OneProsper International}{Director}{Ottawa}{ON}{\vspace{3pt} Manage, lead, and direct all student initiatives of an international non-profit. Direct a team of 200+ dedicated student volunteers. Create, direct, and scale national initiatives such as Dodge For Hunger, the Changemakers' Conference, and InstaEDU.  }}
+
+\end{itemize}
+
+
+
+% section published_abstracts_&_non_refereed_publications (end)
+
+
+
+
+
+
+% section publications (end)
+
+
+
+% Publications from a BibTeX file without multibib
+%  for numerical labels: \renewcommand{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}% CONSIDER MERGING WITH PREAMBLE PART
+%  to redefine the heading string ("Publications"): \renewcommand{\refname}{Articles}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{publications}                        % 'publications' is the name of a BibTeX file
+
+% Publications from a BibTeX file using the multibib package
+%\section{Publications}
+%\nocitebook{book1,book2}
+%\bibliographystylebook{plain}
+%\bibliographybook{publications}                   % 'publications' is the name of a BibTeX file
+%\nocitemisc{misc1,misc2,misc3}
+%\bibliographystylemisc{plain}
+%\bibliographymisc{publications}                   % 'publications' is the name of a BibTeX file
+
+%-----       letter       ---------------------------------------------------------
+
+\end{document}
+
+
+%% end of file `template.tex'.
