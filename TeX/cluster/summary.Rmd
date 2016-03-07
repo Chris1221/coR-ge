@@ -234,3 +234,12 @@ Note that at the moment, the addition of the cluster is causing some problems in
     + After clustering is working, finish up mineR and hopefully submit
 3. When UK10K is available, rerun everything on it then decide what conclusions to make, decide where to go with coR-ge after that
 
+```{r, eval = TRUE}
+
+library(rgl)
+example(rgl)
+
+```
+
+
+
