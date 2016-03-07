@@ -7,12 +7,12 @@
 
 nj <- 10
 container = "/scratch/hpc2862/CAMH/perm_container/" 
-repo = "/home/hpc2862/repos/coR-ge/"
+repo = "/home/hpc2862/repos/coR-ge/R/"
 
 for(i in 1:nj){
 	for(j in 1:nj){
 
-		sim.gen(i = i, j = i, nj = nj) 
+		sim.gen(i = i, j = i, nj = nj, container = container, repo = repo) 
 
 	}
 }
