@@ -10,17 +10,15 @@ analyze <- function(i = double(), j = double()){
 
 	setwd(paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j))
 
-	for(i in 1:10){
+	for(k in 1:10){
 		#clear out excess files
-		system(paste0("rm chr1_block_",i,"_perm_k_",j,".cases.gen; ",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.haps;",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.sample;",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.summary;",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.legend;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.sample;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.haps;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.summary;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.legend"))}
+		system(paste0("rm chr1_block_", i, "_perm_", j, "_k_", k, ".cases.gen; ",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".cases.haps;",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".cases.sample;",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".controls.sample;",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".controls.haps;",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".summary;",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".legend"))}
 
 	########### this is the begining of rand.R ##################
 
@@ -36,7 +34,7 @@ analyze <- function(i = double(), j = double()){
 	## THIS HASNT BEEN TESTED YET (March 6) 
 	for(k in 1:10){
 		if(k == 1){
-				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% assign("gen", .)
+				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
 			} else if(k != 1){
 				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
 			}
