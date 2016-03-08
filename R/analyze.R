@@ -125,6 +125,9 @@ analyze <- function(i = double(), j = double()){
 	colnames(var) <- colnames(samp)
 	samp <- rbind(var, samp)
 
+	colnames(var) <- colnames(samp)
+	samp <- rbind(var, samp)
+
 	write.table(samp, paste0(path,"phen_test.sample"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
 	write.table(gen, paste0(path,"gen_test.gen"), quote = FALSE, row.names = F, col.names = F)
 	write.table(snps, paste0(path,"snptlist.txt"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
@@ -140,7 +143,7 @@ analyze <- function(i = double(), j = double()){
 	system("rm gen_test.gen")
 	system("rm phen_test.sample")
 
-	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex"))
+	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
 
 	system("rm plink.log")
 	system("rm plink.nosex")
@@ -148,6 +151,10 @@ analyze <- function(i = double(), j = double()){
 	system(paste0("rm ", i, "_", j, "_out.map"))
 
 	# this is now correct and report.R
+
+	setwd(path)
+
+	snps <- fread("snptlist.txt")
 
 	q <- read.table("plink.qassoc", h = T)
 
@@ -207,9 +214,6 @@ analyze <- function(i = double(), j = double()){
 	S_TN <- sum(stratum_1$real == FALSE & !(stratum_1$p.adj < 0.05)) + sum(minus_stratum$real == FALSE & !(minus_stratum$p.adj < 0.05))
 	S_FN <- sum(stratum_1$real == TRUE & !(stratum_1$p.adj < 0.05)) + sum(minus_stratum$real == TRUE & !(minus_stratum$p.adj < 0.05))
 
-	Sb_TP <- sum(b_stratum_1$real == TRUE & b_stratum_1$p.adj < 0.05) + sum(b_minus_stratum$real == TRUE & b_minus_stratum$p.adj < 0.05)
-	Sb_FP <- sum(b_stratum_1$real == FALSE & b_stratum_1$p.adj < 0.05) + sum(b_minus_stratum$real == FALSE & b_minus_stratum$p.adj < 0.05)
-	Sb_TN <- sum(b_stratum_1$real == FALSE & !(b_stratum_1$p.adj < 0.05)) + sum(b_minus_stratum$real == FALSE & !(b_minus_stratum$p.adj < 0.05))
 	Sb_FN <- sum(b_stratum_1$real == TRUE & !(b_stratum_1$p.adj < 0.05)) + sum(b_minus_stratum$real == TRUE & !(b_minus_stratum$p.adj < 0.05))
 
 	fdr <- A_FP / (A_TP + A_FP)
