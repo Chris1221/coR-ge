@@ -128,6 +128,9 @@ analyze <- function(i = double(), j = double()){
 	colnames(var) <- colnames(samp)
 	samp <- rbind(var, samp)
 
+	colnames(var) <- colnames(samp)
+	samp <- rbind(var, samp)
+
 	write.table(samp, paste0(path,"phen_test.sample"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
 	write.table(gen, paste0(path,"gen_test.gen"), quote = FALSE, row.names = F, col.names = F)
 	write.table(snps, paste0(path,"snptlist.txt"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
@@ -166,7 +169,7 @@ analyze <- function(i = double(), j = double()){
 	snps_back <- snps
 	snps <- snps$SNP
 
-	q %>% mutate(real = SNP %in% snps[]) -> q2
+	#q %>% mutate(real = SNP %in% snps[]) -> q2
 
 	##HARD CODED THIS IS BAD
 
@@ -174,53 +177,58 @@ analyze <- function(i = double(), j = double()){
 
 	for(n in n_snps){
 
-	summary %>% filter(k==i) %>% sample_n(3000) %>% select(rsid, chromosome, position, all_maf, k) -> fake_snps
+		q %>% mutate(real = SNP %in% snps_back$SNP[snps_back$k == n]) -> q2
 
-	#summary %>% filter(all_maf > 0.05) %>% filter(all_maf < 0.5) %>% sample_n(n) %>% select(rsid, chromosome, position, all_maf) -> fake_snps
+		summary %>% filter(k==i) %>% sample_n(3000) %>% select(rsid, chromosome, position, all_maf, k) -> fake_snps
 
-	colnames(fake_snps) <- c("SNP", "CHR", "BP", "MAF", "k")
+		#summary %>% filter(all_maf > 0.05) %>% filter(all_maf < 0.5) %>% sample_n(n) %>% select(rsid, chromosome, position, all_maf) -> fake_snps
 
-	q2 %>% mutate(fake = SNP %in% fake_snps$SNP) -> q3
+		colnames(fake_snps) <- c("SNP", "CHR", "BP", "MAF", "k")
 
-	stratum_1 <- rbind(q3[q3$real == TRUE,], q3[q3$fake == TRUE,])
-	minus_stratum <- q3[q3$real == FALSE & q3$fake == FALSE,]
-	agg <- q3
+		q2 %>% mutate(fake = SNP %in% fake_snps$SNP) -> q3
 
-	#adjust
+		stratum_1 <- rbind(q3[q3$real == TRUE,], q3[q3$fake == TRUE,])
+		minus_stratum <- q3[q3$real == FALSE & q3$fake == FALSE,]
+		agg <- q3
 
-	stratum_1 %>% mutate(p.adj = p.adjust(P, method = "BH")) -> stratum_1
-	minus_stratum %>% mutate(p.adj = p.adjust(P, method = "BH")) -> minus_stratum
+		#adjust
 
-	stratum_1 %>% mutate(p.adj = p.adjust(P, method = "bonferroni")) -> b_stratum_1
-	minus_stratum %>% mutate(p.adj = p.adjust(P, method = "bonferroni")) -> b_minus_stratum
+		stratum_1 %>% mutate(p.adj = p.adjust(P, method = "BH")) -> stratum_1
+		minus_stratum %>% mutate(p.adj = p.adjust(P, method = "BH")) -> minus_stratum
+
+		stratum_1 %>% mutate(p.adj = p.adjust(P, method = "bonferroni")) -> b_stratum_1
+		minus_stratum %>% mutate(p.adj = p.adjust(P, method = "bonferroni")) -> b_minus_stratum
 
 
-	agg %>% mutate(p.adj = p.adjust(P, method = "BH")) -> agg
+		agg %>% mutate(p.adj = p.adjust(P, method = "BH")) -> agg
 
-	agg %>% mutate(p.adj = p.adjust(P, method = "bonferroni")) -> b_agg
+		agg %>% mutate(p.adj = p.adjust(P, method = "bonferroni")) -> b_agg
 
-	A_TP <- sum(agg$real == TRUE & agg$p.adj < 0.05)
-	A_FP <- sum(agg$real == FALSE & agg$p.adj < 0.05)
-	A_TN <- sum(agg$real == FALSE & !(agg$p.adj < 0.05))
-	A_FN <- sum(agg$real == TRUE & !(agg$p.adj < 0.05))
+		A_TP <- sum(agg$real == TRUE & agg$p.adj < 0.05 & !is.na(agg$p.adj), na.exclude = TRUE)
+		A_FP <- sum(agg$real == FALSE & agg$p.adj < 0.05 & !is.na(agg$p.adj), na.exclude = TRUE)
+		A_TN <- sum(agg$real == FALSE & !(agg$p.adj < 0.05) & !is.na(agg$p.adj), na.exclude = TRUE)
+		A_FN <- sum(agg$real == TRUE & !(agg$p.adj < 0.05) & !is.na(agg$p.adj), na.exclude = TRUE)
 
-	Ab_TP <- sum(b_agg$real == TRUE & b_agg$p.adj < 0.05)
-	Ab_FP <- sum(b_agg$real == FALSE & b_agg$p.adj < 0.05)
-	Ab_TN <- sum(b_agg$real == FALSE & !(b_agg$p.adj < 0.05))
-	Ab_FN <- sum(b_agg$real == TRUE & !(b_agg$p.adj < 0.05))
+		# Ab_TP <- sum(b_agg$real == TRUE & b_agg$p.adj < 0.05 & !is.na(agg$p.adj), na.exclude = TRUE)
+		# Ab_FP <- sum(b_agg$real == FALSE & b_agg$p.adj < 0.05 & !is.na(agg$p.adj), na.exclude = TRUE)
+		# Ab_TN <- sum(b_agg$real == FALSE & !(b_agg$p.adj < 0.05) & !is.na(agg$p.adj), na.exclude = TRUE)
+		# Sb_FN <- sum(b_stratum_1$real == TRUE && !(b_stratum_1$p.adj < 0.05) & !is.na(agg$p.adj), na.exclude = TRUE) + sum(b_minus_stratum$real == TRUE & !(b_minus_stratum$p.adj < 0.05), na.exclude = TRUE)
 
-	S_TP <- sum(stratum_1$real == TRUE & stratum_1$p.adj < 0.05) + sum(minus_stratum$real == TRUE & minus_stratum$p.adj < 0.05)
-	S_FP <- sum(stratum_1$real == FALSE & stratum_1$p.adj < 0.05) + sum(minus_stratum$real == FALSE & minus_stratum$p.adj < 0.05)
-	S_TN <- sum(stratum_1$real == FALSE & !(stratum_1$p.adj < 0.05)) + sum(minus_stratum$real == FALSE & !(minus_stratum$p.adj < 0.05))
-	S_FN <- sum(stratum_1$real == TRUE & !(stratum_1$p.adj < 0.05)) + sum(minus_stratum$real == TRUE & !(minus_stratum$p.adj < 0.05))
+		S_TP <- sum(stratum_1$real == TRUE & stratum_1$p.adj < 0.05 & !is.na(stratum_1$p.adj), na.exclude = TRUE, na.exclude = TRUE)
+		S_FP <- sum(stratum_1$real == FALSE & stratum_1$p.adj < 0.05 & !is.na(stratum_1$p.adj), na.exclude = TRUE, na.exclude = TRUE) + sum(minus_stratum$real == FALSE & minus_stratum$p.adj < 0.05 & !is.na(minus_stratum$p.adj), na.exclude = TRUE)
+		S_TN <- sum(stratum_1$real == FALSE & !(stratum_1$p.adj < 0.05) & !is.na(stratum_1$p.adj), na.exclude = TRUE) + sum(minus_stratum$real == FALSE & !(minus_stratum$p.adj < 0.05) & !is.na(minus_stratum$p.adj), na.exclude = TRUE)
+		S_FN <- sum(stratum_1$real == TRUE & !(stratum_1$p.adj < 0.05) & !is.na(stratum_1$p.adj), na.exclude = TRUE) + sum(minus_stratum$real == TRUE & !(minus_stratum$p.adj < 0.05) & !is.na(minus_stratum$p.adj), na.exclude = TRUE)
 
-	Sb_FN <- sum(b_stratum_1$real == TRUE & !(b_stratum_1$p.adj < 0.05)) + sum(b_minus_stratum$real == TRUE & !(b_minus_stratum$p.adj < 0.05))
+		# Sb_TP <- sum(b_stratum_1$real == TRUE & b_stratum_1$p.adj < 0.05 & !is.na(stratum_1$p.adj), na.exclude = TRUE) + sum(b_minus_stratum$real == TRUE & b_minus_stratum$p.adj < 0.05 & !is.na(minus_stratum$p.adj), na.exclude = TRUE)
+		# Sb_FP <- sum(b_stratum_1$real == FALSE & b_stratum_1$p.adj < 0.05 & !is.na(stratum_1$p.adj), na.exclude = TRUE) + sum(b_minus_stratum$real == FALSE & b_minus_stratum$p.adj < 0.05 & !is.na(minus_stratum$p.adj), na.exclude = TRUE)
+		# Sb_TN <- sum(b_stratum_1$real == FALSE & !(b_stratum_1$p.adj < 0.05) & !is.na(stratum_1$p.adj), na.exclude = TRUE) + sum(b_minus_stratum$real == FALSE & !(b_minus_stratum$p.adj < 0.05) & !is.na(minus_stratum$p.adj), na.exclude = TRUE)
+		# Sb_FN <- sum(b_stratum_1$real == TRUE & !(b_stratum_1$p.adj < 0.05) & !is.na(stratum_1$p.adj), na.exclude = TRUE) + sum(b_minus_stratum$real == TRUE & !(b_minus_stratum$p.adj < 0.05) & !is.na(minus_stratum$p.adj), na.exclude = TRUE)
 
-	fdr <- A_FP / (A_TP + A_FP)
-	sfdr <- S_FP / (S_TP + S_FP)
+		fdr <- A_FP / (A_TP + A_FP)
+		sfdr <- S_FP / (S_TP + S_FP)
 
-	write <- cbind(n, A_TP,A_FP,A_TN,A_FN,Ab_TP,Ab_FP,Ab_TN,Ab_FN,S_TP,S_FP,S_TN,S_FN,Sb_TP,Sb_FP,Sb_TN,Sb_FN, fdr, sfdr)
-	write.table(write, file = "/scratch/hpc2862/CAMH/perm_container/out_DONTDELETE_files/results_cluster.txt", append = T, quote = F, sep = " ", row.name = F, col.name = F)
+		write <- cbind(n, A_TP,A_FP,A_TN,A_FN,S_TP,S_FP,S_TN,S_FN, fdr, sfdr)
+		write.table(write, file = "/scratch/hpc2862/CAMH/perm_container/out_DONTDELETE_files/results_cluster.txt", append = T, quote = F, sep = " ", row.name = F, col.name = F)
 	}
 
 
