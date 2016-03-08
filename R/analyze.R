@@ -24,10 +24,13 @@ analyze <- function(i = double(), j = double()){
 
 	path <- paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j,"/")
 
-	install.packages("data.table", repos = "http://cran.utstat.utoronto.ca/");library(data.table)
-	install.packages("dplyr", repos = "http://cran.utstat.utoronto.ca/");library(dplyr)
+	#install.packages("data.table", repos = "http://cran.utstat.utoronto.ca/");library(data.table)
+	#install.packages("dplyr", repos = "http://cran.utstat.utoronto.ca/");library(dplyr)
+	
+	library(data.table)
 	library(magrittr)
-
+	library(dplyr)
+	
 	setwd("/home/hpc2862/Raw_Files/CAMH/1kg_hapmap_comb/hapmap3_r2_plus_1000g_jun2010_b36_ceu/test_mar_30")
 
 	# this replaces reading individually
@@ -131,13 +134,13 @@ analyze <- function(i = double(), j = double()){
 	}
 
 	#gtool step
-	system(paste0("/home/hpc2862/Programs/binary_executables/gtool -G --g gen_test.gen --s phen_test.sample --ped ", i, "_", j, "_out.ped --map ", i, "_", j, "_out.map --phenotype Z"))
+	system(paste0("/home/hpc2862/Programs/binary_executables/gtool -G --g ", path, "gen_test.gen --s ", path, "phen_test.sample --ped ",path,  i, "_", j, "_out.ped --map ",path, i, "_", j, "_out.map --phenotype Z"))
 
 	system("rm gtool.log")
 	system("rm gen_test.gen")
 	system("rm phen_test.sample")
 
-	system(paste0("/home/hpc2862/Programs/binary_executables/plink --file ", i, "_", j, "_out --assoc --allow-no-sex"))
+	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex"))
 
 	system("rm plink.log")
 	system("rm plink.nosex")
