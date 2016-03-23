@@ -244,6 +244,54 @@ summary2 %&gt;%<span class="st"> </span><span class="kw">filter</span>(!<span cl
 </ul></li>
 <li>When UK10K is available, rerun everything on it then decide what conclusions to make, decide where to go with coR-ge after that</li>
 </ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgl)</code></pre>
+<pre><code>## Warning in rgl.init(initValue, onlyNULL): RGL: unable to open X11 display</code></pre>
+<pre><code>## Warning: 'rgl_init' failed, running with rgl.useNULL = TRUE</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(rgl)</code></pre>
+<pre><code>## 
+## rgl&gt; file.show(system.file(&quot;NEWS&quot;, package = &quot;rgl&quot;))
+## 
+## rgl&gt; example(surface3d)
+## 
+## srfc3d&gt; #
+## srfc3d&gt; # volcano example taken from &quot;persp&quot;
+## srfc3d&gt; #
+## srfc3d&gt; 
+## srfc3d&gt; data(volcano)
+## 
+## srfc3d&gt; z &lt;- 2 * volcano        # Exaggerate the relief
+## 
+## srfc3d&gt; x &lt;- 10 * (1:nrow(z))   # 10 meter spacing (S to N)
+## 
+## srfc3d&gt; y &lt;- 10 * (1:ncol(z))   # 10 meter spacing (E to W)
+## 
+## srfc3d&gt; zlim &lt;- range(y)
+## 
+## srfc3d&gt; zlen &lt;- zlim[2] - zlim[1] + 1
+## 
+## srfc3d&gt; colorlut &lt;- terrain.colors(zlen) # height color lookup table
+## 
+## srfc3d&gt; col &lt;- colorlut[ z - zlim[1] + 1 ] # assign colors to heights for each point
+## 
+## srfc3d&gt; open3d()
+## null 
+##    1 
+## 
+## srfc3d&gt; surface3d(x, y, z, color = col, back = &quot;lines&quot;)
+## 
+## rgl&gt; example(plot3d)
+## 
+## plot3d&gt;   open3d()
+## null 
+##    2 
+## 
+## plot3d&gt;   x &lt;- sort(rnorm(1000))
+## 
+## plot3d&gt;   y &lt;- rnorm(1000)
+## 
+## plot3d&gt;   z &lt;- rnorm(1000) + atan2(x, y)
+## 
+## plot3d&gt;   plot3d(x, y, z, col = rainbow(1000))</code></pre>
 </div>
 
 
