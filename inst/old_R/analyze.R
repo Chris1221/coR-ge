@@ -10,33 +10,34 @@ analyze <- function(i = double(), j = double()){
 
 	setwd(paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j))
 
-	for(i in 1:10){
+	for(k in 1:10){
 		#clear out excess files
-		system(paste0("rm chr1_block_",i,"_perm_k_",j,".cases.gen; ",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.haps;",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.sample;",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.summary;",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.legend;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.sample;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.haps;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.summary;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.legend"))}
+		system(paste0("rm chr1_block_", i, "_perm_", j, "_k_", k, ".cases.gen; ",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".cases.haps;",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".cases.sample;",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".controls.sample;",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".controls.haps;",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".summary;",
+			"rm chr1_block_", i, "_perm_", j, "_k_", k, ".legend"))}
 
 	########### this is the begining of rand.R ##################
 
 	path <- paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j,"/")
 
-	install.packages("data.table", repos = "http://cran.utstat.utoronto.ca/");library(data.table)
-	install.packages("dplyr", repos = "http://cran.utstat.utoronto.ca/");library(dplyr)
+	#install.packages("data.table", repos = "http://cran.utstat.utoronto.ca/");library(data.table)
+	#install.packages("dplyr", repos = "http://cran.utstat.utoronto.ca/");library(dplyr)
+	
+	library(data.table)
 	library(magrittr)
-
+	library(dplyr)
+	
 	setwd("/home/hpc2862/Raw_Files/CAMH/1kg_hapmap_comb/hapmap3_r2_plus_1000g_jun2010_b36_ceu/test_mar_30")
 
 	# this replaces reading individually
 	## THIS HASNT BEEN TESTED YET (March 6) 
 	for(k in 1:10){
 		if(k == 1){
-				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% assign("gen", .)
+				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
 			} else if(k != 1){
 				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
 			}
@@ -133,13 +134,13 @@ analyze <- function(i = double(), j = double()){
 	}
 
 	#gtool step
-	system(paste0("/home/hpc2862/Programs/binary_executables/gtool -G --g gen_test.gen --s phen_test.sample --ped ", i, "_", j, "_out.ped --map ", i, "_", j, "_out.map --phenotype Z"))
+	system(paste0("/home/hpc2862/Programs/binary_executables/gtool -G --g ", path, "gen_test.gen --s ", path, "phen_test.sample --ped ",path,  i, "_", j, "_out.ped --map ",path, i, "_", j, "_out.map --phenotype Z"))
 
 	system("rm gtool.log")
 	system("rm gen_test.gen")
 	system("rm phen_test.sample")
 
-	system(paste0("/home/hpc2862/Programs/binary_executables/plink --file ", i, "_", j, "_out --assoc --allow-no-sex"))
+	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex"))
 
 	system("rm plink.log")
 	system("rm plink.nosex")
