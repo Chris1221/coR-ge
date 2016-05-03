@@ -5,10 +5,27 @@
 #' @param i Index 1
 #' @param j Index 2
 #' @param k Index 3
+#' 
+#' @return Output file at container.
+#'
+#' @export
+
 
 analyze <- function(i = double(), j = double()){
+	
+	# just for now to grab the R functions
 
-	setwd(paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j))
+	setwd("/home/hpc2862/repos/coR-ge/R")
+	for(i in c("gen2r.R", "rand0.R", "rand.R", "sim_gen.R")) source(i)
+
+	#load packages 
+	if (!require("pacman")) install.packages("pacman", "http://cran.utstat.utoronto.ca/")
+	p_load(data.table, dplyr, magrittr)
+
+
+
+	path <- paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j,"/")
+	setwd(path)
 
 	for(i in 1:10){
 		#clear out excess files
@@ -21,14 +38,7 @@ analyze <- function(i = double(), j = double()){
 			"rm chr1_block_",i,"_perm_k_",j,".controls.haps;",
 			"rm chr1_block_",i,"_perm_k_",j,".controls.summary;",
 			"rm chr1_block_",i,"_perm_k_",j,".controls.legend"))}
-
-	########### this is the begining of rand.R ##################
-
-	path <- paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j,"/")
-
-	install.packages("data.table", repos = "http://cran.utstat.utoronto.ca/");library(data.table)
-	install.packages("dplyr", repos = "http://cran.utstat.utoronto.ca/");library(dplyr)
-	library(magrittr)
+	
 
 	setwd("/home/hpc2862/Raw_Files/CAMH/1kg_hapmap_comb/hapmap3_r2_plus_1000g_jun2010_b36_ceu/test_mar_30")
 
@@ -36,7 +46,7 @@ analyze <- function(i = double(), j = double()){
 	## THIS HASNT BEEN TESTED YET (March 6) 
 	for(k in 1:10){
 		if(k == 1){
-				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% assign("gen", .)
+				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
 			} else if(k != 1){
 				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
 			}
@@ -67,7 +77,7 @@ analyze <- function(i = double(), j = double()){
 	comb$rsid <- NULL; comb$chromosomes <- NULL; comb$all_maf <- NULL; comb$k <- NULL
 
 	#translate to R
-	combR <- SNPTEST_2_R(genfile = comb, local = TRUE)
+	combR <- gen2r(genfile = comb, local = TRUE)
 
 	## add row names to this from the sample file
 

@@ -1,3 +1,8 @@
+#' Not a function
+#' 
+#' Don't export, or maybe do?
+
+
 # this R script puts all the functions together into one
 # this one run should be all that is needed
 

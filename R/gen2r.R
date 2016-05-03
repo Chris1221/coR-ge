@@ -1,5 +1,10 @@
+#' Oxford style genotype conversion
+#' 
+#' @param genfile File to convert
+#' @param local TRUE is the file is already in the R workspace. FALSE if the file is a path which must be read in.
 
-SNPTEST_2_R <- function(genfile, local = TRUE) {
+
+gen2r <- function(genfile, local = TRUE) {
 
 	#install.packages("data.table", repos = "http://cran.utstat.utoronto.ca/");library(data.table)
 
