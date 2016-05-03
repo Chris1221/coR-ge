@@ -8,7 +8,7 @@
 #' @param container Where should the simulated genotypes be put? This should be a root diretory where the function can create nj x i containers to store the different runs.
 #' @param repo TEMPORARY Where to find the k_hapgen.sh script. CHANGE THIS TO SEARCH WITHIN THE PACKAGE.
 #' 
-#' @return nj x i different folders stemming from the root directory specified by `container`.
+#' @return nj x i different folders stemming from the root directory specified by container
 #' 
 #' @export
 
