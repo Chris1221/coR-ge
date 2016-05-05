@@ -236,7 +236,7 @@ analyze <- function(i = double(), j = double()){
 		sfdr <- S_FP / (S_TP + S_FP)
 
 		write <- cbind(n, A_TP,A_FP,A_TN,A_FN,S_TP,S_FP,S_TN,S_FN, fdr, sfdr)
-		write.table(write, file = "/scratch/hpc2862/CAMH/perm_container/out_DONTDELETE_files/results_cluster.txt", append = T, quote = F, sep = " ", row.name = F, col.name = F)
+		write.table(write, file = "/scratch/hpc2862/CAMH/perm_container/out_DONTDELETE_files/results_cluster_new.txt", append = T, quote = F, sep = " ", row.name = F, col.name = F)
 	}
 
 
