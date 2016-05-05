@@ -27,8 +27,6 @@ analyze <- function(i = double(), j = double()){
 	setwd(path)
 
 
-	chr1_block_3_perm_3_k_4.controls.sample
-
 	for(k in 1:5){
 		#clear out excess files
 		system(paste0("rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.gen; ",
