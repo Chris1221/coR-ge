@@ -20,14 +20,13 @@ analyze <- function(i = double(), j = double()){
 
 	#load packages 
 	if (!require("pacman")) install.packages("pacman", "http://cran.utstat.utoronto.ca/")
+	library(pacman)
 	p_load(data.table, dplyr, magrittr)
-
-
 
 	path <- paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j,"/")
 	setwd(path)
 
-	for(i in 1:10){
+	for(i in 1:5){
 		#clear out excess files
 		system(paste0("rm chr1_block_",i,"_perm_k_",j,".cases.gen; ",
 			"rm chr1_block_",i,"_perm_k_",j,".cases.haps;",
@@ -44,7 +43,7 @@ analyze <- function(i = double(), j = double()){
 
 	# this replaces reading individually
 	## THIS HASNT BEEN TESTED YET (March 6) 
-	for(k in 1:10){
+	for(k in 1:5){
 		if(k == 1){
 				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
 			} else if(k != 1){
@@ -144,7 +143,7 @@ analyze <- function(i = double(), j = double()){
 	write.table(gen, paste0(path,"gen_test.gen"), quote = FALSE, row.names = F, col.names = F)
 	write.table(snps, paste0(path,"snptlist.txt"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
 
-	for(k in 1:10){
+	for(k in 1:5){
 	system(paste0("rm chr1_block_",i, "_perm_", k,"_k_", j, ".controls.gen"))
 	}
 
