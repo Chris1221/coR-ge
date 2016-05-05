@@ -1,0 +1,55 @@
+---
+title: "Plans"
+author: "Christopher B. Cole"
+date: "May 4, 2016"
+output: 
+  html_document: 
+    theme: flatly
+---
+
+# coR-ge
+
+**Major Question:** Is sFDR useful and accurate in detecting GWAS variants in the human genome?
+
+**Secondary Question:** Are there factors which may violate positive regression dependecy (PRDS), therefore mitigating the accuracy of FDR and sFDR?
+
+Specific Aims:
+
+1. In 1000 randomly generated haplotypes (HapGen2) with 1000 causal variants ($\sum h^2 = 0.45$) with a $\beta$ distribution of $\frac{h^2}{SNP}$ and of magnitude of $\beta$ effect.
+    - Is FDR maintained at $\alpha$
+    - Does sFDR give robustly better FDR than FDR correction.
+        - Make a matrix of % enrichment vs. acceptance threshold for LD with a causal SNP.
+        - This might be difficult. How do we optimize the % acceptance with causal, do we have to go through all possible combinations? This can't be optimal.
+        - `lm(FDR ~ s + LD + E)`
+        - `FDR ~ stratefied or not + %LD with causal + Enrichment percent of strata`
+
+-----------------------------------
+
+Things to do:
+
+- Get cluster access
+- UK10K Access
+- TP Thresholding / LD Score calculations in R package
+- Seperate function for LD score calculations.
+- Also pairwise $R^2$ but will have to have a cutoff with the distance otherwise it would be too much.
+
+
+-------------------------------------------------
+
+# Trembath
+
+So we have a population of double knock out people with random genes.  These genes have sometimes never been associated with phenotypes before. So we want to automate a technique which does two things.
+
+1. Forward direction
+    - Given a gene, predict techniques which may be used to learn the gene function
+    - If gene hasn't been before associated with anything, check in
+        - Predicted protein structure???
+        - Related protein structure
+        - Binding sites
+        - Place in pathways
+    - Associate this with potential techniques:
+        - Restraints:
+            - Has to be able to be done on humans
+            - Has to be non-lethal and minimally invasive
+            - Have to come up with this list probably.
+        - 
