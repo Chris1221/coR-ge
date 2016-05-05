@@ -16,7 +16,7 @@ analyze <- function(i = double(), j = double()){
 	# just for now to grab the R functions
 
 	setwd("/home/hpc2862/repos/coR-ge/R")
-	for(i in c("gen2r.R", "rand0.R", "rand.R", "sim_gen.R")) source(i)
+	for(i in c("gen2r.R", "rand0.R", "rand.R", "sim.gen.R")) source(i)
 
 	#load packages 
 	if (!require("pacman")) install.packages("pacman", "http://cran.utstat.utoronto.ca/")
