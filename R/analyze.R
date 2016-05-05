@@ -24,20 +24,24 @@ analyze <- function(i = double(), j = double()){
 	p_load(data.table, dplyr, magrittr)
 
 	path <- paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j,"/")
+	
+	# just as a safety measure
 	setwd(path)
 
 
-	for(k in 1:5){
-		#clear out excess files
-		system(paste0("rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.gen; ",
-			"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.haps;",
-			"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.sample;",
-			"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.summary;",
-			"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.legend;",
-			"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.sample;",
-			"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.haps;",
-			"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.summary;",
-			"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.legend"))}
+	list.files(path)[!grepl("controls.gen", list.files(path))] %>% file.remove
+
+	# for(k in 1:5){
+	# 	#clear out excess files
+	# 	system(paste0("rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.gen; ",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.haps;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.sample;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.summary;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.legend;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.sample;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.haps;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.summary;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.legend"))}
 	
 
 	setwd("/home/hpc2862/Raw_Files/CAMH/1kg_hapmap_comb/hapmap3_r2_plus_1000g_jun2010_b36_ceu/test_mar_30")
