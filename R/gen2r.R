@@ -4,9 +4,7 @@
 #' @param local TRUE is the file is already in the R workspace. FALSE if the file is a path which must be read in.
 
 
-gen2r <- function(genfile, local = TRUE) {
-
-	#install.packages("data.table", repos = "http://cran.utstat.utoronto.ca/");library(data.table)
+gen2r.par <- function(genfile, local = TRUE) {
 
 	#Read in genfile
   if(local == TRUE){
@@ -15,16 +13,10 @@ gen2r <- function(genfile, local = TRUE) {
 	gen <- fread(genfile, sep = " ", h = F); gen <- as.data.frame(gen)
   }
 
-  #read in samplefile
-#   samp <- fread(samplefile, sep = " ", h = T); samp <- as.data.frame(samp)
-
-  #clean up gen files
-	#gen[,1] <- NULL; gen[,3] <- NULL; gen[,4] <- NULL; gen[,5] <- NULL
-	#remove variable type in sample
-#   samp <- samp[-1,]
 	output <- data.frame(matrix(nrow=((ncol(gen)-5)/3),ncol=(nrow(gen))))
 
 	for(row in 1:nrow(gen)) {
+
 		# go from 2 so not include index column
 		#subtract two so that last i is the third last element in the table, thus getting all people
 		for(i in seq(6,((ncol(gen)-2)),by=3)) {

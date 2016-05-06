@@ -1,4 +1,4 @@
-# Correction of Genomes in R
+#' Correction of Genomes in R
 #'
 #' Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments
 #'
@@ -32,6 +32,7 @@ message("Loading packages...")
 	setwd(path)
 
 message("Deleting unneeded files...")
+
 	list.files(path)[!grepl("controls.gen", list.files(path))] %>% file.remove
 
 	# for(k in 1:5){
