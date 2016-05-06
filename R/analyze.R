@@ -15,10 +15,13 @@ analyze <- function(i = double(), j = double()){
 	
 	# just for now to grab the R functions
 
+message("Loading files, this is temporary...")
+
 	setwd("/home/hpc2862/repos/coR-ge/R")
 	for(file in c("gen2r.R", "rand0.R", "rand.R", "sim.gen.R")) source(file)
 
-	#load packages 
+message("Loading packages...")
+
 	if (!require("pacman")) install.packages("pacman", "http://cran.utstat.utoronto.ca/")
 	library(pacman)
 	p_load(data.table, dplyr, magrittr)
@@ -28,7 +31,7 @@ analyze <- function(i = double(), j = double()){
 	# just as a safety measure
 	setwd(path)
 
-
+message("Deleting unneeded files...")
 	list.files(path)[!grepl("controls.gen", list.files(path))] %>% file.remove
 
 	# for(k in 1:5){
@@ -46,6 +49,8 @@ analyze <- function(i = double(), j = double()){
 
 	setwd("/home/hpc2862/Raw_Files/CAMH/1kg_hapmap_comb/hapmap3_r2_plus_1000g_jun2010_b36_ceu/test_mar_30")
 
+
+messages("Reading in genotype files...")
 	# this replaces reading individually
 	## THIS HASNT BEEN TESTED YET (March 6) 
 	for(k in 1:5){
@@ -64,6 +69,9 @@ analyze <- function(i = double(), j = double()){
 	snps <- NULL
 
 	# add in each 1000 sample sequentially
+	
+message("Selecting random SNPs...")
+
 	for(i in 1:max(summary$k)){
 
 		summary %>% filter(k==i) %>% sample_n(1000) %>% select(rsid, chromosome, position, all_maf, k) %>% rbind(snps, .) -> snps
@@ -80,6 +88,8 @@ analyze <- function(i = double(), j = double()){
 
 	comb$rsid <- NULL; comb$chromosomes <- NULL; comb$all_maf <- NULL; comb$k <- NULL
 
+
+message("Converting from Oxford format to R format...")
 	#translate to R
 	combR <- gen2r(genfile = comb, local = TRUE)
 
@@ -95,6 +105,7 @@ analyze <- function(i = double(), j = double()){
 
 	row.names(combR) <- samp$ID_1
 
+message("Calculating phenotypes...")
 
 	###calculate phenotypes HERE
 
@@ -144,12 +155,14 @@ analyze <- function(i = double(), j = double()){
 	colnames(var) <- colnames(samp)
 	samp <- rbind(var, samp)
 
+message("Writing out temp files")
+
 	write.table(samp, paste0(path,"phen_test.sample"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
 	write.table(gen, paste0(path,"gen_test.gen"), quote = FALSE, row.names = F, col.names = F)
 	write.table(snps, paste0(path,"snptlist.txt"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
 
 	for(k in 1:5){
-	system(paste0("rm chr1_block_",i, "_perm_", k,"_k_", j, ".controls.gen"))
+	system(paste0("rm chr1_block_",i, "_perm_", j,"_k_", k, ".controls.gen"))
 	}
 
 	#gtool step
@@ -166,9 +179,12 @@ analyze <- function(i = double(), j = double()){
 	system(paste0("rm ", i, "_", j, "_out.ped"))
 	system(paste0("rm ", i, "_", j, "_out.map"))
 
+
+message("Correct and report...")
 	# this is now correct and report.R
 
 	setwd(path)
+message("Reading in files...")
 
 	snps <- fread("snptlist.txt")
 
@@ -185,6 +201,9 @@ analyze <- function(i = double(), j = double()){
 	#q %>% mutate(real = SNP %in% snps[]) -> q2
 
 	##HARD CODED THIS IS BAD
+
+message("Select SNPs and correct...")
+warning("This has to be replaced with a more standardized version.")
 
 	n_snps <- c(1,2,3,4)
 
@@ -239,6 +258,8 @@ analyze <- function(i = double(), j = double()){
 
 		fdr <- A_FP / (A_TP + A_FP)
 		sfdr <- S_FP / (S_TP + S_FP)
+
+message("Writing output and cleaning up...")
 
 		write <- cbind(n, A_TP,A_FP,A_TN,A_FN,S_TP,S_FP,S_TN,S_FN, fdr, sfdr)
 		write.table(write, file = "/scratch/hpc2862/CAMH/perm_container/out_DONTDELETE_files/results_cluster_new.txt", append = T, quote = F, sep = " ", row.name = F, col.name = F)
