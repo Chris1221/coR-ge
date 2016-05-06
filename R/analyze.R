@@ -50,10 +50,10 @@ analyze <- function(i = double(), j = double()){
 	## THIS HASNT BEEN TESTED YET (March 6) 
 	for(k in 1:5){
 		if(k == 1){
-				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
-			} else if(k != 1){
-				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
-			}
+			fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
+		} else if(k != 1){
+			fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
+		}
 	}
 
 	colnames(gen) <- paste0("V",1:ncol(gen))
