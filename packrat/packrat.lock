@@ -7,53 +7,112 @@ Repos: BioCsoft=https://bioconductor.org/packages/3.2/bioc,
     BioCextra=https://bioconductor.org/packages/3.2/extra,
     CRAN=https://cran.rstudio.com/
 
+Package: BH
+Source: CRAN
+Version: 1.60.0-2
+
+Package: DBI
+Source: CRAN
+Version: 0.4
+Hash: 23cc263d51b7b02ff2a305dce72651ec
+
 Package: R6
 Source: CRAN
 Version: 2.1.2
 Hash: c515e41c73294952cbb33ee1c1be5a2d
+
+Package: RSQLite
+Source: CRAN
+Version: 1.0.0
+Requires: DBI
+Hash: 3df52a54766f420d257debad962146c0
 
 Package: Rcpp
 Source: CRAN
 Version: 0.12.4
 Hash: 115167d29098a4fd1e572fdbef809438
 
+Package: assertthat
+Source: CRAN
+Version: 0.1
+Hash: 0afb92b59b02593c70ff8046700ba9d3
+
 Package: brew
 Source: CRAN
 Version: 1.0-6
 Hash: 931f9972deae0f205e1c78a51f33149b
+
+Package: chron
+Source: CRAN
+Version: 2.3-47
+Hash: d25d96d908cd21080f24c89eed4c80a0
 
 Package: curl
 Source: CRAN
 Version: 0.9.7
 Hash: 8a3eaed84ed6a9a188efdeddb231c5de
 
+Package: data.table
+Source: CRAN
+Version: 1.9.6
+Requires: chron
+Hash: f92ef1f73afa43bf6fd69a22f3794abd
+
 Package: devtools
 Source: CRAN
 Version: 1.11.1
-Hash: 4c6aa014d917044bf376a363c3c8ee1a
 Requires: digest, git2r, httr, jsonlite, memoise, rstudioapi, whisker,
     withr
+Hash: 4c6aa014d917044bf376a363c3c8ee1a
 
 Package: digest
 Source: CRAN
 Version: 0.6.9
 Hash: fd55d5a024f160fc001a5ece1e27782d
 
+Package: dplyr
+Source: CRAN
+Version: 0.4.3
+Requires: BH, DBI, R6, Rcpp, assertthat, lazyeval, magrittr
+Hash: 35bc70760e4bbd3f4bc05fac3bbde3c3
+
+Package: foreach
+Source: CRAN
+Version: 1.4.3
+Requires: iterators
+Hash: cd53ef4cf29dc59ce3f8c5c1af735fd1
+
 Package: git2r
 Source: CRAN
 Version: 0.14.0
 Hash: 38b74f188c339da499441cb1812b89b9
 
+Package: gsubfn
+Source: CRAN
+Version: 0.6-6
+Requires: proto
+Hash: cc1999b8ee76bbf10c968ac973290421
+
 Package: httr
 Source: CRAN
 Version: 1.1.0
-Hash: 27ffb4b4dbb8ac4019126070d66910fc
 Requires: R6, curl, jsonlite, mime, openssl
+Hash: 27ffb4b4dbb8ac4019126070d66910fc
+
+Package: iterators
+Source: CRAN
+Version: 1.0.8
+Hash: 488b93c2a4166db0d15f1e8d882cb1d4
 
 Package: jsonlite
 Source: CRAN
 Version: 0.9.19
 Hash: 4a983f753b6e88ae0f5a6ac152d8cc32
+
+Package: lazyeval
+Source: CRAN
+Version: 0.1.10
+Hash: 9679f1ac7f6bc07bc79755f34cd15e1f
 
 Package: magrittr
 Source: CRAN
@@ -63,8 +122,8 @@ Hash: bdc4d48c3135e8f3b399536ddf160df4
 Package: memoise
 Source: CRAN
 Version: 1.0.0
-Hash: 56e7087c3559eb7ba72a9afb349bf896
 Requires: digest
+Hash: 56e7087c3559eb7ba72a9afb349bf896
 
 Package: mime
 Source: CRAN
@@ -81,16 +140,27 @@ Source: CRAN
 Version: 0.4.6-1
 Hash: 29eacc43b096c5b1a82c8d54a49b030b
 
+Package: proto
+Source: CRAN
+Version: 0.3-10
+Hash: 05d7ad64db29a39d1b02c4b9f1f4edb2
+
 Package: roxygen2
 Source: CRAN
 Version: 5.0.1
-Hash: 0d13c15c5cd65dd83b58d190b54178ba
 Requires: Rcpp, brew, digest, stringi, stringr
+Hash: 0d13c15c5cd65dd83b58d190b54178ba
 
 Package: rstudioapi
 Source: CRAN
 Version: 0.5
 Hash: f942db72a8f51e968b061f28058e2c57
+
+Package: sqldf
+Source: CRAN
+Version: 0.4-10
+Requires: DBI, RSQLite, chron, gsubfn, proto
+Hash: 46cd78edf0fc3c746c7d26f44fcb4e50
 
 Package: stringi
 Source: CRAN
@@ -100,8 +170,8 @@ Hash: cf342bc407bd5daec77ed1009d5244e1
 Package: stringr
 Source: CRAN
 Version: 1.0.0
-Hash: 2676dd5f88890910962b733b0f9540e1
 Requires: magrittr, stringi
+Hash: 2676dd5f88890910962b733b0f9540e1
 
 Package: whisker
 Source: CRAN

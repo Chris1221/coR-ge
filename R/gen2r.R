@@ -4,7 +4,7 @@
 #' @param local TRUE is the file is already in the R workspace. FALSE if the file is a path which must be read in.
 
 
-gen2r.par <- function(genfile, local = TRUE) {
+gen2r <- function(genfile, local = TRUE) {
 
 	#Read in genfile
   if(local == TRUE){
