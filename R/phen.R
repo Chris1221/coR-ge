@@ -1,14 +1,19 @@
 #' Phenotype Calculation
 #' 
-#' @param nr Number of rows
-#' @param nc Number of columns
-#' @param snps SNPs matrix
+#' @param .snps SNPs matrix
+#' @param .combR combR matrix
 #' 
 #' @export
 
-phen <- function(nr = nrow(combR), nc = ncol(combR), snps = snps){
+phen <- function(.snps = snps, .combR = combR){
 
-	if(!exists("nr")) stop("Something went wrong, check the combR matrix.")
+	message("Calculating phenotypes...")
+
+
+	nr = nrow(.combR)
+	nc = ncol(.combR)
+
+	if(!exists("nr")) stop("Something went wrong, check the .combR matrix.")
 
 
 	samp <- vector()
@@ -19,9 +24,7 @@ phen <- function(nr = nrow(combR), nc = ncol(combR), snps = snps){
 	samp <- as.data.frame(samp)
 	samp$missing <- 0
 
-	row.names(combR) <- samp$ID_1
-
-message("Calculating phenotypes...")
+	row.names(.combR) <- samp$ID_1
 
 	###calculate phenotypes HERE
 
@@ -36,12 +39,17 @@ message("Calculating phenotypes...")
 	results <- vector()
 	results <- as.data.frame(results)
 	b <- vector()
-	snps <- as.data.frame(snps)
+	.snps <- as.data.frame(.snps)
 	## calulate beta
 
 	for(i in 1:nc){
-	  b[i] <- rand0()*sqrt(sd2[i]/(2*snps[i,"all_maf"]*(1-snps[i,"all_maf"])))
+	  b[i] <- rand0()*sqrt(sd2[i]/(2*.snps[i,"all_maf"]*(1-.snps[i,"all_maf"])))
 	}
+
+
+	message("Done!")
+	assign("samp", samp, env = globalenv())
+	return(b)
 
 
 

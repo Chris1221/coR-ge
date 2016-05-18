@@ -53,10 +53,13 @@ Version: 0.9.7
 Hash: 8a3eaed84ed6a9a188efdeddb231c5de
 
 Package: data.table
-Source: CRAN
-Version: 1.9.6
-Requires: chron
-Hash: f92ef1f73afa43bf6fd69a22f3794abd
+Source: github
+Version: 1.9.7
+Hash: dc6a176a9d0258927ebd9cb801af4fd7
+GithubRepo: data.table
+GithubUsername: Rdatatable
+GithubRef: master
+GithubSha1: cdeb4729c4c6207c0590fdccdacc516b6386f78c
 
 Package: devtools
 Source: CRAN

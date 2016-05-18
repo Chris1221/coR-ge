@@ -59,4 +59,25 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 		comb$k <- NULL
 
 	combR <- gen2r(genfile = comb, local = TRUE)
+
+	b <- phen()
+
+
+	combR <- as.data.frame(foreach(i = 1:nrow(combR), .combine = 'rbind') %:% foreach(j = 1:ncol(combR), .combine = 'c') %do% {
+		combR[i,j] <- combR[i,j]*b[j] - b[j]*snps[j,"all_maf"] })
+
+	WAS <- rowSums(combR)
+
+	samp$Z <- as.character(foreach(i = 1:length(WAS), .combine = 'c') %do% WAS[i] + rnorm(1, 0, sd = sqrt(0.55)))
+	
+
+	var <- data.frame(0, 0, 0, "C")
+	samp$Z <- as.character(samp$Z)
+	colnames(var) <- colnames(samp)
+	samp <- rbind(var, samp)
+
+	message("Writing out temp files")
+
+	write.table(samp, paste0(path,"phen_test.sample"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
+	write.table(gen, paste0(path,"gen_test.gen"), quote = FALSE, row.names = F, col.names = F)
 	

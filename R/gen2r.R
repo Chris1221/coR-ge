@@ -1,5 +1,5 @@
 #' Oxford style genotype conversion
-#' 
+#'
 #' @param genfile File to convert
 #' @param local TRUE is the file is already in the R workspace. FALSE if the file is a path which must be read in.
 
@@ -10,16 +10,12 @@ gen2r <- function(genfile, local = TRUE) {
   if(local == TRUE){
 	gen <- genfile
   } else if(local == FALSE){
-	gen <- fread(genfile, sep = " ", h = F); gen <- as.data.frame(gen)
+	gen <- fread(genfile, sep = " ", h = F); gen <- as.data.table(gen)
   }
 
 	output <- data.frame(matrix(nrow=((ncol(gen)-5)/3),ncol=(nrow(gen))))
 
-	for(row in 1:nrow(gen)) {
-
-		# go from 2 so not include index column
-		#subtract two so that last i is the third last element in the table, thus getting all people
-		for(i in seq(6,((ncol(gen)-2)),by=3)) {
+	foreach(row = 1:nrow(gen)) %:% foreach(i = seq(6,((ncol(gen)-2)),by=3)) %do% {
 			#print(row)
 			j <- i + 1
 			h <- i + 2
@@ -41,8 +37,8 @@ gen2r <- function(genfile, local = TRUE) {
 			}
 
 			output[(i/3-1),row] <- final
-		}
 	}
+
 	colnames(output) <- gen[,3]
 	#R_table <- cbind(samp,output)
 	return(output)

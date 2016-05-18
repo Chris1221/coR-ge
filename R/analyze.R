@@ -5,14 +5,14 @@
 #' @param i Index 1
 #' @param j Index 2
 #' @param k Index 3
-#' 
+#'
 #' @return Output file at container.
 #'
 #' @export
 
 
 analyze <- function(i = double(), j = double()){
-	
+
 	# just for now to grab the R functions
 
 message("Loading files, this is temporary...")
@@ -27,7 +27,7 @@ message("Loading packages...")
 	p_load(data.table, dplyr, magrittr)
 
 	path <- paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j,"/")
-	
+
 	# just as a safety measure
 	setwd(path)
 
@@ -46,14 +46,14 @@ message("Deleting unneeded files...")
 	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.haps;",
 	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.summary;",
 	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.legend"))}
-	
+
 
 	setwd("/home/hpc2862/Raw_Files/CAMH/1kg_hapmap_comb/hapmap3_r2_plus_1000g_jun2010_b36_ceu/test_mar_30")
 
 
 messages("Reading in genotype files...")
 	# this replaces reading individually
-	## THIS HASNT BEEN TESTED YET (March 6) 
+	## THIS HASNT BEEN TESTED YET (March 6)
 	for(k in 1:5){
 		if(k == 1){
 			fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
@@ -70,7 +70,7 @@ messages("Reading in genotype files...")
 	snps <- NULL
 
 	# add in each 1000 sample sequentially
-	
+
 message("Selecting random SNPs...")
 
 	for(i in 1:max(summary$k)){
@@ -174,7 +174,7 @@ message("Writing out temp files")
 	system("rm phen_test.sample")
 
 	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
-	
+
 	system("rm plink.log")
 	system("rm plink.nosex")
 	system(paste0("rm ", i, "_", j, "_out.ped"))
