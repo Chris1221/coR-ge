@@ -3,6 +3,7 @@
 export(analyze)
 export(correct)
 export(fake.snps)
+export(fdr)
 export(phen)
 export(rand)
 export(rand0)
