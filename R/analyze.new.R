@@ -1,19 +1,15 @@
 analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out"){
 
-
-
 		message("Error Checking")
 
 	if(any(is.null(c(i,j,path.base, summary.file)))) stop("Please complete all input arguemnets")
-
-
 
 
 		message("Loading required libraries...")
 
 	if (!require("pacman")) install.packages("pacman", "http://cran.utstat.utoronto.ca/")
 	library(pacman)
-	p_load(data.table, dplyr, magrittr, devtools)
+	p_load(data.table, dplyr, magrittr, devtools, foreach)
 
 	#if (!require("coRge")) install_github("Chris1221/coR-ge")
 	library(coRge) # do this one seperately just to make sure
@@ -24,7 +20,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 
 		message("Deleting junk files...")
 
-	list.files(path)[!grepl("controls.gen", list.files(path))] %>% 
+	list.files(path)[!grepl("controls.gen", list.files(path))] %>%
 		file.remove
 
 
@@ -53,7 +49,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 
 	comb <- as.data.frame(merge(gen, snps, by = "V3"))
 
-		comb$rsid <- NULL 
+		comb$rsid <- NULL
 		comb$chromosome <- NULL
 		comb$all_maf <- NULL
 		comb$k <- NULL
@@ -69,7 +65,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 	WAS <- rowSums(combR)
 
 	samp$Z <- as.character(foreach(i = 1:length(WAS), .combine = 'c') %do% WAS[i] + rnorm(1, 0, sd = sqrt(0.55)))
-	
+
 
 	var <- data.frame(0, 0, 0, "C")
 	samp$Z <- as.character(samp$Z)
@@ -80,4 +76,43 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 
 	write.table(samp, paste0(path,"phen_test.sample"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
 	write.table(gen, paste0(path,"gen_test.gen"), quote = FALSE, row.names = F, col.names = F)
-	
+
+	message("Cleaning up")
+
+	for(k in 1:5){
+	  system(paste0("rm chr1_block_",i, "_perm_", j,"_k_", k, ".controls.gen"))
+	}
+
+	message("Bash calls")
+
+	system(paste0("/home/hpc2862/Programs/binary_executables/gtool -G --g gen_test.gen --s phen_test.sample --ped ", i, "_", j, "_out.ped --map ", i, "_", j, "_out.map --phenotype Z"))
+
+	system("rm gtool.log")
+	system("rm gen_test.gen")
+	system("rm phen_test.sample")
+
+	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
+
+	system("rm plink.log")
+	system("rm plink.nosex")
+	system(paste0("rm ", i, "_", j, "_out.ped"))
+	system(paste0("rm ", i, "_", j, "_out.map"))
+
+
+	message("Performing correction")
+
+	summary <- summary[ ! summary$rsid %in% snps$rsid] ##remove any overlaps
+	colnames(snps)[3] <- "BP"
+	snps_back <- snps
+
+	#pseudocode
+
+	# this column name might cause confusion. make sure it doesnt.
+	real_snps <- snps$rsid
+  fake_snps <- fake.snps()
+
+  n_strata <- 2
+  strata <- stratify(real_snps, fake_snps, p = 0.5, n_strata = n_strata)
+  out <- correct(strata, n_strata = n_strata)
+
+  sqldf("write to a sql in a private repo.")
