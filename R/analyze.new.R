@@ -108,11 +108,13 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 	#pseudocode
 
 	# this column name might cause confusion. make sure it doesnt.
-	real_snps <- snps$rsid
-  fake_snps <- fake.snps()
+
+	snp_list <- fake.snps(summary=summary, n=3000, group=k)
+	snps %>% select(rsid) %>% as.vector -> snp_list[["real"]]
+
 
   n_strata <- 2
-  strata <- stratify(real_snps, fake_snps, p = 0.5, n_strata = n_strata)
+  strata <- stratify(real = real_snps,fake = fake_snps, p = 0.5, n_strata = n_strata)
   out <- correct(strata, n_strata = n_strata)
 
   sqldf("write to a sql in a private repo.")
