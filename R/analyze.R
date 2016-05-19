@@ -5,41 +5,61 @@
 #' @param i Index 1
 #' @param j Index 2
 #' @param k Index 3
+#'
+#' @return Output file at container.
+#'
+#' @export
+
 
 analyze <- function(i = double(), j = double()){
 
-	setwd(paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j))
+	# just for now to grab the R functions
 
-	for(i in 1:10){
-		#clear out excess files
-		system(paste0("rm chr1_block_",i,"_perm_k_",j,".cases.gen; ",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.haps;",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.sample;",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.summary;",
-			"rm chr1_block_",i,"_perm_k_",j,".cases.legend;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.sample;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.haps;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.summary;",
-			"rm chr1_block_",i,"_perm_k_",j,".controls.legend"))}
+message("Loading files, this is temporary...")
 
-	########### this is the begining of rand.R ##################
+	setwd("/home/hpc2862/repos/coR-ge/R")
+	for(file in c("gen2r.R", "rand0.R", "rand.R", "sim.gen.R")) source(file)
+
+message("Loading packages...")
+
+	if (!require("pacman")) install.packages("pacman", "http://cran.utstat.utoronto.ca/")
+	library(pacman)
+	p_load(data.table, dplyr, magrittr)
 
 	path <- paste0("/scratch/hpc2862/CAMH/perm_container/container_",i,"_",j,"/")
 
-	install.packages("data.table", repos = "http://cran.utstat.utoronto.ca/");library(data.table)
-	install.packages("dplyr", repos = "http://cran.utstat.utoronto.ca/");library(dplyr)
-	library(magrittr)
+	# just as a safety measure
+	setwd(path)
+
+message("Deleting unneeded files...")
+
+	list.files(path)[!grepl("controls.gen", list.files(path))] %>% file.remove
+
+	# for(k in 1:5){
+	# 	#clear out excess files
+	# 	system(paste0("rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.gen; ",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.haps;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.sample;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.summary;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".cases.legend;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.sample;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.haps;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.summary;",
+	# 		"rm chr1_block_",i,"_perm_",j,"_k_",k,".controls.legend"))}
+
 
 	setwd("/home/hpc2862/Raw_Files/CAMH/1kg_hapmap_comb/hapmap3_r2_plus_1000g_jun2010_b36_ceu/test_mar_30")
 
+
+messages("Reading in genotype files...")
 	# this replaces reading individually
-	## THIS HASNT BEEN TESTED YET (March 6) 
-	for(k in 1:10){
+	## THIS HASNT BEEN TESTED YET (March 6)
+	for(k in 1:5){
 		if(k == 1){
-				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% assign("gen", .)
-			} else if(k != 1){
-				fread(paste0(path, "chr1_block_", i, "_perm_1_k_", j, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
-			}
+			fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
+		} else if(k != 1){
+			fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
+		}
 	}
 
 	colnames(gen) <- paste0("V",1:ncol(gen))
@@ -50,6 +70,9 @@ analyze <- function(i = double(), j = double()){
 	snps <- NULL
 
 	# add in each 1000 sample sequentially
+
+message("Selecting random SNPs...")
+
 	for(i in 1:max(summary$k)){
 
 		summary %>% filter(k==i) %>% sample_n(1000) %>% select(rsid, chromosome, position, all_maf, k) %>% rbind(snps, .) -> snps
@@ -66,8 +89,10 @@ analyze <- function(i = double(), j = double()){
 
 	comb$rsid <- NULL; comb$chromosomes <- NULL; comb$all_maf <- NULL; comb$k <- NULL
 
+
+message("Converting from Oxford format to R format...")
 	#translate to R
-	combR <- SNPTEST_2_R(genfile = comb, local = TRUE)
+	combR <- gen2r(genfile = comb, local = TRUE)
 
 	## add row names to this from the sample file
 
@@ -81,6 +106,7 @@ analyze <- function(i = double(), j = double()){
 
 	row.names(combR) <- samp$ID_1
 
+message("Calculating phenotypes...")
 
 	###calculate phenotypes HERE
 
@@ -130,12 +156,14 @@ analyze <- function(i = double(), j = double()){
 	colnames(var) <- colnames(samp)
 	samp <- rbind(var, samp)
 
+message("Writing out temp files")
+
 	write.table(samp, paste0(path,"phen_test.sample"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
 	write.table(gen, paste0(path,"gen_test.gen"), quote = FALSE, row.names = F, col.names = F)
 	write.table(snps, paste0(path,"snptlist.txt"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
 
-	for(k in 1:10){
-	system(paste0("rm chr1_block_",i, "_perm_", k,"_k_", j, ".controls.gen"))
+	for(k in 1:5){
+	system(paste0("rm chr1_block_",i, "_perm_", j,"_k_", k, ".controls.gen"))
 	}
 
 	#gtool step
@@ -146,15 +174,18 @@ analyze <- function(i = double(), j = double()){
 	system("rm phen_test.sample")
 
 	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
-	
+
 	system("rm plink.log")
 	system("rm plink.nosex")
 	system(paste0("rm ", i, "_", j, "_out.ped"))
 	system(paste0("rm ", i, "_", j, "_out.map"))
 
+
+message("Correct and report...")
 	# this is now correct and report.R
 
 	setwd(path)
+message("Reading in files...")
 
 	snps <- fread("snptlist.txt")
 
@@ -171,6 +202,9 @@ analyze <- function(i = double(), j = double()){
 	#q %>% mutate(real = SNP %in% snps[]) -> q2
 
 	##HARD CODED THIS IS BAD
+
+message("Select SNPs and correct...")
+warning("This has to be replaced with a more standardized version.")
 
 	n_snps <- c(1,2,3,4)
 
@@ -226,8 +260,10 @@ analyze <- function(i = double(), j = double()){
 		fdr <- A_FP / (A_TP + A_FP)
 		sfdr <- S_FP / (S_TP + S_FP)
 
+message("Writing output and cleaning up...")
+
 		write <- cbind(n, A_TP,A_FP,A_TN,A_FN,S_TP,S_FP,S_TN,S_FN, fdr, sfdr)
-		write.table(write, file = "/scratch/hpc2862/CAMH/perm_container/out_DONTDELETE_files/results_cluster.txt", append = T, quote = F, sep = " ", row.name = F, col.name = F)
+		write.table(write, file = "/scratch/hpc2862/CAMH/perm_container/out_DONTDELETE_files/results_cluster_new.txt", append = T, quote = F, sep = " ", row.name = F, col.name = F)
 	}
 
 

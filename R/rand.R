@@ -1,3 +1,15 @@
+#' Random Number Generator 
+#'
+#' Generates n numbers which add up to sum
+#'
+#' @param n Number of values to simulate
+#' @param sum Sum of n numbers
+#' @param start Lower bound of number generation.
+#' 
+#' @return A vector of n numbers which add up to sum
+#'
+#' @export
+
 rand <- function(n = NULL, sum = NULL, start = 0){
   v2 <- vector()
   start <- 0
