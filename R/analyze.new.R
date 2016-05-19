@@ -1,3 +1,15 @@
+#' Correction of Genomes in R
+#'
+#' Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments
+#'
+#' @param i i index.
+#' @param j j index.
+#' @param path.base Base of the path.
+#' @param summary.file Path to summary file.
+#'
+#' @return SQL database at specified path.
+#' @export
+
 analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out"){
 
 		message("Error Checking")
@@ -77,6 +89,8 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 	write.table(samp, paste0(path,"phen_test.sample"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
 	write.table(gen, paste0(path,"gen_test.gen"), quote = FALSE, row.names = F, col.names = F)
 
+# ----------------------------------------------
+
 	message("Cleaning up")
 
 	for(k in 1:5){
@@ -98,23 +112,16 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 	system(paste0("rm ", i, "_", j, "_out.ped"))
 	system(paste0("rm ", i, "_", j, "_out.map"))
 
+# -----------------------------------------
 
 	message("Performing correction")
 
-	summary <- summary[ ! summary$rsid %in% snps$rsid] ##remove any overlaps
-	colnames(snps)[3] <- "BP"
-	snps_back <- snps
-
-	#pseudocode
-
-	# this column name might cause confusion. make sure it doesnt.
-
-	snp_list <- fake.snps(summary=summary, n=3000, group=k)
-	snps %>% select(rsid) %>% as.vector -> snp_list[["real"]]
-
+	snps %>% select(rsid) %>% as.vector -> snp_list
 
   n_strata <- 2
-  strata <- stratify(real = real_snps,fake = fake_snps, p = 0.5, n_strata = n_strata)
-  out <- correct(strata, n_strata = n_strata)
+  strata <- stratify(snp_list = snp_list, p = 0.5, n_strata = n_strata)
 
-  sqldf("write to a sql in a private repo.")
+  out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc")
+
+  #sqldf("write to a sql in a private repo.")
+}
