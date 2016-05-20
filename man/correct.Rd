@@ -4,7 +4,8 @@
 \alias{correct}
 \title{Correct strata}
 \usage{
-correct(strata = NULL, n_strata = NULL, assoc = NULL)
+correct(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
+  group_name = NULL)
 }
 \arguments{
 \item{strata}{Strata}
@@ -12,6 +13,9 @@ correct(strata = NULL, n_strata = NULL, assoc = NULL)
 \item{n_strata}{Number of strata}
 
 \item{assoc}{Assoc file path}
+}
+\value{
+A data frame of FDR and sFDR by grouping level.
 }
 \description{
 Correct strata

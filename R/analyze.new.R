@@ -53,7 +53,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 
 		message("Selecting Causal SNPs")
 
-	snps <- causal.snps(summary = summary)
+	snps <- causal.snps(summary)
 	colnames(snps)[3] <- "V3"
 
 
