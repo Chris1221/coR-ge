@@ -1,4 +1,4 @@
-#' Correct strata
+#' Correct strata by group
 #'
 #' @param strata Strata
 #' @param n_strata Number of strata
