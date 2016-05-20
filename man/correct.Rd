@@ -2,7 +2,7 @@
 % Please edit documentation in R/correct.R
 \name{correct}
 \alias{correct}
-\title{Correct strata}
+\title{Correct strata by group}
 \usage{
 correct(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
   group_name = NULL)
@@ -18,6 +18,6 @@ correct(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
 A data frame of FDR and sFDR by grouping level.
 }
 \description{
-Correct strata
+Correct strata by group
 }
 

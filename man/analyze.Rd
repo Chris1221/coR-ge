@@ -6,11 +6,13 @@
 \usage{
 analyze(i = double(), j = double(),
   path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
-  summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out")
+  summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
+  output = "~/repos/coR-ge/data/test_run.txt")
 
 analyze(i = double(), j = double(),
   path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
-  summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out")
+  summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
+  output = "~/repos/coR-ge/data/test_run.txt")
 }
 \arguments{
 \item{i}{Index 1}
@@ -20,6 +22,8 @@ analyze(i = double(), j = double(),
 \item{path.base}{Base of the path.}
 
 \item{summary.file}{Path to summary file.}
+
+\item{output}{Output stream to write to.}
 
 \item{k}{Index 3}
 

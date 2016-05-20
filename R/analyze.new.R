@@ -6,11 +6,12 @@
 #' @param j j index.
 #' @param path.base Base of the path.
 #' @param summary.file Path to summary file.
+#' @param output Output stream to write to.
 #'
 #' @return SQL database at specified path.
 #' @export
 
-analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out"){
+analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run.txt"){
 
 		message("Error Checking")
 
@@ -123,5 +124,5 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 
   out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc")
 
-  #sqldf("write to a sql in a private repo.")
+  if(!file.exists(output)) suppressWarnings(write.table(out, output, row.names = F, col.names = TRUE, quote = F, append = T)) else if(file.exists(output)) write.table(out, output, row.names = F, col.names = F, quote = F, append = T)
 }
