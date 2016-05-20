@@ -2,7 +2,8 @@
 #'
 #' @param genfile File to convert
 #' @param local TRUE is the file is already in the R workspace. FALSE if the file is a path which must be read in.
-
+#'
+#' @export
 
 gen2r <- function(genfile, local = TRUE) {
 
