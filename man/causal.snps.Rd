@@ -4,10 +4,10 @@
 \alias{causal.snps}
 \title{Function for obtaining a vector of causal SNPs.}
 \usage{
-causal.snps(summary = NULL)
+causal.snps(.summary = NULL)
 }
 \arguments{
-\item{summary}{List of SNPs with attributes}
+\item{.summary}{List of SNPs with attributes}
 }
 \description{
 Function for obtaining a vector of causal SNPs.

@@ -2,6 +2,9 @@
 #'
 #' @param .summary List of SNPs with attributes
 #'
+#' @import dplyr
+#' @import data.table
+#'
 #' @export
 
 causal.snps <- function(.summary = NULL){
