@@ -9,3 +9,6 @@ Description: See the paper.
 License: MIT
 LazyData: TRUE
 RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
