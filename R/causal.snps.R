@@ -1,9 +1,11 @@
 #' Function for obtaining a vector of causal SNPs.
 #'
 #' @param summary List of SNPs with attributes
+#'
+#' @export
 
 causal.snps <- function(summary = NULL){
-	
+
 	snps <- NULL
 
 	for(i in 1:max(summary$k)){
