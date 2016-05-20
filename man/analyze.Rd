@@ -34,7 +34,7 @@ analyze(i = double(), j = double(),
 \value{
 Output file at container.
 
-SQL database at specified path.
+Flat file at specified path.
 }
 \description{
 Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments

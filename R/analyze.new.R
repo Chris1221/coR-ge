@@ -8,7 +8,7 @@
 #' @param summary.file Path to summary file.
 #' @param output Output stream to write to.
 #'
-#' @return SQL database at specified path.
+#' @return Flat file at specified path.
 #' @export
 
 analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run.txt"){
