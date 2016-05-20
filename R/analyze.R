@@ -8,7 +8,6 @@
 #'
 #' @return Output file at container.
 #'
-#' @export
 
 
 analyze <- function(i = double(), j = double()){

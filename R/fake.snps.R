@@ -3,8 +3,6 @@
 #' @param summary Summary sheet with info on SNPs
 #' @param n Number to generate
 #' @param group Optional grouping paramter. Reports as a list
-#' 
-#' @export
 
 fake.snps <- function(summary = NULL, n= 3000, group = NULL){
 

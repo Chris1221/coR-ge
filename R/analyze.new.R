@@ -24,7 +24,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 	library(pacman)
 	p_load(data.table, dplyr, magrittr, devtools, foreach)
 
-	#if (!require("coRge")) install_github("Chris1221/coR-ge")
+	if (!require("coRge")) install_github("Chris1221/coR-ge")
 	library(coRge) # do this one seperately just to make sure
 
 	path <- paste0(path.base,i,"_",j,"/")
@@ -35,8 +35,6 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 
 	list.files(path)[!grepl("controls.gen", list.files(path))] %>%
 		file.remove
-
-
 
 		message("Reading in genotype files...")
 
