@@ -70,8 +70,9 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 	b <- phen()
 
 
-	combR <- as.data.frame(foreach(i = 1:nrow(combR), .combine = 'rbind') %:% foreach(j = 1:ncol(combR), .combine = 'c') %do% {
-		combR[i,j] <- combR[i,j]*b[j] - b[j]*snps[j,"all_maf"] })
+	combR <- as.data.frame(foreach(i = 1:nrow(combR), .combine = 'rbind') %:%
+	            foreach(j = 1:ncol(combR), .combine = 'c') %do% {
+		          combR[i,j] <- combR[i,j]*b[j] - b[j]*snps[j,"all_maf"] })
 
 	WAS <- rowSums(combR)
 
