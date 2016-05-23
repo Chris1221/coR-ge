@@ -25,8 +25,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 	p_load(data.table, dplyr, magrittr, devtools, foreach)
 
 	if (!require("coRge")) install_github("Chris1221/coR-ge")
-	library(coRge) # do this one seperately just to make sure
-
+	library(coRge) # do this one seperately just to make sur
 	path <- paste0(path.base,i,"_",j,"/")
 	setwd(path)
 
