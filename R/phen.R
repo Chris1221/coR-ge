@@ -42,8 +42,9 @@ phen <- function(.snps = snps, .combR = combR){
 	.snps <- as.data.frame(.snps)
 	## calulate beta
 
-	for(i in 1:nc){
-	  b[i] <- rand0()*sqrt(sd2[i]/(2*.snps[i,"all_maf"]*(1-.snps[i,"all_maf"])))
+	for(i in seq(1, 3*nc, by = 3)){
+	  	beta <- rand0()*sqrt(sd2[i]/(2*.snps[i,"all_maf"]*(1-.snps[i,"all_maf"])))
+		b[i] <- beta; b[i+1] <- beta; b[i+2] <- beta	
 	}
 
 
