@@ -8,6 +8,7 @@
 #' @param summary.file Path to summary file.
 #' @param output Output stream to write to.
 #' @param T testing (only read one gen file)
+#' @param safe Don't delete files
 #'
 #' @import dplyr
 #' @import data.table
@@ -19,7 +20,7 @@
 #' @return Flat file at specified path.
 #' @export
 
-analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run.txt", T = TRUE){
+analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run.txt", T = TRUE, safe = TRUE){
 
 		message("Error Checking")
 
@@ -106,15 +107,17 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 
 	message("Writing out temp files")
 
-	write.table(samp, paste0(path,"phen_test.sample"), quote = FALSE, row.names=F, col.names = T, sep = "\t")
-	write.table(gen, paste0(path,"gen_test.gen"), quote = FALSE, row.names = F, col.names = F)
+	fwrite(samp, paste0(path,"phen_test.sample"), quote = FALSE, col.names = T, sep = "\t")
+	fwrite(gen, paste0(path,"gen_test.gen"), quote = FALSE, col.names = F)
 
 # ----------------------------------------------
 
 	message("Cleaning up")
 
-	for(k in 1:5){
-	  system(paste0("rm chr1_block_",i, "_perm_", j,"_k_", k, ".controls.gen"))
+	if(!safe){
+  	for(k in 1:5){
+  	  system(paste0("rm chr1_block_",i, "_perm_", j,"_k_", k, ".controls.gen"))
+  	}
 	}
 
 	message("Bash calls")
