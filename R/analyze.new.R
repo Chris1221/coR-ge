@@ -97,7 +97,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 
 		WAS <- calculate_was(gen = comb, snps = snps)
 
-	samp$Z <- as.character(foreach(i = 1:length(WAS), .combine = 'c') %do% WAS[i] + rnorm(1, 0, sd = sqrt(0.55)))
+	samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(0.55)))
 
 
 	var <- data.frame(0, 0, 0, "C")
