@@ -7,11 +7,12 @@
 #' @param path.base Base of the path.
 #' @param summary.file Path to summary file.
 #' @param output Output stream to write to.
+#' @param T testing (only read one gen file)
 #'
 #' @return Flat file at specified path.
 #' @export
 
-analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run.txt"){
+analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run.txt", T = TRUE){
 
 		message("Error Checking")
 
@@ -37,6 +38,8 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 
 		message("Reading in genotype files...")
 
+		if(!T){
+
 	for(k in 1:5){
 		if(k == 1){
 			fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
@@ -44,6 +47,12 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 			fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
 		}
 	}
+
+		} else if(T){
+		  k <- 1
+
+		  gen <- fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame()
+		}
 
 	colnames(gen) <- paste0("V",1:ncol(gen))
 
@@ -64,16 +73,20 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 		comb$all_maf <- NULL
 		comb$k <- NULL
 
-	combR <- gen2r(genfile = comb, local = TRUE)
+# -------------- OLD WAY -------------------
+#	combR <- gen2r(genfile = comb, local = TRUE)
 
-	b <- phen()
+#	b <- phen()
 
 
-	combR <- as.data.frame(foreach(i = 1:nrow(combR), .combine = 'rbind') %:%
-	            foreach(j = 1:ncol(combR), .combine = 'c') %do% {
-		          combR[i,j] <- combR[i,j]*b[j] - b[j]*snps[j,"all_maf"] })
+#	combR <- as.data.frame(foreach(i = 1:nrow(combR), .combine = 'rbind') %:%
+#	            foreach(j = 1:ncol(combR), .combine = 'c') %do% {
+#		          combR[i,j] <- combR[i,j]*b[j] - b[j]*snps[j,"all_maf"] })
 
-	WAS <- rowSums(combR)
+#	WAS <- rowSums(combR)
+#	---------------------------------------------------------
+
+		WAS <- calculate_was(gen = comb, snps = snps)
 
 	samp$Z <- as.character(foreach(i = 1:length(WAS), .combine = 'c') %do% WAS[i] + rnorm(1, 0, sd = sqrt(0.55)))
 

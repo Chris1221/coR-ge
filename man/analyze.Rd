@@ -7,12 +7,12 @@
 analyze(i = double(), j = double(),
   path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
   summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
-  output = "~/repos/coR-ge/data/test_run.txt")
+  output = "~/repos/coR-ge/data/test_run.txt", T = TRUE)
 
 analyze(i = double(), j = double(),
   path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
   summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
-  output = "~/repos/coR-ge/data/test_run.txt")
+  output = "~/repos/coR-ge/data/test_run.txt", T = TRUE)
 }
 \arguments{
 \item{i}{Index 1}
@@ -24,6 +24,8 @@ analyze(i = double(), j = double(),
 \item{summary.file}{Path to summary file.}
 
 \item{output}{Output stream to write to.}
+
+\item{T}{testing (only read one gen file)}
 
 \item{k}{Index 3}
 
