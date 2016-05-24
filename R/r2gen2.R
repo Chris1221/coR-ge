@@ -3,7 +3,7 @@
 #' @param gen Truncated gen file with only causal snps
 #' @param snps Truncated summary file with only causal snps
 #'
-#' @import data.frame
+#' @import data.table
 #' @import dplyr
 #'
 #' @return A vector of weighted allele scores
