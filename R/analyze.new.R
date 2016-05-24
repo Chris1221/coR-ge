@@ -142,7 +142,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 	snps %>% select(rsid) %>% as.vector -> snp_list
 
   n_strata <- 2
-  strata <- stratify(snp_list = snp_list, p = 0.5, n_strata = n_strata)
+  strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
 
   out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc")
 

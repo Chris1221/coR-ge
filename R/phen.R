@@ -53,6 +53,8 @@ phen <- function(.snps = snps, .combR = combR){
 	  	b[i] <- rand0()*sqrt(sd2[i]/(2*.snps[i,"all_maf"]*(1-.snps[i,"all_maf"])))
 	}
 
+	if(any(!is.finite(b))) for(i in which(!is.finite(b))) b[i] <- 0
+
 	message("Done!")
 	assign("samp", samp, env = globalenv())
 	return(b)
