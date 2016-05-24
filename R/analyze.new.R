@@ -100,7 +100,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 	samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(0.55)))
 
 
-	var <- data.frame(0, 0, 0, "C")
+	var <- data.frame(0, 0, 0, "P")
 	samp$Z <- as.character(samp$Z)
 	colnames(var) <- colnames(samp)
 	samp <- rbind(var, samp)
@@ -108,7 +108,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 	message("Writing out temp files")
 
 	fwrite(samp, paste0(path,"phen_test.sample"), quote = FALSE, col.names = T, sep = "\t")
-	fwrite(gen, paste0(path,"gen_test.gen"), quote = FALSE, col.names = F)
+	fwrite(gen, paste0(path,"gen_test.gen"), quote = FALSE, col.names = F, sep = "\t")
 
 # ----------------------------------------------
 
@@ -124,17 +124,21 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 
 	system(paste0("/home/hpc2862/Programs/binary_executables/gtool -G --g gen_test.gen --s phen_test.sample --ped ", i, "_", j, "_out.ped --map ", i, "_", j, "_out.map --phenotype Z"))
 
-	system("rm gtool.log")
-	system("rm gen_test.gen")
-	system("rm phen_test.sample")
+	if(!safe){
+  	system("rm gtool.log")
+  	system("rm gen_test.gen")
+  	system("rm phen_test.sample")
+  }
 
 	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
 
-	system("rm plink.log")
-	system("rm plink.nosex")
-	system(paste0("rm ", i, "_", j, "_out.ped"))
-	system(paste0("rm ", i, "_", j, "_out.map"))
 
+	if(!safe){
+  	system("rm plink.log")
+  	system("rm plink.nosex")
+  	system(paste0("rm ", i, "_", j, "_out.ped"))
+  	system(paste0("rm ", i, "_", j, "_out.map"))
+	}
 # -----------------------------------------
 
 	message("Performing correction")
@@ -144,7 +148,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
   n_strata <- 2
   strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
 
-  out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc")
+  out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = TRUE, group_name = "k")
 
   if(!file.exists(output)) suppressWarnings(write.table(out, output, row.names = F, col.names = TRUE, quote = F, append = T)) else if(file.exists(output)) write.table(out, output, row.names = F, col.names = F, quote = F, append = T)
 }
