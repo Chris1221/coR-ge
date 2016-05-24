@@ -2,9 +2,10 @@
 % Please edit documentation in R/correct.R
 \name{correct}
 \alias{correct}
-\title{Correct strata}
+\title{Correct strata by group}
 \usage{
-correct(strata = NULL, n_strata = NULL, assoc = NULL)
+correct(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
+  group_name = NULL)
 }
 \arguments{
 \item{strata}{Strata}
@@ -13,7 +14,10 @@ correct(strata = NULL, n_strata = NULL, assoc = NULL)
 
 \item{assoc}{Assoc file path}
 }
+\value{
+A data frame of FDR and sFDR by grouping level.
+}
 \description{
-Correct strata
+Correct strata by group
 }
 

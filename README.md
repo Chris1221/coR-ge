@@ -5,5 +5,5 @@ To install:
 
 ```R
 if(!require(devtools)) install.packages("devtools")
-devtools::install_github("Chris1221/coR-ge")
+devtools::install_github("Chris1221/coR-ge", ref = "devel")
 ```

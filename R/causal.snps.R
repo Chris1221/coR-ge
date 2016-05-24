@@ -1,14 +1,19 @@
 #' Function for obtaining a vector of causal SNPs.
 #'
-#' @param summary List of SNPs with attributes
+#' @param .summary List of SNPs with attributes
+#'
+#' @import dplyr
+#' @import data.table
+#'
+#' @export
 
-causal.snps <- function(summary = NULL){
-	
+causal.snps <- function(.summary = NULL){
+
 	snps <- NULL
 
-	for(i in 1:max(summary$k)){
+	for(i in 1:max(.summary$k)){
 
-		summary %>% filter(k==i) %>% sample_n(1000) %>% select(rsid, chromosome, position, all_maf, k) %>% rbind(snps, .) -> snps
+		.summary %>% filter(k==i) %>% sample_n(1000) %>% select(rsid, chromosome, position, all_maf, k) %>% rbind(snps, .) -> snps
 
 	}
 
