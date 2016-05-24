@@ -9,6 +9,13 @@
 #' @param output Output stream to write to.
 #' @param T testing (only read one gen file)
 #'
+#' @import dplyr
+#' @import data.table
+#' @import foreach
+#' @import magrittr
+#' @import pacman
+#' @import devtools
+#'
 #' @return Flat file at specified path.
 #' @export
 
