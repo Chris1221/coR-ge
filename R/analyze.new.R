@@ -79,6 +79,7 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 		comb$chromosome <- NULL
 		comb$all_maf <- NULL
 		comb$k <- NULL
+		comb$chromosomes <- NULL
 
 # -------------- OLD WAY -------------------
 #	combR <- gen2r(genfile = comb, local = TRUE)

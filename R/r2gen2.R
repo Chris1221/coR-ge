@@ -15,7 +15,6 @@ calculate_was <- function(gen = NULL, snps = NULL){
   if(is.null(snps)) stop("Please input a snps matrix")
 
   gen[, -(1:5)] %>%
-    as.matrix %>%
     t -> genM
 
   # 9 betas
