@@ -18,7 +18,7 @@ calculate_was <- function(gen = NULL, snps = NULL){
     t -> genM
 
   # 9 betas
-  b <- phen(.combR = genM)
+  b <- phen(.snps = snps, .combR = genM)
 
   for(i in seq(1, nrow(genM), by = 3)){
 
