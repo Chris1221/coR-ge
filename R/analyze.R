@@ -20,7 +20,7 @@
 #' @return Flat file at specified path.
 #' @export
 
-analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run.txt", T = TRUE, safe = TRUE){
+analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run.txt", T = TRUE, safe = TRUE){
 
 		message("Error Checking")
 
@@ -66,89 +66,177 @@ analyze <- function(i = double(), j = double(), path.base = "/scratch/hpc2862/CA
 
 	summary <- fread(summary.file, h = T, sep = " ")
 
-		message("Selecting Causal SNPs")
 
-	snps <- causal.snps(summary)
-	colnames(snps)[3] <- "V3"
-
-
-		message("Merging together and converting from Oxford to R format...")
-
-	comb <- as.data.frame(merge(gen, snps, by = "V3"))
-
-		comb$rsid <- NULL
-		comb$chromosome <- NULL
-		comb$all_maf <- NULL
-		comb$k <- NULL
-		comb$chromosomes <- NULL
-
-# -------------- OLD WAY -------------------
-#	combR <- gen2r(genfile = comb, local = TRUE)
-
-#	b <- phen()
+# 	     ___         __                _  _
+# 	    /   \  ___  / _|  __ _  _   _ | || |_
+# 	   / /\ / / _ \| |_  / _` || | | || || __|
+# 	  / /_// |  __/|  _|| (_| || |_| || || |_
+# 	/___,'   \___||_|   \__,_| \__,_||_| \__|
+#
 
 
-#	combR <- as.data.frame(foreach(i = 1:nrow(combR), .combine = 'rbind') %:%
-#	            foreach(j = 1:ncol(combR), .combine = 'c') %do% {
-#		          combR[i,j] <- combR[i,j]*b[j] - b[j]*snps[j,"all_maf"] })
-
-#	WAS <- rowSums(combR)
-#	---------------------------------------------------------
-
-		WAS <- calculate_was(gen = comb, snps = snps)
-
-	samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(0.55)))
+	if(is.null(mode) || mode == "default"){
 
 
-	var <- data.frame(0, 0, 0, "P")
-	samp$Z <- as.character(samp$Z)
-	colnames(var) <- colnames(samp)
-	samp <- rbind(var, samp)
+    		message("Selecting Causal SNPs")
 
-	message("Writing out temp files")
+    	snps <- causal.snps(summary, mode = "default")
+    	colnames(snps)[3] <- "V3"
 
-	fwrite(samp, paste0(path,"phen_test.sample"), quote = FALSE, col.names = T, sep = "\t")
-	fwrite(gen, paste0(path,"gen_test.gen"), quote = FALSE, col.names = F, sep = "\t")
 
-# ----------------------------------------------
+    		message("Merging together and converting from Oxford to R format...")
 
-	message("Cleaning up")
+    	comb <- as.data.frame(merge(gen, snps, by = "V3"))
 
-	if(!safe){
-  	for(k in 1:5){
-  	  system(paste0("rm chr1_block_",i, "_perm_", j,"_k_", k, ".controls.gen"))
-  	}
-	}
+    		comb$rsid <- NULL
+    		comb$chromosome <- NULL
+    		comb$all_maf <- NULL
+    		comb$k <- NULL
+    		comb$chromosomes <- NULL
 
-	message("Bash calls")
+    		WAS <- calculate_was(gen = comb, snps = snps)
 
-	system(paste0("/home/hpc2862/Programs/binary_executables/gtool -G --g gen_test.gen --s phen_test.sample --ped ", i, "_", j, "_out.ped --map ", i, "_", j, "_out.map --phenotype Z"))
+    	samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(0.55)))
 
-	if(!safe){
-  	system("rm gtool.log")
-  	system("rm gen_test.gen")
-  	system("rm phen_test.sample")
+
+    	var <- data.frame(0, 0, 0, "P")
+    	samp$Z <- as.character(samp$Z)
+    	colnames(var) <- colnames(samp)
+    	samp <- rbind(var, samp)
+
+    	message("Writing out temp files")
+
+    	fwrite(samp, paste0(path,"phen_test.sample"), quote = FALSE, col.names = T, sep = "\t")
+    	fwrite(gen, paste0(path,"gen_test.gen"), quote = FALSE, col.names = F, sep = "\t")
+
+    # ----------------------------------------------
+
+    	message("Cleaning up")
+
+    	if(!safe){
+      	for(k in 1:5){
+      	  system(paste0("rm chr1_block_",i, "_perm_", j,"_k_", k, ".controls.gen"))
+      	}
+    	}
+
+    	message("Bash calls")
+
+    	system(paste0("/home/hpc2862/Programs/binary_executables/gtool -G --g gen_test.gen --s phen_test.sample --ped ", i, "_", j, "_out.ped --map ", i, "_", j, "_out.map --phenotype Z"))
+
+    	if(!safe){
+      	system("rm gtool.log")
+      	system("rm gen_test.gen")
+      	system("rm phen_test.sample")
+      }
+
+    	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
+
+
+    	if(!safe){
+      	system("rm plink.log")
+      	system("rm plink.nosex")
+      	system(paste0("rm ", i, "_", j, "_out.ped"))
+      	system(paste0("rm ", i, "_", j, "_out.map"))
+    	}
+    # -----------------------------------------
+
+    	message("Performing correction")
+
+    	snps %>% select(rsid) %>% as.vector -> snp_list
+
+      n_strata <- 2
+      strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
+
+      out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = TRUE, group_name = "k")
+
+
+
+#            ___                                       _
+#           / _ \ _ __   ___   _   _  _ __    ___   __| |
+#          / /_\/| '__| / _ \ | | | || '_ \  / _ \ / _` |
+#         / /_\\ | |   | (_) || |_| || |_) ||  __/| (_| |
+#         \____/ |_|    \___/  \__,_|| .__/  \___| \__,_|
+                                    |_|
+
+
+
+  } else if(mode == "grouped"){
+
+    message("Selecting Causal SNPs")
+
+    snps <- causal.snps(summary, mode = "grouped")
+    colnames(snps)[3] <- "V3"
+
+
+    message("Merging together and converting from Oxford to R format...")
+
+    comb <- as.data.frame(merge(gen, snps, by = "V3"))
+
+    comb$rsid <- NULL
+    comb$chromosome <- NULL
+    comb$all_maf <- NULL
+    comb$k <- NULL
+    comb$chromosomes <- NULL
+
+    WAS <- calculate_was(gen = comb, snps = snps)
+
+    samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(0.55)))
+
+
+    var <- data.frame(0, 0, 0, "P")
+    samp$Z <- as.character(samp$Z)
+    colnames(var) <- colnames(samp)
+    samp <- rbind(var, samp)
+
+    message("Writing out temp files")
+
+    fwrite(samp, paste0(path,"phen_test.sample"), quote = FALSE, col.names = T, sep = "\t")
+    fwrite(gen, paste0(path,"gen_test.gen"), quote = FALSE, col.names = F, sep = "\t")
+
+    # ----------------------------------------------
+
+    message("Cleaning up")
+
+    if(!safe){
+      for(k in 1:5){
+        system(paste0("rm chr1_block_",i, "_perm_", j,"_k_", k, ".controls.gen"))
+      }
+    }
+
+    message("Bash calls")
+
+    system(paste0("/home/hpc2862/Programs/binary_executables/gtool -G --g gen_test.gen --s phen_test.sample --ped ", i, "_", j, "_out.ped --map ", i, "_", j, "_out.map --phenotype Z"))
+
+    if(!safe){
+      system("rm gtool.log")
+      system("rm gen_test.gen")
+      system("rm phen_test.sample")
+    }
+
+    system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
+
+
+    if(!safe){
+      system("rm plink.log")
+      system("rm plink.nosex")
+      system(paste0("rm ", i, "_", j, "_out.ped"))
+      system(paste0("rm ", i, "_", j, "_out.map"))
+    }
+    # -----------------------------------------
+
+    message("Performing correction")
+
+    snps %>% select(rsid) %>% as.vector -> snp_list
+
+    n_strata <- 2
+    strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
+
+    out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = TRUE, group_name = "k")
+
   }
 
-	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
 
 
-	if(!safe){
-  	system("rm plink.log")
-  	system("rm plink.nosex")
-  	system(paste0("rm ", i, "_", j, "_out.ped"))
-  	system(paste0("rm ", i, "_", j, "_out.map"))
-	}
-# -----------------------------------------
-
-	message("Performing correction")
-
-	snps %>% select(rsid) %>% as.vector -> snp_list
-
-  n_strata <- 2
-  strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
-
-  out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = TRUE, group_name = "k")
 
   if(!file.exists(output)) suppressWarnings(write.table(out, output, row.names = F, col.names = TRUE, quote = F, append = T)) else if(file.exists(output)) write.table(out, output, row.names = F, col.names = F, quote = F, append = T)
 }
