@@ -17,3 +17,5 @@ coRge::analyze(i = 3, j = 3, mode = NULL) # or "default"
 coRge::analyze(i = 3, j = 3, mode = "group", group_name = "k")
 coRge::analyze(i = 3, j = 3, mode = "tp_gradient")
 ```
+
+All commits should be signed.
