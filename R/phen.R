@@ -1,8 +1,8 @@
 #' Phenotype Calculation
-#' 
+#'
 #' @param .snps SNPs matrix
 #' @param .combR combR matrix
-#' 
+#'
 #' @export
 
 phen <- function(.snps = snps, .combR = combR){
@@ -42,10 +42,18 @@ phen <- function(.snps = snps, .combR = combR){
 	.snps <- as.data.frame(.snps)
 	## calulate beta
 
+
+	# Thirds
+	#for(i in seq(1, 3*nc, by = 3)){
+	#  	beta <- rand0()*sqrt(sd2[i]/(2*.snps[i,"all_maf"]*(1-.snps[i,"all_maf"])))
+	#	b[i] <- beta; b[i+1] <- beta; b[i+2] <- beta
+	#}
+
 	for(i in 1:nc){
-	  b[i] <- rand0()*sqrt(sd2[i]/(2*.snps[i,"all_maf"]*(1-.snps[i,"all_maf"])))
+	  	b[i] <- rand0()*sqrt(sd2[i]/(2*.snps[i,"all_maf"]*(1-.snps[i,"all_maf"])))
 	}
 
+	if(any(!is.finite(b))) for(i in which(!is.finite(b))) b[i] <- 0
 
 	message("Done!")
 	assign("samp", samp, env = globalenv())

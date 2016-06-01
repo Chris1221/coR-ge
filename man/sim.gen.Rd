@@ -5,8 +5,7 @@
 \title{Haplotpe Simulation Function}
 \usage{
 sim.gen(i = integer(), j = integer(), nj = integer(),
-  container = "/scratch/hpc2862/CAMH/perm_container/",
-  repo = "/home/hpc2862/repos/coR-ge/")
+  container = "/scratch/hpc2862/CAMH/perm_container/")
 }
 \arguments{
 \item{i}{Index 1}
@@ -16,8 +15,6 @@ sim.gen(i = integer(), j = integer(), nj = integer(),
 \item{nj}{Number of jobs}
 
 \item{container}{Where should the simulated genotypes be put? This should be a root diretory where the function can create nj x i containers to store the different runs.}
-
-\item{repo}{TEMPORARY Where to find the k_hapgen.sh script. CHANGE THIS TO SEARCH WITHIN THE PACKAGE.}
 }
 \value{
 nj x i different folders stemming from the root directory specified by container
