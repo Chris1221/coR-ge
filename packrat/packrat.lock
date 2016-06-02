@@ -10,6 +10,7 @@ Repos: BioCsoft=https://bioconductor.org/packages/3.2/bioc,
 Package: BH
 Source: CRAN
 Version: 1.60.0-2
+Hash: be2967bcff307e561d9ba17faf03205c
 
 Package: DBI
 Source: CRAN
@@ -24,8 +25,8 @@ Hash: c515e41c73294952cbb33ee1c1be5a2d
 Package: RSQLite
 Source: CRAN
 Version: 1.0.0
-Requires: DBI
 Hash: 3df52a54766f420d257debad962146c0
+Requires: DBI
 
 Package: Rcpp
 Source: CRAN
@@ -64,9 +65,9 @@ GithubSha1: cdeb4729c4c6207c0590fdccdacc516b6386f78c
 Package: devtools
 Source: CRAN
 Version: 1.11.1
+Hash: 4c6aa014d917044bf376a363c3c8ee1a
 Requires: digest, git2r, httr, jsonlite, memoise, rstudioapi, whisker,
     withr
-Hash: 4c6aa014d917044bf376a363c3c8ee1a
 
 Package: digest
 Source: CRAN
@@ -76,14 +77,14 @@ Hash: fd55d5a024f160fc001a5ece1e27782d
 Package: dplyr
 Source: CRAN
 Version: 0.4.3
+Hash: 20cd1262faea5d2fe20d27e29552c2db
 Requires: BH, DBI, R6, Rcpp, assertthat, lazyeval, magrittr
-Hash: 35bc70760e4bbd3f4bc05fac3bbde3c3
 
 Package: foreach
 Source: CRAN
 Version: 1.4.3
-Requires: iterators
 Hash: cd53ef4cf29dc59ce3f8c5c1af735fd1
+Requires: iterators
 
 Package: git2r
 Source: CRAN
@@ -93,14 +94,14 @@ Hash: 38b74f188c339da499441cb1812b89b9
 Package: gsubfn
 Source: CRAN
 Version: 0.6-6
-Requires: proto
 Hash: cc1999b8ee76bbf10c968ac973290421
+Requires: proto
 
 Package: httr
 Source: CRAN
 Version: 1.1.0
-Requires: R6, curl, jsonlite, mime, openssl
 Hash: 27ffb4b4dbb8ac4019126070d66910fc
+Requires: R6, curl, jsonlite, mime, openssl
 
 Package: iterators
 Source: CRAN
@@ -125,8 +126,8 @@ Hash: bdc4d48c3135e8f3b399536ddf160df4
 Package: memoise
 Source: CRAN
 Version: 1.0.0
-Requires: digest
 Hash: 56e7087c3559eb7ba72a9afb349bf896
+Requires: digest
 
 Package: mime
 Source: CRAN
@@ -151,8 +152,8 @@ Hash: 05d7ad64db29a39d1b02c4b9f1f4edb2
 Package: roxygen2
 Source: CRAN
 Version: 5.0.1
-Requires: Rcpp, brew, digest, stringi, stringr
 Hash: 0d13c15c5cd65dd83b58d190b54178ba
+Requires: Rcpp, brew, digest, stringi, stringr
 
 Package: rstudioapi
 Source: CRAN
@@ -162,8 +163,8 @@ Hash: f942db72a8f51e968b061f28058e2c57
 Package: sqldf
 Source: CRAN
 Version: 0.4-10
-Requires: DBI, RSQLite, chron, gsubfn, proto
 Hash: 46cd78edf0fc3c746c7d26f44fcb4e50
+Requires: DBI, RSQLite, chron, gsubfn, proto
 
 Package: stringi
 Source: CRAN
@@ -173,8 +174,8 @@ Hash: cf342bc407bd5daec77ed1009d5244e1
 Package: stringr
 Source: CRAN
 Version: 1.0.0
-Requires: magrittr, stringi
 Hash: 2676dd5f88890910962b733b0f9540e1
+Requires: magrittr, stringi
 
 Package: whisker
 Source: CRAN
