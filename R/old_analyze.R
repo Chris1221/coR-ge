@@ -10,7 +10,7 @@
 #'
 
 
-analyze <- function(i = double(), j = double()){
+analyze_old <- function(i = double(), j = double()){
 
 	# just for now to grab the R functions
 
