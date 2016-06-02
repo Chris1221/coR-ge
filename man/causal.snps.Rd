@@ -4,7 +4,7 @@
 \alias{causal.snps}
 \title{Function for obtaining a vector of causal SNPs.}
 \usage{
-causal.snps(.summary = NULL)
+causal.snps(.summary = NULL, mode = "default")
 }
 \arguments{
 \item{.summary}{List of SNPs with attributes}

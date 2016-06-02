@@ -14,7 +14,7 @@ causal.snps <- function(.summary = NULL, mode = "default"){
 
   if(mode == "default"){
 
-    .summary %>% sample_n(1000) %>% select(rsid, chromosome, position, all_maf, k) %>% rbind(snps, .) -> snps
+    .summary %>% sample_n(1000) %>% select(rsid, chromosome, position, all_maf) %>% rbind(snps, .) -> snps
 
     colnames(snps) <- c("rsid", "chromosomes", "V3", "all_maf")
 
