@@ -26,15 +26,6 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
 	if(any(is.null(c(i,j,path.base, summary.file)))) stop("Please complete all input arguemnets")
 
-
-		message("Loading required libraries...")
-
-	if (!require("pacman")) install.packages("pacman", "http://cran.utstat.utoronto.ca/")
-	library(pacman)
-	p_load(data.table, dplyr, magrittr, devtools, foreach)
-
-	if (!require("coRge")) install_github("Chris1221/coR-ge")
-	library(coRge) # do this one seperately just to make sur
 	path <- paste0(path.base,i,"_",j,"/")
 	setwd(path)
 
