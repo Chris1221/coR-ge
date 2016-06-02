@@ -233,7 +233,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
     out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = TRUE, group_name = "k")
 
-  } else if(mode = "ld"){
+  } else if(mode == "ld"){
 
 
 
