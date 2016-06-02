@@ -156,7 +156,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 #          / /_\/| '__| / _ \ | | | || '_ \  / _ \ / _` |
 #         / /_\\ | |   | (_) || |_| || |_) ||  __/| (_| |
 #         \____/ |_|    \___/  \__,_|| .__/  \___| \__,_|
-                                    |_|
+#                                    |_|
 
 
 
@@ -232,6 +232,15 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
 
     out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = TRUE, group_name = "k")
+
+  } if(mode = "ld"){
+
+
+
+
+
+
+
 
   }
 
