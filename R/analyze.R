@@ -7,16 +7,16 @@
 #' @param path.base Base of the path.
 #' @param summary.file Path to summary file.
 #' @param output Output stream to write to.
-#' @param T testing (only read one gen file)
+#' @param test testing (only read one gen file)
 #' @param safe Don't delete files
 #'
-#' @import dplyr
-#' @import data.table
 #' @import foreach
-#' @import magrittr
 #' @import pacman
 #' @import devtools
 #' @import lazyeval
+#' @importFrom data.table fread fwrite
+#' @importFrom magrittr %<>%
+#' @importFrom dplyr mutate mutate_ filter filter_ select select_ sample_n %>%
 #'
 #' @return Flat file at specified path.
 #' @export
@@ -318,7 +318,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
   for(th in c(0.2, 0.4, 0.6, 0.8, 0.9, 1)){
 
   	snp_b <- ld %>% filter(R2 > th) %>% select(SNP_B)
-  	strata %<>% mutate_(paste0("th_", th, "= rsid %in% snp_b"))
+  	strata %<>% SE_mutate(col1 = rsid, col2 = )
 
   }
 

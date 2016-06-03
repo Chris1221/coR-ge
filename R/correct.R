@@ -4,8 +4,9 @@
 #' @param n_strata Number of strata
 #' @param assoc Assoc file path
 #'
-#' @import magrittr
-#' @import dplyr
+#' @importFrom data.table fread fwrite
+#' @importFrom magrittr %<>%
+#' @importFrom dplyr mutate filter filter_ %>%
 #'
 #' @return A data frame of FDR and sFDR by grouping level.
 #' @export

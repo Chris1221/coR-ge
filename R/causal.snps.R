@@ -2,8 +2,8 @@
 #'
 #' @param .summary List of SNPs with attributes
 #'
-#' @import dplyr
-#' @import data.table
+#' @importFrom dplyr sample_n select filter
+#' @importFrom data.table fread fwrite
 #'
 #' @export
 

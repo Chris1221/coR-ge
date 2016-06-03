@@ -2,23 +2,23 @@
 % Please edit documentation in R/SE_mutate.R
 \name{SE_mutate}
 \alias{SE_mutate}
-\title{Automated standard evaluation of mutate with %in% operator.}
+\title{Automated standard evaluation of mutate with in operator.}
 \usage{
-SE_mutate(col1, col2, new_col_name, df)
+SE_mutate(df, col1, col2, new_col_name)
 }
 \arguments{
-\item{col1}{col1 %in% col2}
+\item{df}{Data frame to append to.}
 
-\item{col2}{col1 %in% col2}
+\item{col1}{col1 in col2}
+
+\item{col2}{col1 in col2}
 
 \item{new_col_name}{Name of new column. Can be passed as variable.}
-
-\item{df}{Data frame to append to.}
 }
 \value{
-Data frame with ncol(df)+1 columns.
+Data frame with number of columns originally plus one.
 }
 \description{
-Automated standard evaluation of mutate with %in% operator.
+Automated standard evaluation of mutate with in operator.
 }
 

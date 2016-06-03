@@ -2,6 +2,9 @@
 #'
 #' @param df Data frame of input
 #'
+#' @importFrom magrittr %<>%
+#' @importFrom dplyr %>%
+#' 
 #' @return A vector of results
 #'
 #' @export

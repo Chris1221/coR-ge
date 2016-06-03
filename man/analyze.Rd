@@ -20,9 +20,9 @@ analyze(i = double(), j = double(), mode = "default",
 
 \item{output}{Output stream to write to.}
 
-\item{safe}{Don't delete files}
+\item{test}{testing (only read one gen file)}
 
-\item{T}{testing (only read one gen file)}
+\item{safe}{Don't delete files}
 }
 \value{
 Flat file at specified path.
