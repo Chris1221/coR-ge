@@ -16,6 +16,7 @@
 #' @import magrittr
 #' @import pacman
 #' @import devtools
+#' @import lazyeval
 #'
 #' @return Flat file at specified path.
 #' @export
@@ -298,22 +299,28 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     }
     # -----------------------------------------
 
-								message("Calculating LD...")
+	message("Calculating LD...")
 
 	#write out a list of causal SNPs
-				snps %>% select(rsid) %>% as.vector -> snp_list
-				write.table(snp_list, paste0(path, "list.txt", h = F, row.names = F, quote = F)
+  snps %>% select(rsid) %>% as.vector -> snp_list
+  write.table(snp_list, paste0(path, "list.txt"), h = F, row.names = F, quote = F)
 
-				system(paste0("/home/hpc2862/Programs/binary_executables/plink2 --file ", path, i, "_", j, "_out --r2 --ld-snp-list ", path ,"list.txt --ld-window 99999 --ld-window-kb 500 --ld-window-r2 0.2 --allow-no-sex"))
+  system(paste0("/home/hpc2862/Programs/binary_executables/plink2 --file ", path, i, "_", j, "_out --r2 --ld-snp-list ", path ,"list.txt --ld-window 99999 --ld-window-kb 500 --ld-window-r2 0.2 --allow-no-sex"))
 
-				ld <- fread(paste0(path, "list.txt"), h = T)
+  ld <- fread(paste0(path, "list.txt"), h = T)
 
-				
-
-								message("Performing correction")	
+	message("Performing correction")
 
     n_strata <- 2
     strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
+
+  #th = threshold
+  for(th in c(0.2, 0.4, 0.6, 0.8, 0.9, 1)){
+
+  	snp_b <- ld %>% filter(R2 > th) %>% select(SNP_B)
+  	strata %<>% mutate_(paste0("th_", th, "= rsid %in% snp_b"))
+
+  }
 
     out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = FALSE)
 

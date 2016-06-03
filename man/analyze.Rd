@@ -7,7 +7,7 @@
 analyze(i = double(), j = double(), mode = "default",
   path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
   summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
-  output = "~/repos/coR-ge/data/test_run.txt", T = TRUE, safe = TRUE)
+  output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE)
 }
 \arguments{
 \item{i}{i index.}
@@ -20,9 +20,9 @@ analyze(i = double(), j = double(), mode = "default",
 
 \item{output}{Output stream to write to.}
 
-\item{T}{testing (only read one gen file)}
-
 \item{safe}{Don't delete files}
+
+\item{T}{testing (only read one gen file)}
 }
 \value{
 Flat file at specified path.
