@@ -11,9 +11,8 @@
 #' @param safe Don't delete files
 #'
 #' @import foreach
-#' @import pacman
 #' @import devtools
-#' @import lazyeval
+#' @importFrom lazyeval interp
 #' @importFrom data.table fread fwrite
 #' @importFrom magrittr %<>%
 #' @importFrom dplyr mutate mutate_ filter filter_ select select_ sample_n %>%
