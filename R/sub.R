@@ -7,7 +7,7 @@
 #' @export
 
 
-sub <- function(n = NULL){
+sub_job <- function(n = NULL){
 
 	if (is.null(n)) stop("Give a value for n")
 
