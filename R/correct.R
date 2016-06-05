@@ -15,7 +15,7 @@
 
 correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE, group_name = NULL, mode = "default"){
 
-  if(mode = "default"){
+  if(mode == "default"){
 
   strata <- as.data.frame(strata)
 
@@ -85,7 +85,7 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
 
     }
   }
-  } else if(mode = "ld"){
+  } else if(mode == "ld"){
       strata <- as.data.frame(strata)
 
       if(group && is.null(group_name)) stop("Please name your group")
