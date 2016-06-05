@@ -318,7 +318,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
   for(th in c(0.2, 0.4, 0.6, 0.8, 0.9, 1)){
 
-  	snp_b <- ld %>% filter(R2 > th) %>% select(SNP_B)
+  	snp_b <- ld %>% filter(R2 > th) %>% select(SNP_B) %>% unique
   	
   	# old, untested, does not conform to grouping to k	
   	#strata %<>% SE_mutate(col1 = rsid, col2 = snp_b,new_col_name = paste0("th", th))
