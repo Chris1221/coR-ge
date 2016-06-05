@@ -20,12 +20,12 @@ init <- function(){
 	test <- TRUE
 	safe <- TRUE
 
-	vold <- packageVersion(coRge)
+	vold <- packageVersion("coRge")
 
 	if(!require(devtools)) install.packages("devtools")
 	devtools::install_github("Chris1221/coR-ge", ref = "devel")
 
-	vnew <- packageVersion(coRge)
+	vnew <- packageVersion("coRge")
 
 	if(vold != vnew) message("coRge has been updated!")
 
