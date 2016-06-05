@@ -9,7 +9,8 @@
 
 sub_job <- function(ni = NULL, nj = NULL){
 
-	if (is.null(n)) stop("Give a value for n")
+	if (is.null(ni)) stop("Give a range for ni")
+	if (is.null(nj)) stop("Give a range for nj")
 
 	for(i in ni){
 		for(j in nj){
