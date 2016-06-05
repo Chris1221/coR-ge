@@ -18,4 +18,7 @@ init <- function(){
 	output = "~/repos/coR-ge/data/test_run2.txt"
 	test = TRUE
 	safe = TRUE
+
+	if(!require(devtools)) install.packages("devtools")
+	devtools::install_github("Chris1221/coR-ge", ref = "devel")
 }
