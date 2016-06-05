@@ -80,7 +80,7 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
       sfdr <- (s1[1]+s2[1]) / (s1[1]+s2[1] + s1[2]+s2[2])
       fdr <- agg[3]
 
-      out[j+1,] <- c(sfdr, fdr, i)
+      out[nrow(out)+1,] <- c(sfdr, fdr, i)
       j <- j+1
 
     }
@@ -92,11 +92,12 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
 
       out <- data.frame(sfdr = double(), fdr = double(), k = integer(), th = double())
 
-      for(th in levels(df$ld)){
+      assoc.df <- fread(assoc, h = T)
+      strata %<>%
+        merge(assoc.df, by.x = "rsid", by.y = "SNP")
 
-        assoc.df <- fread(assoc, h = T)
-        strata %<>%
-          merge(assoc.df, by.x = "rsid", by.y = "SNP")
+      for(th in levels(as.factor(strata$ld))){
+        k <- 1
 
         message("Calculating sFDR and FDR")
 
@@ -120,12 +121,13 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
         sfdr <- (s1[1]+s2[1]) / (s1[1]+s2[1] + s1[2]+s2[2])
         fdr <- agg[3]
 
-        out[1,] <- c(sfdr, fdr, "all", th)
+        out[nrow(out)+1,] <- c(sfdr, fdr, "all", th)
+
 
         if(group) {
 
-          j <- 1
-          for(i in levels(strata[, get(group_name)])){
+        message("Grouping")
+          for(i in levels(as.factor(strata[, group_name]))){
 
             strata %>%
               filter(s == 1) %>%
@@ -151,12 +153,13 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
             sfdr <- (s1[1]+s2[1]) / (s1[1]+s2[1] + s1[2]+s2[2])
             fdr <- agg[3]
 
-            out[j+1,] <- c(sfdr, fdr, i, th)
-            j <- j+1
+            out[nrow(out)+1,] <- c(sfdr, fdr, i, th)
+
+          }
 
         }
       }
-      }
+
   }
 
 

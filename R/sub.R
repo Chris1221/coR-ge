@@ -7,14 +7,15 @@
 #' @export
 
 
-sub_job <- function(n = NULL){
+sub_job <- function(ni = NULL, nj = NULL){
 
 	if (is.null(n)) stop("Give a value for n")
 
-	for(i in 1:n){
-		for(j in 1:n){
-			sh <- system.file("bash", "sub.sh")
-    			system(paste0("qsub -N ", i, " ", j, " ", sh, " ", i, " ", j))
+	for(i in ni){
+		for(j in nj){
+			sh <- system.file(package = "coRge", "bash/submit.sh")
+			r <- system.file(package = "coRge", "bash/submit.R")
+    			system(paste0("qsub -N ", i, "_", j, " ", sh, " ", i, " ", j, " ", r))
 			message(paste0("Submitted i = ", i, " j = ", j))
 		}
 	}
