@@ -1,0 +1,16 @@
+#!/bin/bash
+#$ -S /bin/bash
+#$ -q abaqus.q
+#$ -l qname=abaqus.q
+#$ -cwd
+#$ -V
+#$ -l mf=192G
+#$ -j y
+#$ -o /home/hpc2862/repos/coR-ge/inst/logs/$JOB_NAME.txt
+
+# Script here
+# ------------------
+
+cd /scratch/hpc2862/CAMH/perm_container/container_3_3/
+
+plink --file 3_3_out --r2 --matrix --allow-no-sex

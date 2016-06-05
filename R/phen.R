@@ -3,6 +3,7 @@
 #' @param .snps SNPs matrix
 #' @param .combR combR matrix
 #'
+#' 
 #' @export
 
 phen <- function(.snps = snps, .combR = combR){

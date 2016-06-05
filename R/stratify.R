@@ -7,7 +7,8 @@
 #' @param p Proportion in strata 1
 #' @param n_strata Number of strata. Currently only supports 2.
 #'
-#' @import magrittr
+#' @importFrom magrittr %<>%
+#' @importFrom dplyr filter mutate sample_n %>%
 #'
 #' @export
 

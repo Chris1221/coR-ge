@@ -1,7 +1,7 @@
 Package: coRge
 Type: Package
 Title: An R package for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments.
-Version: 0.1
+Version: 0.5.6.9000
 Date: 2016-03-06
 Author: Christopher B. Cole
 Maintainer: Christopher B. Cole <chris.c.1221@gmail.com>
@@ -10,5 +10,7 @@ License: MIT
 LazyData: TRUE
 RoxygenNote: 5.0.1
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    testthat,
+    covr
 VignetteBuilder: knitr
