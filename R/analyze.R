@@ -300,7 +300,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
 	#write out a list of causal SNPs
   snps %>% select(rsid) %>% as.vector -> snp_list
-  write.table(snp_list, paste0(path, "list.txt"), h = F, row.names = F, quote = F)
+  write.table(snp_list, paste0(path, "list.txt"), col.names = F, row.names = F, quote = F)
 
   system(paste0("/home/hpc2862/Programs/binary_executables/plink2 --file ", path, i, "_", j, "_out --r2 --ld-snp-list ", path ,"list.txt --ld-window 99999 --ld-window-kb 500 --ld-window-r2 0.2 --allow-no-sex"))
 
