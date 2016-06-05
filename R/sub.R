@@ -15,7 +15,7 @@ sub_job <- function(ni = NULL, nj = NULL){
 		for(j in nj){
 			sh <- system.file(package = "coRge", "bash/submit.sh")
 			r <- system.file(package = "coRge", "bash/submit.R")
-    			system(paste0("qsub -N ", i, "_", j, " ", sh, " ", i, " ", j, " ", r))
+    			system(paste0("qsub -N ld_run_", i, "_", j, " ", sh, " ", i, " ", j, " ", r))
 			message(paste0("Submitted i = ", i, " j = ", j))
 		}
 	}
