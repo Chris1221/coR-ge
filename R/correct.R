@@ -51,7 +51,8 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
 
   if(group) {
 
-    for(i in 1:nlevels(strata[, group_name])){
+  j <- 1
+    for(i in levels(strata[, get(group_name)])){
 
       strata %>%
         filter(s == 1) %>%
@@ -77,7 +78,8 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
       sfdr <- (s1[1]+s2[1]) / (s1[1]+s2[1] + s1[2]+s2[2])
       fdr <- agg[3]
 
-      out[i+1,] <- c(sfdr, fdr, i)
+      out[j+1,] <- c(sfdr, fdr, i)
+      j <- j+1
 
     }
   }
