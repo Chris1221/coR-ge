@@ -2,6 +2,7 @@
 
 if(!require(devtools)) install.packages("devtools")
 devtools::install_github("Chris1221/coR-ge", ref = "devel")
+library(coRge)
 
 args = commandArgs(trailingOnly=TRUE)
 
