@@ -304,7 +304,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
   system(paste0("/home/hpc2862/Programs/binary_executables/plink2 --file ", path, i, "_", j, "_out --r2 --ld-snp-list ", path ,"list.txt --ld-window 99999 --ld-window-kb 500 --ld-window-r2 0.2 --allow-no-sex"))
 
-  ld <- fread(paste0(path, "list.txt"), h = T)
+  ld <- fread(paste0(path, "plink.ld"), h = T)
 
 	message("Performing correction")
 
