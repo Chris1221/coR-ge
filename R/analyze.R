@@ -318,8 +318,11 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
   for(th in c(0.2, 0.4, 0.6, 0.8, 0.9, 1)){
 
-  	snp_b <- ld %>% filter(R2 > th) %>% select(SNP_B) %>% sort %>% unique
-  	
+  	#snp_b <- ld %>% filter(R2 > th) %>% select(SNP_B) %>% sort %>% unique
+ 	
+	#Try non dplyr here too	
+  	snp_b <- unique(ld$SNP_B[ld$R2 > th])
+
   	# old, untested, does not conform to grouping to k	
   	#strata %<>% SE_mutate(col1 = rsid, col2 = snp_b,new_col_name = paste0("th", th))
 	
@@ -329,6 +332,8 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
   	strata$k[strata$rsid %in% snp_b] <- th
 
   }
+
+  strata$k %<>% as.factor
 
     out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = TRUE, group = "k")
 

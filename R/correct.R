@@ -1,5 +1,7 @@
 #' Correct strata by group
 #'
+#' Note that group name must be a factor 
+#'
 #' @param strata Strata
 #' @param n_strata Number of strata
 #' @param assoc Assoc file path
@@ -49,7 +51,7 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
 
   if(group) {
 
-    for(i in 1:max(strata[, group_name])){
+    for(i in 1:nlevels(strata[, group_name])){
 
       strata %>%
         filter(s == 1) %>%

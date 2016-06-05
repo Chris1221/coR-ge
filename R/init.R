@@ -1,5 +1,7 @@
 #' Initialize a testing environment
-#' 
+#'
+#' This is definitely not working yet
+#'
 #' @export
 
 init <- function(){
