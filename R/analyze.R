@@ -268,8 +268,6 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     fwrite(samp, paste0(path,"phen_test.sample"), quote = FALSE, col.names = T, sep = "\t")
     fwrite(gen, paste0(path,"gen_test.gen"), quote = FALSE, col.names = F, sep = "\t")
 
-    # ----------------------------------------------
-
     message("Cleaning up")
 
     if(!safe){
@@ -317,7 +315,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
   for(th in c(0.2, 0.4, 0.6, 0.8, 0.9, 1)){
 
   	snp_b <- ld %>% filter(R2 > th) %>% select(SNP_B)
-  	strata %<>% SE_mutate(col1 = rsid, col2 = )
+  	strata %<>% SE_mutate(col1 = rsid, col2 = snp_b,new_col_name = paste0("th", th))
 
   }
 
