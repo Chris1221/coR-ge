@@ -29,5 +29,5 @@ init <- function(){
 
 	if(vold != vnew) message("coRge has been updated!")
 
-	return(list(i,j,mode, path.base, summary.file, output, test, safe))
+	return(list(i,j, path.base, summary.file, output, test, safe))
 }
