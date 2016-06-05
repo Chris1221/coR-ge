@@ -1,6 +1,6 @@
 #' Correct strata by group
 #'
-#' Note that group name must be a factor 
+#' Note that group name must be a factor
 #'
 #' @param strata Strata
 #' @param n_strata Number of strata
@@ -13,7 +13,9 @@
 #' @return A data frame of FDR and sFDR by grouping level.
 #' @export
 
-correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE, group_name = NULL){
+correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE, group_name = NULL, mode = "default"){
+
+  if(mode = "default"){
 
   strata <- as.data.frame(strata)
 
@@ -83,6 +85,81 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
 
     }
   }
-  return(out)
+  } else if(mode = "ld"){
+      strata <- as.data.frame(strata)
+
+      if(group && is.null(group_name)) stop("Please name your group")
+
+      out <- data.frame(sfdr = double(), fdr = double(), k = integer(), th = double())
+
+      for(th in levels(df$ld)){
+
+        assoc.df <- fread(assoc, h = T)
+        strata %<>%
+          merge(assoc.df, by.x = "rsid", by.y = "SNP")
+
+        message("Calculating sFDR and FDR")
+
+        strata %>%
+          filter(s == 1) %>%
+          mutate(p.adj = p.adjust(P, method = "BH")) %>%
+          fdr(., mode = "ld", level = th) ->
+          s1
+
+        strata %>%
+          filter(s == 2) %>%
+          mutate(p.adj = p.adjust(P, method = "BH")) %>%
+          fdr(.,  mode = "ld", level = th) ->
+          s2
+
+        strata %>%
+          mutate(p.adj = p.adjust(P, method = "BH")) %>%
+          fdr(., mode = "ld", level = th) ->
+          agg
+
+        sfdr <- (s1[1]+s2[1]) / (s1[1]+s2[1] + s1[2]+s2[2])
+        fdr <- agg[3]
+
+        out[1,] <- c(sfdr, fdr, "all", th)
+
+        if(group) {
+
+          j <- 1
+          for(i in levels(strata[, get(group_name)])){
+
+            strata %>%
+              filter(s == 1) %>%
+              filter_(paste0(group_name, "==", i)) %>%
+              mutate(p.adj = p.adjust(P, method = "BH")) %>%
+              fdr(., mode = "ld", level = th) ->
+              s1
+
+            strata %>%
+              filter(s == 2) %>%
+              filter_(paste0(group_name, "==", i)) %>%
+              mutate(p.adj = p.adjust(P, method = "BH")) %>%
+              fdr(., mode = "ld", level = th) ->
+              s2
+
+            strata %>%
+              filter_(paste0(group_name, "==", i)) %>%
+              mutate(p.adj = p.adjust(P, method = "BH")) %>%
+              fdr(., mode = "ld", level = th) ->
+              agg
+
+
+            sfdr <- (s1[1]+s2[1]) / (s1[1]+s2[1] + s1[2]+s2[2])
+            fdr <- agg[3]
+
+            out[j+1,] <- c(sfdr, fdr, i, th)
+            j <- j+1
+
+        }
+      }
+      }
+  }
+
+
+  	  return(out)
 
 }
