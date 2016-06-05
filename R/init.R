@@ -28,4 +28,6 @@ init <- function(){
 	vnew <<- packageVersion(coRge)
 
 	if(vold != vnew) message("coRge has been updated!")
+
+	return(list(i,j,mode, path.base, summary.file, output, test, safe))
 }
