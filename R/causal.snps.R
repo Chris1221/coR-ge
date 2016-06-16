@@ -7,14 +7,14 @@
 #'
 #' @export
 
-causal.snps <- function(.summary = NULL, mode = "default"){
+causal.snps <- function(.summary = NULL, mode = "default", nc = NULL){
 
   snps <- NULL
 
 
   if(mode == "default"){
 
-    .summary %>% sample_n(1000) %>% select(rsid, chromosome, position, all_maf) %>% rbind(snps, .) -> snps
+    .summary %>% sample_n(nc) %>% select(rsid, chromosome, position, all_maf) %>% rbind(snps, .) -> snps
 
     colnames(snps) <- c("rsid", "chromosomes", "V3", "all_maf")
 
@@ -22,7 +22,7 @@ causal.snps <- function(.summary = NULL, mode = "default"){
   } else if(mode == "grouped"){
 
   	for(i in 1:max(.summary$k)){
-  		.summary %>% filter(k==i) %>% sample_n(1000) %>% select(rsid, chromosome, position, all_maf, k) %>% rbind(snps, .) -> snps}
+  		.summary %>% filter(k==i) %>% sample_n(nc) %>% select(rsid, chromosome, position, all_maf, k) %>% rbind(snps, .) -> snps}
 
   	# Not sure what to make of this right now.
   	colnames(snps) <- c("rsid", "chromosomes", "V3", "all_maf", "k")

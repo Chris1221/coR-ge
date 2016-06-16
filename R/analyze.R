@@ -11,6 +11,7 @@
 #' @param safe Don't delete files
 #' @param pc Proportion of causal SNPs in the second strata
 #' @param pnc Proportion of noncausal SNPs in the second strata
+#' @param nc Number of causal SNPs
 #'
 #' @import foreach
 #' @import devtools
@@ -24,7 +25,7 @@
 
 
 
-analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE, local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5){
+analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE, local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5, nc = 1000){
 
 	if(is.null(gen)){
 
@@ -84,7 +85,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
     		message("Selecting Causal SNPs")
 
-    	snps <- causal.snps(summary, mode = "default")
+    	snps <- causal.snps(summary, mode = "default", nc = nc)
     	colnames(snps)[3] <- "V3"
 
 
@@ -98,7 +99,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     		comb$k <- NULL
     		comb$chromosomes <- NULL
 
-    		WAS <- calculate_was(gen = comb, snps = snps)
+    		WAS <- calculate_was(gen = comb, snps = snps, h2 = h2)
 
     	samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(1-h2)))
 
@@ -169,7 +170,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
     message("Selecting Causal SNPs")
 
-    snps <- causal.snps(summary, mode = "grouped")
+    snps <- causal.snps(summary, mode = "grouped", nc = nc)
     colnames(snps)[3] <- "V3"
 
 
@@ -183,9 +184,9 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     comb$k <- NULL
     comb$chromosomes <- NULL
 
-    WAS <- calculate_was(gen = comb, snps = snps)
+    WAS <- calculate_was(gen = comb, snps = snps, h2 = h2)
 
-    samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(0.55)))
+    samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(1-h2)))
 
 
     var <- data.frame(0, 0, 0, "P")
@@ -234,7 +235,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     snps %>% select(rsid) %>% as.vector -> snp_list
 
     n_strata <- 2
-    strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
+    strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata, pc = pc, pnc = pnc)
 
     out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = TRUE, group_name = "k")
 
@@ -253,7 +254,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
     message("Selecting Causal SNPs")
 
-    snps <- causal.snps(summary, mode = "default")
+    snps <- causal.snps(summary, mode = "default", nc = nc)
     colnames(snps)[3] <- "V3"
 
     message("Merging together and converting from Oxford to R format...")
@@ -266,9 +267,9 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     comb$k <- NULL
     comb$chromosomes <- NULL
 
-    WAS <- calculate_was(gen = comb, snps = snps)
+    WAS <- calculate_was(gen = comb, snps = snps, h2 = h2)
 
-    samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(0.55)))
+    samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(1 - h2)))
 
 
     var <- data.frame(0, 0, 0, "P")
@@ -322,7 +323,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 	message("Performing correction")
 
     n_strata <- 2
-    strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
+    strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata, pc = pc, pnc = pnc)
 
   #th = threshold
 
