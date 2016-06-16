@@ -4,8 +4,9 @@
 #'
 #' @param snp_list Vector of true SNPs
 #' @param summary Full summmary sheet
-#' @param p Proportion in strata 1
 #' @param n_strata Number of strata. Currently only supports 2.
+#' @param pnc Proportion non causal
+#' @param pc Porportion Causal
 #'
 #' @importFrom magrittr %<>%
 #' @importFrom dplyr filter mutate sample_n %>%
@@ -14,7 +15,7 @@
 
 stratify <- function(snp_list = NULL, summary = NULL, pnc = NULL, pc = NULL, n_strata = NULL){
 
-	if(any(c(is.null(snp_list), is.null(summary), is.null(p), is.null(n_strata)))) stop("Missing a required input arguement")
+	if(any(c(is.null(snp_list), is.null(summary), is.null(n_strata)))) stop("Missing a required input arguement")
 
 	h0_summary <- summary %>% filter(!(rsid %in% unlist(snp_list))) %>% mutate(h1 = F)
 	h1_summary <- summary %>% filter(rsid %in% unlist(snp_list)) %>% mutate(h1 = T)

@@ -12,9 +12,11 @@ stratify(snp_list = NULL, summary = NULL, pnc = NULL, pc = NULL,
 
 \item{summary}{Full summmary sheet}
 
-\item{n_strata}{Number of strata. Currently only supports 2.}
+\item{pnc}{Proportion non causal}
 
-\item{p}{Proportion in strata 1}
+\item{pc}{Porportion Causal}
+
+\item{n_strata}{Number of strata. Currently only supports 2.}
 }
 \description{
 Currently only set up to handle two stata for arbitrary p in [0,1].
