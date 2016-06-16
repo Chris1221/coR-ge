@@ -15,5 +15,3 @@ vignettes/*.pdf
 packrat/lib*/
 inst/TeX/CIHR/*
 inst/doc
-
-./data
