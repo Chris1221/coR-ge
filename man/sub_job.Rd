@@ -4,7 +4,7 @@
 \alias{sub_job}
 \title{Submission Convenience function}
 \usage{
-sub_job(n = NULL)
+sub_job(ni = NULL, nj = NULL)
 }
 \arguments{
 \item{n}{Number of jobs to submit. Defaults}
