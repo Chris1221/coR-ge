@@ -6,7 +6,7 @@
 #' 
 #' @export
 
-phen <- function(.snps = snps, .combR = combR){
+phen <- function(.snps = snps, .combR = combR, .h2 = h2){
 
 	message("Calculating phenotypes...")
 
@@ -35,7 +35,7 @@ phen <- function(.snps = snps, .combR = combR){
 
 	## generate variance residuals
 
-	sd2 <- rand(n = nc, sum = 0.45)
+	sd2 <- rand(n = nc, sum = .h2)
 
 	results <- vector()
 	results <- as.data.frame(results)

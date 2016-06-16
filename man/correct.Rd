@@ -5,7 +5,7 @@
 \title{Correct strata by group}
 \usage{
 correct(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
-  group_name = NULL)
+  group_name = NULL, mode = "default")
 }
 \arguments{
 \item{strata}{Strata}
@@ -18,6 +18,6 @@ correct(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
 A data frame of FDR and sFDR by grouping level.
 }
 \description{
-Correct strata by group
+Note that group name must be a factor
 }
 

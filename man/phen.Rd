@@ -4,7 +4,7 @@
 \alias{phen}
 \title{Phenotype Calculation}
 \usage{
-phen(.snps = snps, .combR = combR)
+phen(.snps = snps, .combR = combR, .h2 = h2)
 }
 \arguments{
 \item{.snps}{SNPs matrix}

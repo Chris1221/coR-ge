@@ -9,6 +9,11 @@
 #' @param output Output stream to write to.
 #' @param test testing (only read one gen file)
 #' @param safe Don't delete files
+#' @param pc Proportion of causal SNPs in the second strata
+#' @param pnc Proportion of noncausal SNPs in the second strata
+#' @param nc Number of causal SNPs
+#' @param gen Gen matrix if local 
+#' @param summary Summary file if preread
 #'
 #' @import foreach
 #' @import devtools
@@ -20,44 +25,52 @@
 #' @return Flat file at specified path.
 #' @export
 
-analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE){
 
 
-		message("Error Checking")
+analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE, local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5, nc = 1000, gen = NULL, summary = summary){
 
-	if(any(is.null(c(i,j,path.base, summary.file)))) stop("Please complete all input arguemnets")
+	if(local) {
 
-	path <- paste0(path.base,i,"_",j,"/")
-	setwd(path)
+		gen <- gen
+		summary <- summary
+
+	} else if(!local){
+
+			message("Error Checking")
+
+		if(any(is.null(c(i,j,path.base, summary.file)))) stop("Please complete all input arguemnets")
+
+		path <- paste0(path.base,i,"_",j,"/")
+		setwd(path)
 
 
-		message("Deleting junk files...")
+			message("Deleting junk files...")
 
-	list.files(path)[!grepl("controls.gen", list.files(path))] %>%
-		file.remove
+		list.files(path)[!grepl("controls.gen", list.files(path))] %>%
+			file.remove
 
-		message("Reading in genotype files...")
+			message("Reading in genotype files...")
 
-		if(!test){
+			if(!test){
 
-	for(k in 1:5){
-		if(k == 1){
-			fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
-		} else if(k != 1){
-			fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
+		for(k in 1:5){
+			if(k == 1){
+				fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
+			} else if(k != 1){
+				fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
+			}
 		}
+
+			} else if(test){
+			  k <- 1
+
+			  gen <- fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame()
+			}
+
+		colnames(gen) <- paste0("V",1:ncol(gen))
+		summary <- fread(summary.file, h = T, sep = " ")
+
 	}
-
-		} else if(test){
-		  k <- 1
-
-		  gen <- fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame()
-		}
-
-	colnames(gen) <- paste0("V",1:ncol(gen))
-
-	summary <- fread(summary.file, h = T, sep = " ")
-
 
 # 	     ___         __                _  _
 # 	    /   \  ___  / _|  __ _  _   _ | || |_
@@ -72,7 +85,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
     		message("Selecting Causal SNPs")
 
-    	snps <- causal.snps(summary, mode = "default")
+    	snps <- causal.snps(summary, mode = "default", nc = nc)
     	colnames(snps)[3] <- "V3"
 
 
@@ -86,9 +99,9 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     		comb$k <- NULL
     		comb$chromosomes <- NULL
 
-    		WAS <- calculate_was(gen = comb, snps = snps)
+    		WAS <- calculate_was(gen = comb, snps = snps, h2 = h2)
 
-    	samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(0.55)))
+    	samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(1-h2)))
 
 
     	var <- data.frame(0, 0, 0, "P")
@@ -121,7 +134,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
       	system("rm phen_test.sample")
       }
 
-    	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
+    	system(paste0("/home/hpc2862/Programs/binary_executables/plink2 --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
 
 
     	if(!safe){
@@ -134,12 +147,13 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
     	message("Performing correction")
 
-    	snps %>% select(rsid) %>% as.vector -> snp_list
+	snps %>% select(rsid) %>% as.vector -> snp_list
 
-      n_strata <- 2
-      strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
+	#this is a major assumption so leave it
+	n_strata <- 2
+	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc)
 
-      out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = FALSE)
+	out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = FALSE)
 
 
 
@@ -156,7 +170,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
     message("Selecting Causal SNPs")
 
-    snps <- causal.snps(summary, mode = "grouped")
+    snps <- causal.snps(summary, mode = "grouped", nc = nc)
     colnames(snps)[3] <- "V3"
 
 
@@ -170,9 +184,9 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     comb$k <- NULL
     comb$chromosomes <- NULL
 
-    WAS <- calculate_was(gen = comb, snps = snps)
+    WAS <- calculate_was(gen = comb, snps = snps, h2 = h2)
 
-    samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(0.55)))
+    samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(1-h2)))
 
 
     var <- data.frame(0, 0, 0, "P")
@@ -221,7 +235,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     snps %>% select(rsid) %>% as.vector -> snp_list
 
     n_strata <- 2
-    strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
+    strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc)
 
     out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = TRUE, group_name = "k")
 
@@ -240,7 +254,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
     message("Selecting Causal SNPs")
 
-    snps <- causal.snps(summary, mode = "default")
+    snps <- causal.snps(summary, mode = "default", nc = nc)
     colnames(snps)[3] <- "V3"
 
     message("Merging together and converting from Oxford to R format...")
@@ -253,9 +267,9 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     comb$k <- NULL
     comb$chromosomes <- NULL
 
-    WAS <- calculate_was(gen = comb, snps = snps)
+    WAS <- calculate_was(gen = comb, snps = snps, h2 = h2)
 
-    samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(0.55)))
+    samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(1 - h2)))
 
 
     var <- data.frame(0, 0, 0, "P")
@@ -309,7 +323,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 	message("Performing correction")
 
     n_strata <- 2
-    strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata)
+    strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc)
 
   #th = threshold
 

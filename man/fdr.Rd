@@ -4,7 +4,7 @@
 \alias{fdr}
 \title{Calculates FDR given a data frame}
 \usage{
-fdr(df = NULL)
+fdr(df = NULL, mode = "default", level = NULL)
 }
 \arguments{
 \item{df}{Data frame of input}

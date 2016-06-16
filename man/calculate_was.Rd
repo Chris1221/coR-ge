@@ -4,12 +4,14 @@
 \alias{calculate_was}
 \title{Takes gen file and calculates weighted allele scores (WAS)}
 \usage{
-calculate_was(gen = NULL, snps = NULL)
+calculate_was(gen = NULL, snps = NULL, h2 = NULL)
 }
 \arguments{
 \item{gen}{Truncated gen file with only causal snps}
 
 \item{snps}{Truncated summary file with only causal snps}
+
+\item{h2}{Heritability estimate}
 }
 \value{
 A vector of weighted allele scores
