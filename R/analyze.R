@@ -21,51 +21,53 @@
 #' @export
 
 
-# Things to do:
-# 1. Make local version (local == TRUE)
-# 2. Bring Pc Pnc, h2, etc to the arguements
-# 3. batch
-
-
 
 analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE){
 
+	if(is.null(gen)){
 
-		message("Error Checking")
+			message("Error Checking")
 
-	if(any(is.null(c(i,j,path.base, summary.file)))) stop("Please complete all input arguemnets")
+		if(any(is.null(c(i,j,path.base, summary.file)))) stop("Please complete all input arguemnets")
 
-	path <- paste0(path.base,i,"_",j,"/")
-	setwd(path)
+		path <- paste0(path.base,i,"_",j,"/")
+		setwd(path)
 
 
-		message("Deleting junk files...")
+			message("Deleting junk files...")
 
-	list.files(path)[!grepl("controls.gen", list.files(path))] %>%
-		file.remove
+		list.files(path)[!grepl("controls.gen", list.files(path))] %>%
+			file.remove
 
-		message("Reading in genotype files...")
+			message("Reading in genotype files...")
 
-		if(!test){
+			if(!test){
 
-	for(k in 1:5){
-		if(k == 1){
-			fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
-		} else if(k != 1){
-			fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
+		for(k in 1:5){
+			if(k == 1){
+				fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
+			} else if(k != 1){
+				fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
+			}
 		}
+
+			} else if(test){
+			  k <- 1
+
+			  gen <- fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame()
+			}
+
+		colnames(gen) <- paste0("V",1:ncol(gen))
+
+	} else {
+		gen <- gen
 	}
 
-		} else if(test){
-		  k <- 1
-
-		  gen <- fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame()
-		}
-
-	colnames(gen) <- paste0("V",1:ncol(gen))
-
-	summary <- fread(summary.file, h = T, sep = " ")
-
+	if(typeof(summary) == "character"){
+		summary <- fread(summary.file, h = T, sep = " ")
+	} else {
+		summary <- summary
+	}
 
 # 	     ___         __                _  _
 # 	    /   \  ___  / _|  __ _  _   _ | || |_
