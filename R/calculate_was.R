@@ -2,13 +2,14 @@
 #'
 #' @param gen Truncated gen file with only causal snps
 #' @param snps Truncated summary file with only causal snps
+#' @param h2 Heritability estimate
 #'
 #' @importFrom dplyr %>%
 #'
 #' @return A vector of weighted allele scores
 #' @export
 
-calculate_was <- function(gen = NULL, snps = NULL){
+calculate_was <- function(gen = NULL, snps = NULL, h2 = NULL){
 
   if(is.null(gen)) stop("Please input a gen matrix")
   if(is.null(snps)) stop("Please input a snps matrix")
@@ -17,7 +18,7 @@ calculate_was <- function(gen = NULL, snps = NULL){
     t -> genM
 
   # 9 betas
-  b <- phen(.snps = snps, .combR = genM)
+  b <- phen(.snps = snps, .combR = genM, .h2 = h2)
 
   for(i in seq(1, nrow(genM), by = 3)){
 

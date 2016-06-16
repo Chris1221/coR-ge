@@ -35,7 +35,7 @@ phen <- function(.snps = snps, .combR = combR, .h2 = h2){
 
 	## generate variance residuals
 
-	sd2 <- rand(n = nc, sum = h2)
+	sd2 <- rand(n = nc, sum = .h2)
 
 	results <- vector()
 	results <- as.data.frame(results)
