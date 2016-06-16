@@ -4,16 +4,17 @@
 \alias{stratify}
 \title{Create strata}
 \usage{
-stratify(snp_list = NULL, summary = NULL, p = NULL, n_strata = NULL)
+stratify(snp_list = NULL, summary = NULL, pnc = NULL, pc = NULL,
+  n_strata = NULL)
 }
 \arguments{
 \item{snp_list}{Vector of true SNPs}
 
 \item{summary}{Full summmary sheet}
 
-\item{p}{Proportion in strata 1}
-
 \item{n_strata}{Number of strata. Currently only supports 2.}
+
+\item{p}{Proportion in strata 1}
 }
 \description{
 Currently only set up to handle two stata for arbitrary p in [0,1].

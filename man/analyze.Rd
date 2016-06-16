@@ -7,7 +7,8 @@
 analyze(i = double(), j = double(), mode = "default",
   path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
   summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
-  output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE)
+  output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE,
+  local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5)
 }
 \arguments{
 \item{i}{i index.}
@@ -23,6 +24,10 @@ analyze(i = double(), j = double(), mode = "default",
 \item{test}{testing (only read one gen file)}
 
 \item{safe}{Don't delete files}
+
+\item{pc}{Proportion of causal SNPs in the second strata}
+
+\item{pnc}{Proportion of noncausal SNPs in the second strata}
 }
 \value{
 Flat file at specified path.
