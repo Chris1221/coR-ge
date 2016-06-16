@@ -9,6 +9,8 @@
 #' @param output Output stream to write to.
 #' @param test testing (only read one gen file)
 #' @param safe Don't delete files
+#' @param pc Proportion of causal SNPs in the second strata
+#' @param pnc Proportion of noncausal SNPs in the second strata
 #'
 #' @import foreach
 #' @import devtools
