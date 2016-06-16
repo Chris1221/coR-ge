@@ -4,10 +4,19 @@
 \alias{causal.snps}
 \title{Function for obtaining a vector of causal SNPs.}
 \usage{
-causal.snps(.summary = NULL, mode = "default", nc = NULL)
+causal.snps(.summary = NULL, mode = "default", nc = NULL, maf = FALSE,
+  maf_range = NULL)
 }
 \arguments{
 \item{.summary}{List of SNPs with attributes}
+
+\item{mode}{Mode}
+
+\item{nc}{Number of causal SNPs}
+
+\item{maf}{TRUE is selecting via maf}
+
+\item{maf_range}{Range of the form c(lower, upper)}
 }
 \description{
 Function for obtaining a vector of causal SNPs.
