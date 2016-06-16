@@ -134,7 +134,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
       	system("rm phen_test.sample")
       }
 
-    	system(paste0("/home/hpc2862/Programs/binary_executables/plink --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
+    	system(paste0("/home/hpc2862/Programs/binary_executables/plink2 --noweb --file ",path, i, "_", j, "_out --assoc --allow-no-sex --out ", path, "plink"))
 
 
     	if(!safe){
@@ -151,7 +151,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
 	#this is a major assumption so leave it
 	n_strata <- 2
-	strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata, pc = pc, pnc = pnc)
+	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc)
 
 	out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = FALSE)
 
@@ -235,7 +235,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     snps %>% select(rsid) %>% as.vector -> snp_list
 
     n_strata <- 2
-    strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata, pc = pc, pnc = pnc)
+    strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc)
 
     out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = TRUE, group_name = "k")
 
@@ -323,7 +323,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 	message("Performing correction")
 
     n_strata <- 2
-    strata <- stratify(snp_list = snp_list, summary = summary, p = 0.5, n_strata = n_strata, pc = pc, pnc = pnc)
+    strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc)
 
   #th = threshold
 
