@@ -12,6 +12,7 @@
 #' @param pc Proportion of causal SNPs in the second strata
 #' @param pnc Proportion of noncausal SNPs in the second strata
 #' @param nc Number of causal SNPs
+#' @param gen Gen matrix if local 
 #'
 #' @import foreach
 #' @import devtools
