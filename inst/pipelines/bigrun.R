@@ -58,3 +58,13 @@ registerDoMC(cores = 8)
 library(foreach)
 
 
+# chec if all need to be par or just the top level one, probbaly all but check speed if both
+
+
+foreach(i in c(1:10)) %dopar% 
+	foreach(j in c(1:10)) %do%
+		foreach(h2 in seq(0.1, 0.9, by = 0.1)) %do%
+			foreach(pc in seq(0.1, 0.9, by = 0.1)) %do%
+				foreach(pnc in seq(0.1., 0.9, by = 0.1)) %do%
+					foreach(nc in seq(50,500, by =50)) %do%
+						foreach(/jj
