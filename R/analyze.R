@@ -9,6 +9,7 @@
 #' @param output Output stream to write to.
 #' @param test testing (only read one gen file)
 #' @param safe Don't delete files
+#' @param h2 Proportion of heritability explained by causal SNPS
 #' @param pc Proportion of causal SNPs in the second strata
 #' @param pnc Proportion of noncausal SNPs in the second strata
 #' @param nc Number of causal SNPs
@@ -27,7 +28,7 @@
 
 
 
-analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE, local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5, nc = 1000, gen = NULL, summary = summary, maf = FALSE, maf_range = NULL){
+analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE, local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5, nc = 1000, gen = NULL, summary = summary){
 
 	if(local) {
 
