@@ -8,6 +8,11 @@
 #
 # ------------------------------------------------------------------------------- #
 
+library(dplyr)
+library(devtools)
+library(data.table)
+
+
 test <- FALSE
 
 args <- commandArgs(TRUE)
