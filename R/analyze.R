@@ -361,6 +361,12 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
   }
 
 
+  out$h2 <- h2
+  out$pnc <- pnc
+  out$pc <- pc
+  out$nc <- nc
+  out$i <- i
+  out$j <- j
 
 
   if(!file.exists(output)) suppressWarnings(write.table(out, output, row.names = F, col.names = TRUE, quote = F, append = T)) else if(file.exists(output)) write.table(out, output, row.names = F, col.names = F, quote = F, append = T)
