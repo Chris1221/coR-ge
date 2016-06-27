@@ -8,10 +8,12 @@
 #
 # ------------------------------------------------------------------------------- #
 
+
 library(dplyr)
 library(devtools)
 library(data.table)
 
+install_github("Chris1221/coR-ge", ref = "devel")
 
 test <- FALSE
 
