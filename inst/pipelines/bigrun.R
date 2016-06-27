@@ -14,6 +14,7 @@ library(devtools)
 library(data.table)
 
 install_github("Chris1221/coR-ge", ref = "devel")
+library(coRge)
 
 test <- FALSE
 
