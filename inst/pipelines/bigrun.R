@@ -72,8 +72,8 @@ library(foreach)
 # chec if all need to be par or just the top level one, probbaly all but check speed if both
 
 
-foreach(i = c(1:10)) %:%
-	foreach(j = c(1:10)) %:%
+#foreach(i = c(1:10)) %:%
+#	foreach(j = c(1:10)) %:%
 		foreach(h2 = seq(0.1, 0.9, by = 0.1)) %:%
 			foreach(pc = seq(0.1, 0.9, by = 0.1)) %:%
 				foreach(pnc = seq(0.1, 0.9, by = 0.1)) %:%
