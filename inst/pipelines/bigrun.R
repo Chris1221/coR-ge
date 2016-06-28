@@ -57,6 +57,8 @@ if(!test){
 
 colnames(gen) <- paste0("V",1:ncol(gen))
 
+summary <- fread("/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", h = T)
+
 # ------------------------------------------------------------------------------- #
 #
 # Step 3: Loop around options
