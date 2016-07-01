@@ -78,6 +78,6 @@ library(foreach)
 			foreach(pc = seq(0.1, 0.9, by = 0.1)) %:%
 				foreach(pnc = seq(0.1, 0.9, by = 0.1)) %:%
 					foreach(nc = seq(50,500, by =50)) %do% {
-						analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary)
+						analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "ld")
 					}
 

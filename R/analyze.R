@@ -15,6 +15,8 @@
 #' @param nc Number of causal SNPs
 #' @param gen Gen matrix if local 
 #' @param summary Summary file if preread
+#' @param maf Maf or no
+#' @param maf_range MAF range
 #'
 #' @import foreach
 #' @import devtools
@@ -28,7 +30,7 @@
 
 
 
-analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE, local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5, nc = 1000, gen = NULL, summary = summary){
+analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE, local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5, nc = 1000, gen = NULL, summary = summary, maf = FALSE, maf_range = NULL){
 
 
 #message(paste0("coR-ge v", packageVersion("coRge"), " \t \t http://github.io/Chris1221/coR-ge \n \n \t Parameters in use: \n \t \t i: ",i, "\n \t \t j: ", j, "\n \t \t path.base: ", path.base,"\n \t \t summary.file: ", summary.file,"\n \t \t output: ", output,"\n \t \t th2: ", h2,"\n \t \t pc: ", pc,"\n \t \t pnc: ", pnc,"\n \t \t nc: ", nc, "\n \n \t Local options: \n \t \t local: ", local,"\n \t \t gen ", gen,"\n \t \t summary: ", summary, " \n \n \t Testing options: \n \t \t test: ", test,"\n \t \t safe: ", safe, "\n \n LOG: \n"))
@@ -259,8 +261,8 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
 
     message("Selecting Causal SNPs")
-
-    snps <- causal.snps(summary, mode = "default", nc = nc)
+    snps <- causal.snps(summary, mode = "default", nc = nc, maf = maf, maf_range = maf_range)
+   
     colnames(snps)[3] <- "V3"
 
     message("Merging together and converting from Oxford to R format...")
