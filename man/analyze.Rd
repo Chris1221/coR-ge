@@ -26,6 +26,8 @@ analyze(i = double(), j = double(), mode = "default",
 
 \item{safe}{Don't delete files}
 
+\item{h2}{Proportion of heritability explained by causal SNPS}
+
 \item{pc}{Proportion of causal SNPs in the second strata}
 
 \item{pnc}{Proportion of noncausal SNPs in the second strata}
@@ -35,6 +37,10 @@ analyze(i = double(), j = double(), mode = "default",
 \item{gen}{Gen matrix if local}
 
 \item{summary}{Summary file if preread}
+
+\item{maf}{Maf or no}
+
+\item{maf_range}{MAF range}
 }
 \value{
 Flat file at specified path.
