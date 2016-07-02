@@ -73,11 +73,11 @@ library(foreach)
 
 
 #foreach(i = c(1:10)) %:%
-#	foreach(j = c(1:10)) %:%
+	foreach(maf_range = c(0.01, 0.05), c(0.05, 0.1), c(0.1, 0.2), c(0.2, 0.3), c(0.3, 0.4), c(0.4, 0.5), c(0.05, 0.5)) %:%
 		foreach(h2 = seq(0.1, 0.9, by = 0.1)) %:%
 			foreach(pc = seq(0.1, 0.9, by = 0.1)) %:%
 				foreach(pnc = seq(0.1, 0.9, by = 0.1)) %:%
 					foreach(nc = seq(50,500, by =50)) %do% {
-						analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "ld")
+						analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "ld", maf = TRUE, maf_range = maf_range)
 					}
 
