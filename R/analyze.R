@@ -357,7 +357,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
   strata$ld %<>% as.double
 
-    out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = TRUE, group_name = "k", mode = "ld")
+    out <- correct(strata=strata, n_strata = n_strata, assoc = "plink.qassoc", group = FALSE, mode = "ld")
 
 
   }
