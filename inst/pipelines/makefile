@@ -16,7 +16,7 @@ full: $(IN)/bigrun.R
 priority: $(IN)/bigrun.R
 	num1=1 ; while [[ $$num1 -le 3 ]] ; do \
         num2=1 ; while [[ $$num2 -le 10 ]] ; do \
-		qsub -N corge_$(num1)_$(num2) $(B)/submit.sh $$num1 $$num2 $(IN)/bigrun.R ; \
+		qsub -N corge_$$num1_$$num2 $(B)/submit.sh $$num1 $$num2 $(IN)/bigrun.R ; \
         	((num2 = num2 + 1)) ; \
         	done ; \
 	((num1 = num1 + 1)) ; \
