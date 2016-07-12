@@ -65,8 +65,6 @@ summary <- fread("/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", h = T)
 #
 # ------------------------------------------------------------------------------- #
 
-library(doMC)
-registerDoMC(cores = 8)
 library(foreach)
 
 # chec if all need to be par or just the top level one, probbaly all but check speed if both
