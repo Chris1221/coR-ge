@@ -65,19 +65,17 @@ summary <- fread("/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", h = T)
 #
 # ------------------------------------------------------------------------------- #
 
-library(doMC)
-registerDoMC(cores = 8)
 library(foreach)
 
 # chec if all need to be par or just the top level one, probbaly all but check speed if both
 
 
 #foreach(i = c(1:10)) %:%
-	foreach(maf_range = list(c(0.01, 0.05), c(0.05, 0.1), c(0.1, 0.2), c(0.2, 0.3), c(0.3, 0.4), c(0.4, 0.5), c(0.05, 0.5))) %:%
-		foreach(h2 = seq(0.1, 0.9, by = 0.1)) %:%
-			foreach(pc = seq(0.1, 0.9, by = 0.1)) %:%
-				foreach(pnc = seq(0.1, 0.9, by = 0.1)) %:%
-					foreach(nc = seq(50,500, by =50)) %do% {
-						analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "ld", maf = TRUE, maf_range = maf_range, output = "/home/hpc2862/repos/coR-ge/data/raw/maf_results.txt")
+	foreach(maf_range = list(c(0.01, 0.05),  c(0.4, 0.5), c(0.05, 0.5))) %:%
+		foreach(h2 = c(0.2, 0.4, 0.6, 0.8) %:%
+			foreach(pc = c(0.2, 0.5, 0.8)) %:%
+				foreach(pnc = c(0.2, 0.5, 0.8) %:%
+					foreach(nc = c(100, 1000, 5000)) %do% {
+						analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "ld", maf = TRUE, maf_range = maf_range, output = "/home/hpc2862/repos/coR-ge/data/raw/results_priority.txt")
 					}
 
