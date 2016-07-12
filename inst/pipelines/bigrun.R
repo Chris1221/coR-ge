@@ -8,6 +8,16 @@
 #
 # ------------------------------------------------------------------------------- #
 
+
+library(dplyr)
+library(devtools)
+library(data.table)
+
+#install_github("Chris1221/coR-ge", ref = "devel")
+library(coRge)
+
+test <- FALSE
+
 args <- commandArgs(TRUE)
 
 i <- args[1]
@@ -47,14 +57,25 @@ if(!test){
 
 colnames(gen) <- paste0("V",1:ncol(gen))
 
+summary <- fread("/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", h = T)
+
 # ------------------------------------------------------------------------------- #
 #
 # Step 3: Loop around options
 #
 # ------------------------------------------------------------------------------- #
 
-library(doMC)
-registerDoMC(cores = 8)
 library(foreach)
 
+# chec if all need to be par or just the top level one, probbaly all but check speed if both
+
+
+#foreach(i = c(1:10)) %:%
+	foreach(maf_range = list(c(0.01, 0.05),  c(0.4, 0.5), c(0.05, 0.5))) %:%
+		foreach(h2 = c(0.2, 0.4, 0.6, 0.8) %:%
+			foreach(pc = c(0.2, 0.5, 0.8)) %:%
+				foreach(pnc = c(0.2, 0.5, 0.8) %:%
+					foreach(nc = c(100, 1000, 5000)) %do% {
+						analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "ld", maf = TRUE, maf_range = maf_range, output = "/home/hpc2862/repos/coR-ge/data/raw/results_priority.txt")
+					}
 

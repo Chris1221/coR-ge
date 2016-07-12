@@ -12,3 +12,7 @@ Things to do today:
 6. Deal with upwork
 6a. New
 6b. Old
+
+
+MAKE LOG MESSAGE WORK
+FIX TRAVIS, SNAPSHOT NOT WORKING
