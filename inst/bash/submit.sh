@@ -4,7 +4,8 @@
 #$ -l qname=abaqus.q
 #$ -cwd
 #$ -V
-#$ -l mf=192G
+#$ -l hostname=sw0050
+#$ -pe shm.pe 4
 #$ -j y
 #$ -o /home/hpc2862/repos/coR-ge/inst/logs/$JOB_NAME.txt
 
