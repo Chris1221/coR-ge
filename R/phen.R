@@ -25,7 +25,7 @@ phen <- function(.snps = snps, .combR = combR, .h2 = h2){
 	samp <- as.data.frame(samp)
 	samp$missing <- 0
 
-	row.names(.combR) <- samp$ID_1
+#	row.names(.combR) <- samp$ID_1
 
 	###calculate phenotypes HERE
 
