@@ -18,7 +18,7 @@ phen <- function(.snps = snps, .combR = combR, .h2 = h2){
 
 
 	samp <- vector()
-	n_people <- nr ## make sure this is right...
+	n_people <- nr/3 ## make sure this is right...
 	ID_1 <- paste0("ID_1_", 1:n_people)
 	ID_2 <- paste0("ID_2_", 1:n_people)
 	samp <- cbind(ID_2, ID_1)
