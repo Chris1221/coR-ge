@@ -9,7 +9,7 @@ Description: See the paper.
 License: MIT
 LazyData: TRUE
 Imports: Rcpp (>= 0.11.3)
-LinkingTo: Rcpp
+LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown,

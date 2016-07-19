@@ -3,7 +3,7 @@
 #' Takes as input genotype and phenotype files and outputs a df ready to be analyzed through lm
 #'
 #' @importFrom dplyr %>%
-#' @importFrom RcppEigen fastLmPure
+
 
 gen_phen_df <- function(gen, samp){
 

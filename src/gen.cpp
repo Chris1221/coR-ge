@@ -1,27 +1,26 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
-#include <Rcpp.h>
 #include <RcppArmadillo.h>
 
 using namespace Rcpp;
 using namespace arma;
 
 // [[Rcpp::export]]
-NumericVector gen_cor(IntegerVector causal, IntegerMatrix all) {
+arma::mat gen_cor(arma::vec causal, arma::mat all) {
+
+	// int nSample = causal.n_elem;
+	int nSnp = all.n_cols;
 	
-	int nrow = causal.nrow();
-	int nsnp = all.ncol();
+	arma::vec out(nSnp);
 
+	for(int i = 0; i < nSnp; i++){
+		arma::vec other = all.col(i);
+		
+		arma::mat temp = arma::cor(causal, other);
 
-	NumericVector out(nsnp);
-	
-	for(int i = 0; i < nsnp; i++){ 
-		IntegerVector other = all.col(i);
-
-		double corr = arma::cor(causal, other);
-
-		out(i) = corr;
+		out(i) = pow(temp(0,0),2);
 	}
 
-	return(out)
+	return out;
+
 }
