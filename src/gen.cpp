@@ -5,6 +5,7 @@
 using namespace Rcpp;
 using namespace arma;
 
+//' @export
 // [[Rcpp::export]]
 arma::mat gen_cor(arma::vec causal, arma::mat all) {
 
