@@ -5,7 +5,3 @@ gen_cor <- function(causal, all) {
     .Call('coRge_gen_cor', PACKAGE = 'coRge', causal, all)
 }
 
-rcpp_hello_world <- function() {
-    .Call('coRge_rcpp_hello_world', PACKAGE = 'coRge')
-}
-
