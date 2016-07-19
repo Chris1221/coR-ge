@@ -24,6 +24,9 @@
 #' @importFrom data.table fread fwrite
 #' @importFrom magrittr %<>%
 #' @importFrom dplyr mutate mutate_ filter filter_ select select_ sample_n %>%
+#' @importFrom Rcpp evalCpp
+#'
+#' @useDynLib coRge
 #'
 #' @return Flat file at specified path.
 #' @export
