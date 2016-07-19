@@ -23,7 +23,7 @@ gen_phen_df <- function(gen, samp){
 		snp <- gen2[,i]
 		snp <- 0*snp[seq1] + 1*snp[seq2] + 2*snp[seq3]
 	
-		cse <- fastLmPure(cbind(1,matrix(snp)), as.double(phen), method = 1)[c(1,2)]
+		cse <- fastLmPure(cbind(1,matrix(snp)), as.double(phen))[c(1,2)]
 		b <- cse[[1]][2]
 		se <- cse[[2]][2]
 
