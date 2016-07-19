@@ -3,7 +3,9 @@
 #' Takes as input genotype and phenotype files and outputs a df ready to be analyzed through lm
 #'
 #' @importFrom dplyr %>%
-
+#' @import RcppArmadillo
+#'
+#' @export
 
 gen_phen_df <- function(gen, samp){
 
