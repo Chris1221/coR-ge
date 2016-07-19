@@ -8,6 +8,8 @@ Maintainer: Christopher B. Cole <chris.c.1221@gmail.com>
 Description: See the paper.
 License: MIT
 LazyData: TRUE
+Imports: Rcpp (>= 0.11.3)
+LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown,

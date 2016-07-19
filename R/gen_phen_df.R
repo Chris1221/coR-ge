@@ -18,12 +18,7 @@ gen_phen_df <- function(gen, samp){
 	gen2 <- t(gen[, -c(1:5)])	
 
 	for(i in 1:ncol(gen2)){
-		#snp <- gen[i, -c(1:5)] %>%
-		#	t %>%
-		#	as.vector
-	
 		snp <- gen2[,i]
-
 		snp <- 0*snp[seq1] + 1*snp[seq2] + 2*snp[seq3]
 	
 		cse <- fastLmPure(cbind(1,matrix(snp)), as.double(phen), method = 1)[c(1,2)]
@@ -31,16 +26,6 @@ gen_phen_df <- function(gen, samp){
 		se <- cse[[2]][2]
 
 		P[i] <- pt(b / se, df = length(snp) - 2, lower = FALSE)*2
-
-
-
-		#P[i] <- lm(phen ~ snp) %>%
-		#	summary %>% 
-		#	coef %>%
-		#	as.data.frame %>%
-		#	select(4) %>%
-		#	filter(row.names(.) == "snp") %>%
-		#	as.double
 
 		print(i)
 

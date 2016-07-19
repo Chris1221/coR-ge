@@ -23,9 +23,9 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
 
     out <- data.frame(sfdr = double(), fdr = double(), k = integer())
 
-  	assoc.df <- fread(assoc, h = T)
+  	assoc.df <- assoc
   	strata %<>%
-  		merge(assoc.df, by.x = "rsid", by.y = "SNP")
+  		merge(assoc.df, by= "rsid")
 
   	message("Calculating sFDR and FDR")
 
@@ -92,9 +92,9 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
 
       out <- data.frame(sfdr = double(), fdr = double(), k = integer(), th = double())
 
-      assoc.df <- fread(assoc, h = T)
+      assoc.df <- assoc
       strata %<>%
-        merge(assoc.df, by.x = "rsid", by.y = "SNP")
+        merge(assoc.df, by = "rsid")
 
       for(th in levels(as.factor(strata$ld))){
         k <- 1

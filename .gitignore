@@ -15,3 +15,8 @@ vignettes/*.pdf
 packrat/lib*/
 inst/TeX/CIHR/*
 inst/doc
+
+#Rcpp files
+src/*.o
+src/*.so
+src/*.dll
