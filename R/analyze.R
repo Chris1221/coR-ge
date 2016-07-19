@@ -18,6 +18,7 @@
 #' @param maf Maf or no
 #' @param maf_range MAF range
 #'
+#' @import RcppArmadillo
 #' @import foreach
 #' @import devtools
 #' @importFrom lazyeval interp

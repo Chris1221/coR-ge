@@ -5,6 +5,18 @@
 
 using namespace Rcpp;
 
+// gen_cor
+NumericVector gen_cor(IntegerVector causal, IntegerMatrix all);
+RcppExport SEXP coRge_gen_cor(SEXP causalSEXP, SEXP allSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< IntegerVector >::type causal(causalSEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix >::type all(allSEXP);
+    __result = Rcpp::wrap(gen_cor(causal, all));
+    return __result;
+END_RCPP
+}
 // rcpp_hello_world
 List rcpp_hello_world();
 RcppExport SEXP coRge_rcpp_hello_world() {
