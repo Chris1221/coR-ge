@@ -3,7 +3,7 @@
 #' Takes as input genotype and phenotype files and outputs a df ready to be analyzed through lm
 #'
 #' @importFrom dplyr %>%
-#' @import RcppArmadillo
+#' @importFrom RcppEigen fastLmPure
 #'
 #' @export
 
@@ -29,7 +29,7 @@ gen_phen_df <- function(gen, samp){
 
 		P[i] <- pt(b / se, df = length(snp) - 2, lower = FALSE)*2
 
-		print(i)
-
 	}
+	
+	return(data.frame(rsid = gen[,2], P = P))
 }
