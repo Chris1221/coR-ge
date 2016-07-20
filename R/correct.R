@@ -6,7 +6,7 @@
 #' @param n_strata Number of strata
 #' @param assoc Assoc file path
 #'
-#' @importFrom data.table fread fwrite
+#' @importFrom data.table fread
 #' @importFrom magrittr %<>%
 #' @importFrom dplyr mutate filter filter_ %>%
 #'

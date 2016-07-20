@@ -19,7 +19,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // returnLD
-arma::uvec returnLD(arma::vec cIndex, arma::mat gen);
+Rcpp::List returnLD(arma::vec cIndex, arma::mat gen);
 RcppExport SEXP coRge_returnLD(SEXP cIndexSEXP, SEXP genSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;

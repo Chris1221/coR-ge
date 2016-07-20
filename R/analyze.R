@@ -21,7 +21,7 @@
 #' @import foreach
 #' @import devtools
 #' @importFrom lazyeval interp
-#' @importFrom data.table fread fwrite
+#' @importFrom data.table fread 
 #' @importFrom magrittr %<>%
 #' @importFrom dplyr mutate mutate_ filter filter_ select select_ sample_n %>%
 #' @importFrom Rcpp evalCpp

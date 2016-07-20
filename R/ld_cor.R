@@ -1,4 +1,8 @@
+#' LD True Postiive Thresholding function
+#' 
+#' Wrapper for the returnLD function
 #'
+#' @export
 
 ld_cor <- function(snp, gen){
 
