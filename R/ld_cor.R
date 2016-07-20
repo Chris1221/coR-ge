@@ -1,8 +1,10 @@
-#' @importFrom foreach foreach 
+#'
 
-ld_cor <- function(snp_list, gen){
+ld_cor <- function(snp, gen){
 
-	cIndex <- which(snp_list %in% gen[,2])
+	snp$rsid -> snp_list
+
+	cIndex <- which(gen[,2] %in% snp_list)
 
 	LdList <- returnLD(cIndex, as.matrix(gen))
 	
