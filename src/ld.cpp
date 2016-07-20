@@ -23,14 +23,14 @@ Rcpp::List returnLD(arma::vec cIndex, arma::mat gen) {
 	
 		// Give position of first element.
 		// Remember that indexing starts at 0, not 1.
-		int index = cIndex(0);
+		int index = cIndex(i);
 
 		// Return the column of base pair positions and the basepair position
 		// at causal SNP i index
 		arma::vec bpCol = gen.col(2);
 		double bp = gen(index, 2);
 			
-		arma::uvec ldIndex = arma::find(bpCol > bp - 500000 && bpCol < bp + 500000, 0); 
+		arma::uvec ldIndex = arma::find((bpCol > bp - 500000) && (bpCol < bp + 500000), 0); 
 		// This gives us the indices of which SNPs are within 500kb of 
 		// the causal SNP.
 		// So now we have to subset the matrix to just include these, 
