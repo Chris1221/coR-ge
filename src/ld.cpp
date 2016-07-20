@@ -41,12 +41,14 @@ Rcpp::List returnLD(arma::vec cIndex, arma::mat gen) {
 		//
 		// 1. Cut off first 5 rows (but will need to save the indexes to recover
 		//    these later)
-	
-		arma::mat subset_bare = subset.shed_cols(0,4);
+	// Trying to fix the error
+	//
+		subset.shed_cols(0,4);
+		arma::mat subset_bare = subset;
 		
 		// 2. Transpose (will have to do it at some point)
 		
-		arma::mat genT = subset_bare.t;
+		arma::mat genT = subset_bare.t();
 
 		// 3. Cooerce
 		//
@@ -54,9 +56,9 @@ Rcpp::List returnLD(arma::vec cIndex, arma::mat gen) {
 		// old columns. It will have the same number of columns, as we aren't
 		// changing the SNPs at all.
 		
-		arma::mat other(genT.n_row / 3, genT.n_col);
+		arma::mat other(genT.n_rows / 3, genT.n_cols);
 
-		for(int j = 0; j < genT.n_row; j+3){
+		for(int j = 0; j < genT.n_rows; j+=3){
 			
 			// The new row j / 3 (0, 1, 2, etc.) will be 0* none, 1 * 1, 
 			// and 2 x the double minor allele.
@@ -73,17 +75,20 @@ Rcpp::List returnLD(arma::vec cIndex, arma::mat gen) {
 		// above but I can't figure out how to do it right now.
 
 		// We create a new vector with as many entries as there are SNPs.
-		arma::vec out(other.n_col());
+		arma::vec out(other.n_cols);
 
 		// Now create the "real" vector
 		// Using the same process as above
 		arma::vec causal_raw = gen.row(index);
-		arma::vec causal_raw2 = causal_raw.shed_rows(0,4);
+		
+	// Fixing error	
+		causal_raw.shed_rows(0,4);	
+		arma::vec causal_raw2 = causal_raw;
 		
 		arma::vec causal(causal_raw2.n_elem/3);
 		
-		for(int j = 0; j < causal_raw2.n_elem; j+3){
-			causal(j/3) = 0*causal(j) + 1*causal(j+1) + 2*causal(j+2)
+		for(int j = 0; j < causal_raw2.n_elem; j+=3){
+			causal(j/3) = 0*causal(j) + 1*causal(j+1) + 2*causal(j+2);
 		}
 
 		// Now we have causal and other
@@ -102,13 +107,13 @@ Rcpp::List returnLD(arma::vec cIndex, arma::mat gen) {
 		// 2. Calculate correlation between causal and that column
 		// 3. Put that into out
 
-		for(int i = 0; i < all.n_col; i++){ 
+		for(int j = 0; j < other.n_cols; j++){ 
 			
-			arma::vec other = all.col(i); // 1
+			arma::vec otherVec = other.col(j); // 1
 
-			arma::mat temp = arma::cor(causal, other); // 2
+			arma::mat temp = arma::cor(causal, otherVec); // 2
 
-			out(i) = pow(temp(0,0),2); // 3
+			out(j) = pow(temp(0,0),2); // 3
 
 		}
 		
