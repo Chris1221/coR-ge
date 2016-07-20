@@ -18,3 +18,15 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// returnLD
+arma::uvec returnLD(arma::vec cIndex, arma::mat gen);
+RcppExport SEXP coRge_returnLD(SEXP cIndexSEXP, SEXP genSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< arma::vec >::type cIndex(cIndexSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type gen(genSEXP);
+    __result = Rcpp::wrap(returnLD(cIndex, gen));
+    return __result;
+END_RCPP
+}

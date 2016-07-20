@@ -6,3 +6,8 @@ gen_cor <- function(causal, all) {
     .Call('coRge_gen_cor', PACKAGE = 'coRge', causal, all)
 }
 
+#' @export
+returnLD <- function(cIndex, gen) {
+    .Call('coRge_returnLD', PACKAGE = 'coRge', cIndex, gen)
+}
+
