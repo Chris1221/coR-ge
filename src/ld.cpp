@@ -1,6 +1,8 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include <RcppArmadillo.h>
+#include<string>
+#include<iostream>
 
 using namespace Rcpp;
 using namespace arma;
@@ -75,7 +77,7 @@ Rcpp::List returnLD(arma::vec cIndex, arma::mat gen) {
 		// above but I can't figure out how to do it right now.
 
 		// We create a new vector with as many entries as there are SNPs.
-		arma::vec out(other.n_cols);
+		// arma::vec out(other.n_cols);
 
 		// Now create the "real" vector
 		// Using the same process as above
@@ -106,6 +108,8 @@ Rcpp::List returnLD(arma::vec cIndex, arma::mat gen) {
 		// 1. Create a new vector out of the column
 		// 2. Calculate correlation between causal and that column
 		// 3. Put that into out
+			
+		NumericVector out(other.n_cols);
 
 		for(int j = 0; j < other.n_cols; j++){ 
 			
@@ -117,6 +121,7 @@ Rcpp::List returnLD(arma::vec cIndex, arma::mat gen) {
 
 		}
 		
+		cout << out << "\n";
 
 		output[i] = out;
 	
