@@ -2,6 +2,20 @@
 
 #include <RcppArmadillo.h>
 #include<string>
+
+// Patch for std::to_string() issue
+// See here: http://stackoverflow.com/questions/12975341/to-string-is-not-a-member-of-std-says-so-g
+namespace patch
+{
+    template < typename T > std::string to_string( const T& n )
+    {
+        std::ostringstream stm ;
+        stm << n ;
+        return stm.str() ;
+    }
+}
+
+
 #include<iostream>
 
 using namespace Rcpp;
