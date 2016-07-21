@@ -1,7 +1,8 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include <RcppArmadillo.h>
-#include<string>
+#include <string>
+#include <sstream>
 
 // Patch for std::to_string() issue
 // See here: http://stackoverflow.com/questions/12975341/to-string-is-not-a-member-of-std-says-so-g
