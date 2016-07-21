@@ -122,7 +122,7 @@ Rcpp::List returnLD(arma::uvec cIndex, arma::mat gen, arma::vec bpVec) {
 		
 		arma::mat outMat(ldIndex.n_elem, 2);
 
-		outMat.col(0) = arma::conv_to<vec>::from(ldIndex);
+		outMat.col(0) = arma::conv_to<vec>::from(ldIndex)+ 1;
 		outMat.col(1) = out;
 
 		std::string name = std::to_string(i);
