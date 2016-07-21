@@ -11,3 +11,8 @@ returnLD <- function(cIndex, gen) {
     .Call('coRge_returnLD', PACKAGE = 'coRge', cIndex, gen)
 }
 
+#' @export
+test <- function(cIndex, gen) {
+    .Call('coRge_test', PACKAGE = 'coRge', cIndex, gen)
+}
+
