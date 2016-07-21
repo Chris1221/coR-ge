@@ -7,12 +7,12 @@ gen_cor <- function(causal, all) {
 }
 
 #' @export
-returnLD <- function(cIndex, gen) {
-    .Call('coRge_returnLD', PACKAGE = 'coRge', cIndex, gen)
+returnLD <- function(cIndex, gen, bpVec) {
+    .Call('coRge_returnLD', PACKAGE = 'coRge', cIndex, gen, bpVec)
 }
 
 #' @export
-test <- function(cIndex, gen) {
-    .Call('coRge_test', PACKAGE = 'coRge', cIndex, gen)
+test <- function(cIndex, gen, bpVec) {
+    .Call('coRge_test', PACKAGE = 'coRge', cIndex, gen, bpVec)
 }
 
