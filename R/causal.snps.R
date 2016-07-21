@@ -7,7 +7,7 @@
 #' @param maf_range Range of the form c(lower, upper)
 #'
 #' @importFrom dplyr sample_n select filter
-#' @importFrom data.table fread fwrite
+#' @importFrom data.table fread
 #'
 #' @export
 
