@@ -32,7 +32,7 @@ Rcpp::List returnLD(arma::uvec cIndex, arma::mat gen, arma::vec bpVec) {
 		// This is still a test because I dont think that the logical
 		// selection was working perfectly
 		
-		arma::uvec ldIndex = arma::find(bpVec > bpVec(index));
+		arma::uvec ldIndex = arma::find((bpVec > bpVec(index)-500000) && (bpVec < bpVec(index) + 500000));
  
 		// This gives us the indices of which SNPs are within 500kb of 
 		// the causal SNP.
@@ -118,11 +118,16 @@ Rcpp::List returnLD(arma::uvec cIndex, arma::mat gen, arma::vec bpVec) {
 
 		}
 		
-		cout << out << "\n";
+		//cout << out << "\n";
 		
+		arma::mat outMat(ldIndex.n_elem, 2);
+
+		outMat.col(0) = arma::conv_to<vec>::from(ldIndex);
+		outMat.col(1) = out;
+
 		std::string name = std::to_string(i);
 
-		output[name] = out;
+		output[name] = outMat;
 	
 
 	}
