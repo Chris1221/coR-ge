@@ -54,7 +54,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 		// because this is probably producing 
 		// singular matrix errors
 	
-		bool singular = all((X != 0) && (X != 1) && (X != 2));
+		bool singular = all(X);
 
 
 		//bool flag = std::all_of(X.begin(), X.end(), [](int k) { return k==0; });
