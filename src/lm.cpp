@@ -33,7 +33,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 	// meaning each SNP is regressed seperately.
 	for(uword i = 0; i < gen.n_rows; i++){
 
-		cout << patch::to_string(i) << "\n";
+		Rcpp::Rcout << patch::to_string(i) << std::endl;
 
 		arma::rowvec geno_row = gen.row(i);
 		arma::vec geno = geno_row.t();
@@ -54,14 +54,15 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 		bool two = arma::all(X == 2);
 
 		bool singular = (zero || one || two);
-
+		
+		Rcpp::Rcout << singular << std::endl;
 
 		//bool flag = std::all_of(X.begin(), X.end(), [](int k) { return k==0; });
 		//bool flag = find_if(X.begin() + 1, X.end(), bind1st(std::not_equal_to<int>(), X.front())) == X.end();
 
 		double t;
 
-		//if (!singular) {
+		if (!singular) {
 			arma::mat X2(X.n_elem, 2);
 			X2.col(0) = vec(X.n_elem, fill::ones);
 			X2.col(1) = X;
@@ -72,12 +73,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 			int n = X2.n_rows, k = X2.n_cols;
 
 			double sig2 = std::inner_product(resid.begin(), resid.end(), resid.begin(), 0.0)/(n - k);
-		
-		mat B;
-		bool worked = arma::pinv(B,arma::trans(X2)*X2); 
-
-		if ( worked ) {
-			// std.error of estimate
+							// std.error of estimate
 			arma::colvec stderrest = arma::sqrt( sig2 * arma::diagvec( arma::pinv(arma::trans(X2)*X2)) );
 
 			arma::mat output(coef.n_elem, 2);
@@ -85,8 +81,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 			output.col(1) = stderrest;
 
 			t = output(1,0) / output(1,1);	
-		
-		} else {
+		} else if(singular) {
 			t = 0;
 		}
 
