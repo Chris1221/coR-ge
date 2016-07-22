@@ -55,14 +55,14 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 
 		bool singular = (zero || one || two);
 		
-		Rcpp::Rcout << singular << std::endl;
+		//Rcpp::Rcout << singular << std::endl;
 
 		//bool flag = std::all_of(X.begin(), X.end(), [](int k) { return k==0; });
 		//bool flag = find_if(X.begin() + 1, X.end(), bind1st(std::not_equal_to<int>(), X.front())) == X.end();
 
 		double t;
 
-		if (singular) {
+		if (!singular) {
 			arma::mat X2(X.n_elem, 2);
 			X2.col(0) = vec(X.n_elem, fill::ones);
 			X2.col(1) = X;
@@ -81,7 +81,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 			output.col(1) = stderrest;
 
 			t = output(1,0) / output(1,1);	
-		} else if(!singular) {
+		} else if(singular) {
 			t = 0;
 		}
 
