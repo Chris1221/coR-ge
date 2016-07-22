@@ -1,6 +1,5 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
-#define ARMA_DONT_PRINT_ERRORS
 #include <RcppArmadillo.h>
 #include <string>
 #include <sstream>
@@ -36,33 +35,45 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 
 		arma::rowvec geno_row = gen.row(i);
 		arma::vec geno = geno_row.t();
-		arma::vec X((geno.n_elem / 3), 1, fill::zeros);
+		arma::vec X((geno.n_elem / 3), fill::zeros);
 		
 		for(uword j = 0; j < geno.n_elem; j+=3){
 
 			X(j/3) = 0*geno(j) + 1*geno(j+1) + 2*geno(j+2);
 
 		}
-
-		arma::mat X2(X.n_elem, 2);
-		X2.col(0) = vec(X.n_elem, fill::ones);
-		X2.col(1) = X;
-
-		arma::colvec coef = arma::solve(X2, y);
-		arma::colvec resid = y - X2*coef;
 		
-		int n = X2.n_rows, k = X2.n_cols;
-
-		double sig2 = std::inner_product(resid.begin(), resid.end(), resid.begin(), 0.0)/(n - k);
-                                                // std.error of estimate
-    		arma::colvec stderrest = arma::sqrt( sig2 * arma::diagvec( arma::pinv(arma::trans(X2)*X2)) );
-
-		arma::mat output(coef.n_elem, 2);
-		output.col(0) = coef;
-		output.col(1) = stderrest;
-
-		double t = output(1,0) / output(1,1);
+//		bool flag = std::all_of(X.begin(), X.end(), [](int k) { return k==0; });
 		
+		//bool flag = find_if(X.begin() + 1, X.end(), bind1st(std::not_equal_to<int>(), X.front())) == X.end();
+
+		//if (!flag) {
+
+			arma::mat X2(X.n_elem, 2);
+			X2.col(0) = vec(X.n_elem, fill::ones);
+			X2.col(1) = X;
+
+			arma::colvec coef = arma::solve(X2, y);
+			arma::colvec resid = y - X2*coef;
+			
+			int n = X2.n_rows, k = X2.n_cols;
+
+			double sig2 = std::inner_product(resid.begin(), resid.end(), resid.begin(), 0.0)/(n - k);
+							// std.error of estimate
+			arma::colvec stderrest = arma::sqrt( sig2 * arma::diagvec( arma::pinv(arma::trans(X2)*X2)) );
+
+			arma::mat output(coef.n_elem, 2);
+			output.col(0) = coef;
+			output.col(1) = stderrest;
+
+			double t = output(1,0) / output(1,1);
+			
+		//} else {
+			
+		//	double t = 0;
+
+		//}
+
 		std::string name = patch::to_string(i);
 		
 		outputList[i] = t;
