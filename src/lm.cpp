@@ -26,7 +26,7 @@ using namespace arma;
 // [[Rcpp::export]]
 arma::vec assoc(arma::mat gen, arma::colvec y){
 	
-	// Initialize output list
+	// Initialize output as a vector.
 	arma::vec outputList(gen.n_rows);
 
 	// Split regression into each row of the gen file
@@ -54,7 +54,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 
 		double sig2 = arma::as_scalar( arma::trans(resid)*resid/(n-k) );
                                                 // std.error of estimate
-    		arma::colvec stderrest = arma::sqrt( sig2 * arma::diagvec( arma::inv(arma::trans(X2)*X2)) );
+    		arma::colvec stderrest = arma::sqrt( sig2 * arma::diagvec( arma::pinv(arma::trans(X2)*X2)) );
 
 		arma::mat output(coef.n_elem, 2);
 		output.col(0) = coef;
