@@ -31,6 +31,18 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// assoc
+arma::vec assoc(arma::mat gen, arma::colvec y);
+RcppExport SEXP coRge_assoc(SEXP genSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< arma::mat >::type gen(genSEXP);
+    Rcpp::traits::input_parameter< arma::colvec >::type y(ySEXP);
+    __result = Rcpp::wrap(assoc(gen, y));
+    return __result;
+END_RCPP
+}
 // test
 arma::vec test(arma::uvec cIndex, arma::mat gen, arma::vec bpVec);
 RcppExport SEXP coRge_test(SEXP cIndexSEXP, SEXP genSEXP, SEXP bpVecSEXP) {
