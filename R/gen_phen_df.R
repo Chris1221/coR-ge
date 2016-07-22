@@ -8,7 +8,7 @@
 
 assoc_wrapper <- function(gen, samp){
 
-	phen <- samp$Z[-1] %>% as.vector
+	phen <- samp$Z[-1] %>% as.vector %>% as.double
 
 	t <- assoc(as.matrix(gen[,-c(1:5)]), phen)
 	P <- pt(t, df = length(phen) -2, lower = FALSE)*2

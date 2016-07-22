@@ -33,7 +33,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 	// meaning each SNP is regressed seperately.
 	for(uword i = 0; i < gen.n_rows; i++){
 
-		Rcpp::Rcout << patch::to_string(i) << std::endl;
+		//Rcpp::Rcout << patch::to_string(i) << std::endl;
 
 		arma::rowvec geno_row = gen.row(i);
 		arma::vec geno = geno_row.t();
