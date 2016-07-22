@@ -13,5 +13,7 @@ i=$1
 j=$2
 R_FILE=$3
 
+use gcc-4.9.2
+
 Rscript ${R_FILE} $i $j
 
