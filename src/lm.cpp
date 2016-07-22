@@ -62,7 +62,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 
 		double t;
 
-		if (!singular) {
+		if (singular) {
 			arma::mat X2(X.n_elem, 2);
 			X2.col(0) = vec(X.n_elem, fill::ones);
 			X2.col(1) = X;
@@ -81,7 +81,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 			output.col(1) = stderrest;
 
 			t = output(1,0) / output(1,1);	
-		} else if(singular) {
+		} else if(!singular) {
 			t = 0;
 		}
 
