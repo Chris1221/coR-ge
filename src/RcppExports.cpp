@@ -44,13 +44,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // test
-bool test(arma::vec test2);
-RcppExport SEXP coRge_test(SEXP test2SEXP) {
+bool test(arma::vec geno);
+RcppExport SEXP coRge_test(SEXP genoSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< arma::vec >::type test2(test2SEXP);
-    __result = Rcpp::wrap(test(test2));
+    Rcpp::traits::input_parameter< arma::vec >::type geno(genoSEXP);
+    __result = Rcpp::wrap(test(geno));
     return __result;
 END_RCPP
 }
