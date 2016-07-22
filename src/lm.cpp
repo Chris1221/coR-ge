@@ -52,7 +52,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 		
 		int n = X2.n_rows, k = X2.n_cols;
 
-		double sig2 = arma::as_scalar( arma::trans(resid)*resid/(n-k) );
+		double sig2 = std::inner_product(resid.begin(), resid.end(), resid.begin(), 0.0)/(n - k);
                                                 // std.error of estimate
     		arma::colvec stderrest = arma::sqrt( sig2 * arma::diagvec( arma::pinv(arma::trans(X2)*X2)) );
 
