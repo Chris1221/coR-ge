@@ -44,15 +44,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // test
-arma::vec test(arma::uvec cIndex, arma::mat gen, arma::vec bpVec);
-RcppExport SEXP coRge_test(SEXP cIndexSEXP, SEXP genSEXP, SEXP bpVecSEXP) {
+bool test(arma::vec test2);
+RcppExport SEXP coRge_test(SEXP test2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< arma::uvec >::type cIndex(cIndexSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type gen(genSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type bpVec(bpVecSEXP);
-    __result = Rcpp::wrap(test(cIndex, gen, bpVec));
+    Rcpp::traits::input_parameter< arma::vec >::type test2(test2SEXP);
+    __result = Rcpp::wrap(test(test2));
     return __result;
 END_RCPP
 }

@@ -29,13 +29,6 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 	// Initialize output as a vector.
 	arma::vec outputList(gen.n_rows);
 
-	// Initialize comparison vectors for singular
-	// matrix checking
-	arma::vec Z(gen.n_rows / 3, fill::zeros);
-	arma::vec O(gen.n_rows / 3, fill::ones);
-	arma::vec T(gen.n_rows / 3, fill::ones);
-	T.fill(2);
-
 	// Split regression into each row of the gen file
 	// meaning each SNP is regressed seperately.
 	for(uword i = 0; i < gen.n_rows; i++){
@@ -54,7 +47,11 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 		// because this is probably producing 
 		// singular matrix errors
 	
-		bool singular = all(X);
+		bool zero = all(X == 0);
+		bool one = all(X == 1);
+		bool two = all(X == 2);
+
+		bool singular = (zero || one || two);
 
 
 		//bool flag = std::all_of(X.begin(), X.end(), [](int k) { return k==0; });

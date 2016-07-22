@@ -17,7 +17,7 @@ assoc <- function(gen, y) {
 }
 
 #' @export
-test <- function(cIndex, gen, bpVec) {
-    .Call('coRge_test', PACKAGE = 'coRge', cIndex, gen, bpVec)
+test <- function(test2) {
+    .Call('coRge_test', PACKAGE = 'coRge', test2)
 }
 
