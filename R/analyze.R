@@ -120,7 +120,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     	colnames(var) <- colnames(samp)
     	samp <- rbind(var, samp)
 
-	assoc <- gen_phen_df(gen, samp)
+	P_list <- assoc_wrapper(gen, samp)
 
     	message("Performing correction")
 
@@ -130,7 +130,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 	n_strata <- 2
 	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc)
 
-	out <- correct(strata=strata, n_strata = n_strata, assoc = assoc, group = FALSE)
+	out <- correct(strata=strata, n_strata = n_strata, assoc = P_list, group = FALSE)
 
 	
 
@@ -176,7 +176,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     	colnames(var) <- colnames(samp)
     	samp <- rbind(var, samp)
 
-	assoc <- gen_phen_df(gen, samp)
+	P_list <- assoc_wrapper(gen, samp)
 
     	message("Performing correction")
 
@@ -186,7 +186,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 	n_strata <- 2
 	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc)
 
-	out <- correct(strata=strata, n_strata = n_strata, assoc = assoc, group = TRUE, group_name = "k")
+	out <- correct(strata=strata, n_strata = n_strata, assoc = P_list, group = TRUE, group_name = "k")
 
 
 #           ,--.   ,------.
@@ -224,7 +224,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
     	colnames(var) <- colnames(samp)
     	samp <- rbind(var, samp)
 
-	assoc <- gen_phen_df(gen, samp)
+	P_list <- assoc_wrapper(gen, samp)
 
     	message("Performing correction")
 
@@ -255,7 +255,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 		strata$ld[strata$rsid %in% snp_b] <- th
 	}
 
-	 out <- correct(strata=strata, n_strata = n_strata, assoc = assoc, group = FALSE, mode = "ld")
+	 out <- correct(strata=strata, n_strata = n_strata, assoc = P_list, group = FALSE, mode = "ld")
 
 
   }

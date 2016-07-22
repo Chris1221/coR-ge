@@ -1,7 +1,22 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include <RcppArmadillo.h>
-#include<string>
+#include <string>
+#include <sstream>
+
+// Patch for std::to_string() issue
+// See here: http://stackoverflow.com/questions/12975341/to-string-is-not-a-member-of-std-says-so-g
+namespace patch
+{
+    template < typename T > std::string to_string( const T& n )
+    {
+        std::ostringstream stm ;
+        stm << n ;
+        return stm.str() ;
+    }
+}
+
+
 #include<iostream>
 
 using namespace Rcpp;
@@ -125,7 +140,7 @@ Rcpp::List returnLD(arma::uvec cIndex, arma::mat gen, arma::vec bpVec) {
 		outMat.col(0) = arma::conv_to<vec>::from(ldIndex)+ 1;
 		outMat.col(1) = out;
 
-		std::string name = std::to_string(i);
+		std::string name = patch::to_string(i);
 
 		output[name] = outMat;
 	

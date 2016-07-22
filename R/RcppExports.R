@@ -12,7 +12,12 @@ returnLD <- function(cIndex, gen, bpVec) {
 }
 
 #' @export
-test <- function(cIndex, gen, bpVec) {
-    .Call('coRge_test', PACKAGE = 'coRge', cIndex, gen, bpVec)
+assoc <- function(gen, y) {
+    .Call('coRge_assoc', PACKAGE = 'coRge', gen, y)
+}
+
+#' @export
+test <- function(geno) {
+    .Call('coRge_test', PACKAGE = 'coRge', geno)
 }
 
