@@ -29,6 +29,13 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 	// Initialize output as a vector.
 	arma::vec outputList(gen.n_rows);
 
+	// Initialize comparison vectors for singular
+	// matrix checking
+	arma::vec Z(gen.n_rows / 3, fill::zeros);
+	arma::vec O(gen.n_rows / 3, fill::ones);
+	arma::vec T(gen.n_rows / 3, fill::ones);
+	T.fill(2);
+
 	// Split regression into each row of the gen file
 	// meaning each SNP is regressed seperately.
 	for(uword i = 0; i < gen.n_rows; i++){
@@ -43,12 +50,20 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 
 		}
 		
-//		bool flag = std::all_of(X.begin(), X.end(), [](int k) { return k==0; });
-		
+		// Check to see if any SNPs are fixed
+		// because this is probably producing 
+		// singular matrix errors
+	
+		bool singular = all((X != 0) && (X != 1) && (X != 2));
+
+
+		//bool flag = std::all_of(X.begin(), X.end(), [](int k) { return k==0; });
 		//bool flag = find_if(X.begin() + 1, X.end(), bind1st(std::not_equal_to<int>(), X.front())) == X.end();
 
-		//if (!flag) {
+		double t;
 
+		if (!singular)
+		{
 			arma::mat X2(X.n_elem, 2);
 			X2.col(0) = vec(X.n_elem, fill::ones);
 			X2.col(1) = X;
@@ -66,13 +81,12 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 			output.col(0) = coef;
 			output.col(1) = stderrest;
 
-			double t = output(1,0) / output(1,1);
-			
-		//} else {
-			
-		//	double t = 0;
-
-		//}
+			t = output(1,0) / output(1,1);	
+		} 
+		else 
+		{
+			t = 0;
+		}
 
 		std::string name = patch::to_string(i);
 		
