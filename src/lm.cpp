@@ -61,7 +61,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 
 		double t;
 
-		if (!singular) {
+		//if (!singular) {
 			arma::mat X2(X.n_elem, 2);
 			X2.col(0) = vec(X.n_elem, fill::ones);
 			X2.col(1) = X;
@@ -72,7 +72,12 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 			int n = X2.n_rows, k = X2.n_cols;
 
 			double sig2 = std::inner_product(resid.begin(), resid.end(), resid.begin(), 0.0)/(n - k);
-							// std.error of estimate
+		
+		mat B;
+		bool worked = arma::pinv(B,arma::trans(X2)*X2); 
+
+		if ( worked ) {
+			// std.error of estimate
 			arma::colvec stderrest = arma::sqrt( sig2 * arma::diagvec( arma::pinv(arma::trans(X2)*X2)) );
 
 			arma::mat output(coef.n_elem, 2);
@@ -80,7 +85,8 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 			output.col(1) = stderrest;
 
 			t = output(1,0) / output(1,1);	
-		} else if(singular) {
+		
+		} else {
 			t = 0;
 		}
 
