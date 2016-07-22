@@ -33,6 +33,8 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 	// meaning each SNP is regressed seperately.
 	for(uword i = 0; i < gen.n_rows; i++){
 
+		cout << i << "\n";
+
 		arma::rowvec geno_row = gen.row(i);
 		arma::vec geno = geno_row.t();
 		arma::vec X((geno.n_elem / 3), fill::zeros);
@@ -59,8 +61,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 
 		double t;
 
-		if (!singular)
-		{
+		if (!singular) {
 			arma::mat X2(X.n_elem, 2);
 			X2.col(0) = vec(X.n_elem, fill::ones);
 			X2.col(1) = X;
@@ -79,9 +80,7 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 			output.col(1) = stderrest;
 
 			t = output(1,0) / output(1,1);	
-		} 
-		else 
-		{
+		} else {
 			t = 0;
 		}
 

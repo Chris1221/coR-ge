@@ -1,1 +1,1 @@
-PKG_LIBS= -Wno-sign-compare -llapack
+PKG_LIBS= -Wsign-compare -llapack

@@ -9,7 +9,11 @@ using namespace arma;
 // [[Rcpp::export]]
 bool test(arma::vec test2)  {
 	
-	bool sin = arma::all(test2 == 0);
+	bool zeros = arma::all(test2 == 0);
+	bool ones = arma::all(test2 == 1);
+	bool twos = arma::all(test2 == 2);
 
-	return sin;
+	bool singular = (zeros || ones || twos);
+	
+	return singular;
 }
