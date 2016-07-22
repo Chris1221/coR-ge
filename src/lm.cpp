@@ -49,9 +49,9 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 		// because this is probably producing 
 		// singular matrix errors
 	
-		bool zero = all(X == 0);
-		bool one = all(X == 1);
-		bool two = all(X == 2);
+		bool zero = arma::all(X == 0);
+		bool one = arma::all(X == 1);
+		bool two = arma::all(X == 2);
 
 		bool singular = (zero || one || two);
 
