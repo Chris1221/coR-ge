@@ -21,7 +21,7 @@ ld_cor <- function(snp, gen){
 	LdList <- returnLD(cIndex, as.matrix(gen[,-c(1:5)]), gen[,3])
 
 	# Replace index number with RSID	
-	for(i in 1:length(LdList)) LdList[[i]][,1] <- snp_list[LdList[[i]][,1]]
+	for(i in 1:length(LdList)) LdList[[i]][,1] <- gen[,2][LdList[[i]][,1]]
 		
 	# Combine all into one large list of LD values.
 	LdList <- do.call("rbind", LdList)

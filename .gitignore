@@ -19,3 +19,9 @@ inst/doc
 src/*.o
 src/*.so
 src/*.dll
+
+.Rdata
+.Rbuildignore
+.Rhistory
+.pversion
+coRge.Rproj
