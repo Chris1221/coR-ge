@@ -25,3 +25,5 @@ src/*.dll
 .Rhistory
 .pversion
 coRge.Rproj
+
+inst/logs/
