@@ -27,16 +27,18 @@ calculate_was <- function(gen = NULL, snps = NULL, h2 = NULL){
     genM[i+2,] <- 2*genM[i+2,]
 
   }
-
-  p <- genM %*% b
-
+  
   maf <- snps$all_maf
+  
+  p <- (genM %*% b)
+
+ 
   p2 <- vector()
 
   for(i in seq(1, length(p), by = 3)){
 
     j <- (i+2)/3
-    p2[j] <- p[i]+p[i+1]+p[i+2]-maf[j] # this might not be perfect
+    p2[j] <- p[i]+p[i+1]+p[i+2] - 2*sum(b*maf) # this might not be perfect
 
   }
 
