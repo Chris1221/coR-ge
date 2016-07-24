@@ -270,5 +270,10 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
   out$maf_l <- maf_range[1]
   out$maf_u <- maf_range[2]
 
+
   if(!file.exists(output)) suppressWarnings(write.table(out, output, row.names = F, col.names = TRUE, quote = F, append = T)) else if(file.exists(output)) write.table(out, output, row.names = F, col.names = F, quote = F, append = T)
+
+
+  return(0)
+
 }
