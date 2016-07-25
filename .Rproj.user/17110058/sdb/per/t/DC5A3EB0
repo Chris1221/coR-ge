@@ -1,0 +1,17 @@
+{
+    "contents" : "#' Initialize a testing environment\n#'\n#' This is definitely not working yet\n#'\n#' @export\n\ninit <- function(){\n\tlibrary(dplyr)\n\tlibrary(data.table)\n\tlibrary(magrittr)\n\tlibrary(foreach)\n\tlibrary(devtools)\n\n\tsetwd(\"/scratch/hpc2862/CAMH/perm_container\")\n\n\ti <-  double()\n\tj <- double()\n\t#mode <<- \"default\"\n\tpath.base <- \"/scratch/hpc2862/CAMH/perm_container/container_\"\n\tsummary.file <- \"/scratch/hpc2862/CAMH/perm_container/snp_summary2.out\"\n\toutput <- \"~/repos/coR-ge/data/test_run2.txt\"\n\ttest <- TRUE\n\tsafe <- TRUE\n\n\tvold <- packageVersion(\"coRge\")\n\n\tif(!require(devtools)) install.packages(\"devtools\")\n\tdevtools::install_github(\"Chris1221/coR-ge\", ref = \"devel\")\n\n\tvnew <- packageVersion(\"coRge\")\n\n\tif(vold != vnew) message(\"coRge has been updated!\")\n\n\treturn(list(i,j, path.base, summary.file, output, test, safe))\n}\n",
+    "created" : 1465154849919.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1821327538",
+    "id" : "DC5A3EB0",
+    "lastKnownWriteTime" : 1465138303,
+    "path" : "~/repos/coR-ge/R/init.R",
+    "project_path" : "R/init.R",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

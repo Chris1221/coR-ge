@@ -1,0 +1,17 @@
+{
+    "contents" : "#' Calculates FDR given a data frame\n#'\n#' @param df Data frame of input\n#'\n#' @importFrom magrittr %<>%\n#' @importFrom dplyr %>%\n#'\n#' @return A vector of results\n#'\n#' @export\n\nfdr <- function(df = NULL, mode = \"default\", level = NULL){\n\n\tif(is.null(df)) stop(\"Please input a data frame\")\n\n  df %<>% filter(!is.na(p.adj))\n\n  \tif(mode == \"default\"){\n\n\t\tfp <- sum(!is.na(df$p.adj[df$p.adj < 0.05 & !(df$h1)]))\n\t\ttp <- sum(!is.na(df$p.adj[df$p.adj < 0.05 & df$h1]))\n\t\tfdr <- fp / (tp + fp)\n\n\t} else if(mode == \"ld\"){\n\n\t\tfp <- sum(!is.na(df$p.adj[(df$p.adj < 0.05 & !(df$h1)) | (df$p.adj < 0.05 & df$ld > level)]))\n\t\ttp <- sum(!is.na(df$p.adj[(df$p.adj < 0.05 & df$h1) | (df$p.adj < 0.05 & df$ld > level)]))\n\t\tfdr <- fp / (tp + fp)\n\n\t}\n\n \treturn(c(fp, tp, fdr))\n}\n",
+    "created" : 1465144925901.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2426327043",
+    "id" : "97DE8B64",
+    "lastKnownWriteTime" : 1465162953,
+    "path" : "~/repos/coR-ge/R/fdr.R",
+    "project_path" : "R/fdr.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,17 @@
+{
+    "contents" : "Package: coRge\nType: Package\nTitle: An R package for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments.\nVersion: 0.5.6.9000\nDate: 2016-03-06\nAuthor: Christopher B. Cole\nMaintainer: Christopher B. Cole <chris.c.1221@gmail.com>\nDescription: See the paper.\nLicense: MIT\nLazyData: TRUE\nRoxygenNote: 5.0.1\nSuggests: knitr,\n    rmarkdown,\n    testthat,\n    covr\nVignetteBuilder: knitr\n",
+    "created" : 1464869545962.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3702957260",
+    "id" : "4D4E43FA",
+    "lastKnownWriteTime" : 1465162952,
+    "path" : "~/repos/coR-ge/DESCRIPTION",
+    "project_path" : "DESCRIPTION",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "dcf"
+}
