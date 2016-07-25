@@ -1,4 +1,4 @@
-`coRge`:  Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments, clean version. 
+`coRge`:  Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments
 ------------------------------
 
 ## Status:
