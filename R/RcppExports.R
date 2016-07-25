@@ -21,3 +21,8 @@ test <- function(geno) {
     .Call('coRge_test', PACKAGE = 'coRge', geno)
 }
 
+#' @export
+th <- function(strata_rsid, rsid, r2) {
+    .Call('coRge_th', PACKAGE = 'coRge', strata_rsid, rsid, r2)
+}
+

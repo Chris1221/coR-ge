@@ -54,3 +54,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// th
+arma::vec th(arma::vec strata_rsid, arma::vec rsid, arma::vec r2);
+RcppExport SEXP coRge_th(SEXP strata_rsidSEXP, SEXP rsidSEXP, SEXP r2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< arma::vec >::type strata_rsid(strata_rsidSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type rsid(rsidSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type r2(r2SEXP);
+    __result = Rcpp::wrap(th(strata_rsid, rsid, r2));
+    return __result;
+END_RCPP
+}
