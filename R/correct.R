@@ -21,7 +21,7 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
 
   if(group && is.null(group_name)) stop("Please name your group")
 
-    out <- data.frame(sfdr = double(), fdr = double(), k = integer())
+    out <- data.frame(s1_fp = double(), s1_tp = double(), s1_fdr = double(), s2_fp = double(), s2_tp = double(), s2_fdr = double(), agg_fp = double(), agg_tp = double(), agg_fdr = double(), sfdr = double(), fdr = double(), k = character())
 
   	assoc.df <- assoc
   	strata %<>%
@@ -49,7 +49,7 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
   	sfdr <- (s1[1]+s2[1]) / (s1[1]+s2[1] + s1[2]+s2[2])
   	fdr <- agg[3]
 
-  	out[1,] <- c(sfdr, fdr, "all")
+  	out[1,] <- c(s1, s2, agg, sfdr, fdr, "all")
 
   if(group) {
 
@@ -80,7 +80,7 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
       sfdr <- (s1[1]+s2[1]) / (s1[1]+s2[1] + s1[2]+s2[2])
       fdr <- agg[3]
 
-      out[nrow(out)+1,] <- c(sfdr, fdr, i)
+      out[nrow(out)+1,] <- c(s1, s2, agg, sfdr, fdr, i)
       j <- j+1
 
     }
@@ -90,7 +90,7 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
 
       if(group && is.null(group_name)) stop("Please name your group")
 
-      out <- data.frame(sfdr = double(), fdr = double(), k = integer(), th = double())
+      out <- data.frame(s1_fp = double(), s1_tp = double(), s1_fdr = double(), s2_fp = double(), s2_tp = double(), s2_fdr = double(), agg_fp = double(), agg_tp = double(), agg_fdr = double(),sfdr = double(), fdr = double(), k = integer(), th = double())
 
       assoc.df <- assoc
       strata %<>%
@@ -121,7 +121,7 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
         sfdr <- (s1[1]+s2[1]) / (s1[1]+s2[1] + s1[2]+s2[2])
         fdr <- agg[3]
 
-        out[nrow(out)+1,] <- c(sfdr, fdr, "all", th)
+        out[nrow(out)+1,] <- c(s1, s2, agg, sfdr, fdr, "all", th)
 
 
         if(group) {
@@ -153,7 +153,7 @@ correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE,
             sfdr <- (s1[1]+s2[1]) / (s1[1]+s2[1] + s1[2]+s2[2])
             fdr <- agg[3]
 
-            out[nrow(out)+1,] <- c(sfdr, fdr, i, th)
+            out[nrow(out)+1,] <- c(s1, s2, agg, sfdr, fdr, i, th)
 
           }
 

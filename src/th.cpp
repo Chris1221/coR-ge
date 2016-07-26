@@ -24,7 +24,7 @@ using namespace arma;
 
 //' @export
 // [[Rcpp::export]]
-arma::vec th(arma::vec strata_rsid, arma::vec rsid, arma::vec r2){
+arma::vec th(Rcpp::StringVector strata_rsid, Rcpp::StringVector rsid, Rcpp::NumericVector r2){
 	
 	// Inputs:
 	//
@@ -33,28 +33,28 @@ arma::vec th(arma::vec strata_rsid, arma::vec rsid, arma::vec r2){
 	// r2 is the r2 column from LdList
 	
 	// Create the output vector of th numbers
-	arma::vec th(strata_rsid.n_elem, fill::zeros);
+	arma::vec th(strata_rsid.size(), fill::zeros);
 
 	// Find the indices of where the rsid are in strata_rsid
-	for(uword i = 0; i < rsid.n_elem; i++){
+	for(int i = 0; i < rsid.size(); i++){
 
 		// Pull out each of the RSIDs successively 
-		std::string id = rsid(i);
+		// std::string id = rsid(i);
 
 		// Find the index in strata_rsid where the RSID string is
 		// and fill it in with the r2 at the given id.
-		th( find( strata_rsid == id ) ) = r2(i);
+//		th( arma::find( strata_rsid == rsid(i) ) ) = r2(i);
 	}
 
 	// Create duplicate vector to fill in discretized values
 	arma::vec out = th;
 
-	out.elem( find( th >= 0.2 ) ) = 0.2;
-	out.elem( find( th >= 0.4 ) ) = 0.4;
-	out.elem( find( th >= 0.6 ) ) = 0.6;
-	out.elem( find( th >= 0.8 ) ) = 0.8;
-	out.elem( find( th >= 0.9 ) ) = 0.9;
-	out.elem( find( th >= 1 ) ) = 1;
+	out.elem( find( th >= 0.2 ) ).fill(0.2);
+	out.elem( find( th >= 0.4 ) ).fill(0.4);
+	out.elem( find( th >= 0.6 ) ).fill(0.6);
+	out.elem( find( th >= 0.8 ) ).fill(0.8);
+	out.elem( find( th >= 0.9 ) ).fill(0.9);
+	out.elem( find( th >= 1 ) ).fill(1);
 	
 	return out;
 

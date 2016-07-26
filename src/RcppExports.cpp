@@ -43,26 +43,27 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// test
-bool test(arma::vec geno);
-RcppExport SEXP coRge_test(SEXP genoSEXP) {
+// fun
+arma::uvec fun(arma::field<std::string> input_field, std::string id);
+RcppExport SEXP coRge_fun(SEXP input_fieldSEXP, SEXP idSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< arma::vec >::type geno(genoSEXP);
-    __result = Rcpp::wrap(test(geno));
+    Rcpp::traits::input_parameter< arma::field<std::string> >::type input_field(input_fieldSEXP);
+    Rcpp::traits::input_parameter< std::string >::type id(idSEXP);
+    __result = Rcpp::wrap(fun(input_field, id));
     return __result;
 END_RCPP
 }
 // th
-arma::vec th(arma::vec strata_rsid, arma::vec rsid, arma::vec r2);
+arma::vec th(Rcpp::StringVector strata_rsid, Rcpp::StringVector rsid, Rcpp::NumericVector r2);
 RcppExport SEXP coRge_th(SEXP strata_rsidSEXP, SEXP rsidSEXP, SEXP r2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< arma::vec >::type strata_rsid(strata_rsidSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type rsid(rsidSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type r2(r2SEXP);
+    Rcpp::traits::input_parameter< Rcpp::StringVector >::type strata_rsid(strata_rsidSEXP);
+    Rcpp::traits::input_parameter< Rcpp::StringVector >::type rsid(rsidSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type r2(r2SEXP);
     __result = Rcpp::wrap(th(strata_rsid, rsid, r2));
     return __result;
 END_RCPP

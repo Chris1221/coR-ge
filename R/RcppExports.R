@@ -17,8 +17,8 @@ assoc <- function(gen, y) {
 }
 
 #' @export
-test <- function(geno) {
-    .Call('coRge_test', PACKAGE = 'coRge', geno)
+fun <- function(input_field, id) {
+    .Call('coRge_fun', PACKAGE = 'coRge', input_field, id)
 }
 
 #' @export
