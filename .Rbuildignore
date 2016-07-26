@@ -1,9 +1,0 @@
-^packrat/
-^\.Rprofile$
-^.*\.Rproj$
-^\.Rproj\.user$
-^\.travis\.yml$
-^appveyor\.yml$
-^CONDUCT\.md$
-^revdep$
-^data/$
