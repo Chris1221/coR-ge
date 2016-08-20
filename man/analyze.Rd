@@ -4,7 +4,7 @@
 \alias{analyze}
 \title{Correction of Genomes in R}
 \usage{
-analyze(i = double(), j = double(), mode = "default",
+analyze(i, j, mode = "default",
   path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
   summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
   output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE,

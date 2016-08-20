@@ -13,15 +13,16 @@
 #' @param pc Proportion of causal SNPs in the second strata
 #' @param pnc Proportion of noncausal SNPs in the second strata
 #' @param nc Number of causal SNPs
-#' @param gen Gen matrix if local 
+#' @param gen Gen matrix if local
 #' @param summary Summary file if preread
 #' @param maf Maf or no
 #' @param maf_range MAF range
 #'
+#' @import futile.logger
 #' @import foreach
 #' @import devtools
 #' @importFrom lazyeval interp
-#' @importFrom data.table fread 
+#' @importFrom data.table fread
 #' @importFrom magrittr %<>%
 #' @importFrom dplyr mutate mutate_ filter filter_ select select_ sample_n %>%
 #' @importFrom Rcpp evalCpp
@@ -33,12 +34,23 @@
 
 
 
-analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE, local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5, nc = 1000, gen = NULL, summary = summary, maf = FALSE, maf_range = NULL){
-
-
-#message(paste0("coR-ge v", packageVersion("coRge"), " \t \t http://github.io/Chris1221/coR-ge \n \n \t Parameters in use: \n \t \t i: ",i, "\n \t \t j: ", j, "\n \t \t path.base: ", path.base,"\n \t \t summary.file: ", summary.file,"\n \t \t output: ", output,"\n \t \t th2: ", h2,"\n \t \t pc: ", pc,"\n \t \t pnc: ", pnc,"\n \t \t nc: ", nc, "\n \n \t Local options: \n \t \t local: ", local,"\n \t \t gen ", gen,"\n \t \t summary: ", summary, " \n \n \t Testing options: \n \t \t test: ", test,"\n \t \t safe: ", safe, "\n \n LOG: \n"))
-
-
+analyze <- function(i,
+		    j,
+		    mode = "default",
+		    path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
+		    summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
+		    output = "~/repos/coR-ge/data/test_run2.txt",
+		    test = TRUE,
+		    safe = TRUE,
+		    local = FALSE,
+		    h2 = 0.45,
+		    pc = 0.5,
+		    pnc = 0.5,
+		    nc = 1000,
+		    gen = NULL,
+		    summary = summary,
+		    maf = FALSE,
+		    maf_range = NULL){
 
 	if(local) {
 
@@ -49,7 +61,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
 			message("Error Checking")
 
-		if(any(is.null(c(i,j,path.base, summary.file)))) stop("Please complete all input arguemnets")
+		#if(any(is.null(c(path.base, summary.file)))) stop("Please complete all input arguemnets")
 
 		path <- paste0(path.base,i,"_",j,"/")
 		setwd(path)
@@ -132,7 +144,7 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 
 	out <- correct(strata=strata, n_strata = n_strata, assoc = P_list, group = FALSE)
 
-	
+
 
 
 #            ___                                       _
@@ -241,16 +253,16 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 	# Initiate it with 0 and then sequentially overwrite.
 	strata$ld <- 0
 
-	# Calculate the LD from ld.cpp 
+	# Calculate the LD from ld.cpp
 	LdList <- ld_cor(snps, gen)
-	
+
 	# Loop through each of the LD TP thresholds.
 	for(th in c(0.2, 0.4, 0.6, 0.8, 0.9, 1)){
-		
+
 		# Create a list of SNPs which have higher than the threshold
 		# LD.
 		snp_b <- LdList$rsid[LdList$ld > th]
-		
+
 		# Assign the threshold value to each of these SNPs.
 		strata$ld[strata$rsid %in% snp_b] <- th
 	}
@@ -258,7 +270,49 @@ analyze <- function(i = double(), j = double(), mode = "default", path.base = "/
 	 out <- correct(strata=strata, n_strata = n_strata, assoc = P_list, group = FALSE, mode = "ld")
 
 
-  }
+  } else if(mode == "genes"){
+
+
+    		message("Selecting Causal SNPs")
+
+    	snps <- causal.snps(summary, mode = mode, nc = nc, maf = maf)
+    	colnames(snps)[3] <- "V3"
+
+
+    		message("Merging together and converting from Oxford to R format...")
+
+    	comb <- as.data.frame(merge(gen, snps, by = "V3"))
+
+    		comb$rsid <- NULL
+    		comb$chromosome <- NULL
+    		comb$all_maf <- NULL
+    		comb$k <- NULL
+    		comb$chromosomes <- NULL
+
+    		WAS <- calculate_was(gen = comb, snps = snps, h2 = h2)
+
+    	samp$Z <- as.character(foreach(q = 1:length(WAS), .combine = 'c') %do% WAS[q] + rnorm(1, 0, sd = sqrt(1-h2)))
+
+
+    	var <- data.frame(0, 0, 0, "P")
+    	samp$Z <- as.character(samp$Z)
+    	colnames(var) <- colnames(samp)
+    	samp <- rbind(var, samp)
+
+	P_list <- assoc_wrapper(gen, samp)
+
+    	message("Performing correction")
+
+	snps %>% select(rsid) %>% as.vector -> snp_list
+
+	#this is a major assumption so leave it
+	n_strata <- 2
+	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc, )
+
+	out <- correct(strata=strata, n_strata = n_strata, assoc = P_list, group = FALSE)
+
+
+}
 
 
   out$h2 <- h2
