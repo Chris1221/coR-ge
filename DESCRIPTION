@@ -12,6 +12,7 @@ Imports: Rcpp (>= 0.11.3),
    foreach,
    devtools,
    lazyeval,
+   futile.logger,
    data.table,
    magrittr,
    dplyr
