@@ -5,7 +5,7 @@
 \title{Create strata}
 \usage{
 stratify(snp_list = NULL, summary = NULL, pnc = NULL, pc = NULL,
-  n_strata = NULL, mode, gene_kb)
+  n_strata = NULL, mode = "default", gene_kb = 0)
 }
 \arguments{
 \item{snp_list}{Vector of true SNPs}

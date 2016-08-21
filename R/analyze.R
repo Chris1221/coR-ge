@@ -34,8 +34,8 @@
 
 
 
-analyze <- function(i,
-		    j,
+analyze <- function(i = NA,
+		    j = NA,
 		    mode = "default",
 		    path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
 		    summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
@@ -50,7 +50,8 @@ analyze <- function(i,
 		    gen = NULL,
 		    summary = summary,
 		    maf = FALSE,
-		    maf_range = NULL){
+		    maf_range = NULL,
+		    gene_kb = 0){
 
 	if(local) {
 
@@ -275,7 +276,7 @@ analyze <- function(i,
 
     		message("Selecting Causal SNPs")
 
-    	snps <- causal.snps(summary, mode = mode, nc = nc, maf = maf)
+    	snps <- causal.snps(summary, nc = nc, maf = maf)
     	colnames(snps)[3] <- "V3"
 
 
@@ -307,7 +308,7 @@ analyze <- function(i,
 
 	#this is a major assumption so leave it
 	n_strata <- 2
-	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc, )
+	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc, mode = "genes")
 
 	out <- correct(strata=strata, n_strata = n_strata, assoc = P_list, group = FALSE)
 
