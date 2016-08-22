@@ -310,7 +310,24 @@ analyze <- function(i = NA,
 	n_strata <- 2
 	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc, mode = "genes")
 
-	out <- correct(strata=strata, n_strata = n_strata, assoc = P_list, group = FALSE)
+	# Initialize a column for the LD to sit in
+	# Initiate it with 0 and then sequentially overwrite.
+	strata$ld <- 0
+
+	# Calculate the LD from ld.cpp
+	LdList <- ld_cor(snps, gen)
+
+	# Loop through each of the LD TP thresholds.
+	for(th in c(0.2, 0.4, 0.6, 0.8, 0.9, 1)){
+
+		# Create a list of SNPs which have higher than the threshold
+		# LD.
+		snp_b <- LdList$rsid[LdList$ld > th]
+
+		# Assign the threshold value to each of these SNPs.
+		strata$ld[strata$rsid %in% snp_b] <- th
+	}
+	out <- correct(strata=strata, n_strata = n_strata, assoc = P_list, group = FALSE, mode="ld")
 
 
 }
