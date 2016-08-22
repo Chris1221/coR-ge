@@ -1,4 +1,4 @@
-#' Correction of Genomes in R
+#' @title Calculate FDR and sFDR for a simulated GWAS
 #'
 #' Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments
 #'
@@ -343,7 +343,8 @@ analyze <- function(i = NA,
   out$maf_u <- maf_range[2]
 
 
-  if(!file.exists(output)) suppressWarnings(write.table(out, output, row.names = F, col.names = TRUE, quote = F, append = T)) else if(file.exists(output)) write.table(out, output, row.names = F, col.names = F, quote = F, append = T)
+ write.table(out, file = output, append = T, quote = F, row.names = F, col.names = F)
+ # if(!file.exists(output)) suppressWarnings(write.table(out, output, row.names = F, col.names = TRUE, quote = F, append = T)) else if(file.exists(output)) write.table(out, output, row.names = F, col.names = F, quote = F, append = T)
 
 
   return(0)
