@@ -1,0 +1,62 @@
+---
+title: "Updates"
+author: "Christopher B. Cole"
+date: "July 5, 2016"
+output: 
+  html_document: 
+    theme: flatly
+---
+
+## `coR-ge`
+
+#### Runs
+
+- Runs still going:
+- Still on low $h^2$ so unstable
+- Lots of `NA`s
+- This is an example of good parameters:
+
+```{R, echo = F}
+library(pander)
+
+ex <- structure(list(V1 = c(0.527777777777778, 0.542857142857143, 0.542857142857143,
+0.575757575757576, 0.612903225806452, 0.789473684210526), V2 = c(0.53125,
+0.548387096774194, 0.548387096774194, 0.586206896551724, 0.62962962962963,
+0.882352941176471), V3 = structure(c(1L, 1L, 1L, 1L, 1L, 1L), .Label = "all", class = "factor"),
+    V4 = c(0, 0.2, 0.4, 0.6, 0.8, 0.9), V5 = c(0.45, 0.45, 0.45,
+    0.45, 0.45, 0.45), V6 = c(0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+    V7 = c(0.5, 0.5, 0.5, 0.5, 0.5, 0.5), V8 = c(1000L, 1000L,
+    1000L, 1000L, 1000L, 1000L), V9 = c(1L, 1L, 1L, 1L, 1L, 1L
+    ), V10 = c(7L, 7L, 7L, 7L, 7L, 7L), V11 = c(0.1, 0.1, 0.1,
+    0.1, 0.1, 0.1), V12 = c(0.5, 0.5, 0.5, 0.5, 0.5, 0.5)), .Names = c("V1",
+"V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10", "V11",
+"V12"), class = "data.frame", row.names = c(NA, -6L))
+
+colnames(ex) <- c("sFDR", "FDR", "Grouping", "LD_Threshold", "h2", "Percent_Causal", "Percent_Noncausal", "Number_Causal", "i", "j", "MAF_Lower", "MAF_Upper")
+
+ex$Improvement <- ex$FDR - ex$sFDR
+
+pander(ex)
+
+```
+
+- Not entirely sure why, but results seem very unstable at low $h^2$ / percent causal. 
+
+### UK10K
+
+> Title of Research
+
+Investigation of Stratified False Disovery Rate in Environments of Complex Correlation
+
+> Data sets
+> Project \& Specific Aims (500 words)
+
+The reproducibility and success of Genome Wide Association Studies (GWAS) is dependant upon the accurate and reliable correction for many millions of simultaneous tests; it has been theorized that stratifying tests based on prior information and applying False Discovery Rate Control can identify more real associations. This method, named Stratified False Discovery Rate (sFDR), has been gaining ground among genetics practitioners, though the conditions under which data may be optimally stratified to reduce the false discovery rate is not well understood. This investigation aims to use publicly available data and a novel R package (coR-ge) to improve our understanding of the mechanics behind stratified false discovery rate usage in GWAS studies, as well as the conditions under which it may be optimally applied. We plan to use the control cohorts from the UK10K consortium in order to more realistically simulate human genomes which emulate true correlation patterns. We have broken this project into two specific aims.  
+
+**Specific Aim 1:** Determine whether stratification leads to a decreased false discovery rate under reasonable conditions.
+
+**Specific Aim 2:** Estimate the effect of different genetic parameters on the efficacy of sFDR and on FDR in general.
+
+The first of the specific aims will provide evidence for the use of sFDR in future genetic studies, while the second specific aim will allow resetters to better understand the mechanisms underpinning the use and misuse of this methodology.
+
+- Publication Record

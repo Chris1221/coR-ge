@@ -18,7 +18,7 @@ library(RcppArmadillo)
 #install_github("Chris1221/coR-ge", ref = "devel")
 library(coRge)
 
-test <- FALSE
+test <- TRUE
 
 args <- commandArgs(TRUE)
 
@@ -76,10 +76,11 @@ library(foreach)
 
 #foreach(i = c(1:10)) %:%
 #	foreach(j = c(1:10)) %:%
-		foreach(h2 = seq(0.1, 0.9, by = 0.1)) %:%
-			foreach(pc = seq(0.1, 0.9, by = 0.1)) %:%
-				foreach(pnc = seq(0.1, 0.9, by = 0.1)) %:%
-					foreach(nc = seq(50,500, by =50)) %do% {
-						analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "ld", output = "~repos/coR-ge/data/raw/pri2.txt")
+	foreach(maf = list(c(0.01, 0.05), c(0.1, 0.3), c(0.3, 0.5), c(0.05, 0.5))) %:%
+		foreach(h2 = c(0.4,0.5,0.6)) %:%
+			foreach(pc = c(0.1, 0.5, 0.9)) %:%
+				foreach(pnc = c(0.1,0.5,0.9)) %:%
+					foreach(nc = c(50, 500, 5000)) %do% {
+						analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "ld", maf = TRUE, maf_range = maf, output = "~/repos/coR-ge/data/raw/n1000_full.out")
 					}
 
