@@ -43,11 +43,11 @@ stratify <- function(snp_list = NULL, summary = NULL, pnc = NULL, pc = NULL, n_s
 			filter(!(rsid %in% h1_s1$rsid))
 
 		s1 <- h0_summary %>%
-			filter(position > h1_s1$position[1] - gene_kb*1000 || position < h1_s1$position[1] + gene_kb*1000)
+			filter(position > h1_s1$position[1] - gene_kb*1000 & position < h1_s1$position[1] + gene_kb*1000) %>% nrow
 
 		for(i in 2:nrow(h1_s1)){
 			s1 <- h0_summary %>%
-			filter(position > h1_s1$position[1] - gene_kb*1000 || position < h1_s1$position[1] + gene_kb*1000) %>%
+			filter(position > h1_s1$position[1] - gene_kb*1000 & position < h1_s1$position[1] + gene_kb*1000) %>%
 			rbind(s1)
 		}
 
