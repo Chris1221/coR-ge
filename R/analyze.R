@@ -308,7 +308,7 @@ analyze <- function(i = NA,
 
 	#this is a major assumption so leave it
 	n_strata <- 2
-	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc, mode = "genes")
+	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc, mode = "genes", gene_kb = gene_kb)
 
 	# Initialize a column for the LD to sit in
 	# Initiate it with 0 and then sequentially overwrite.
