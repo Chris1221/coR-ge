@@ -3,7 +3,7 @@
   if (interactive()) {
     v = packageVersion("coRge")
 
-    packageStartupMessage(paste0("coRge v", v, ". This version is unstable and should not be used in development. More information and guide at https://github.com/chris1221/cor-ge."))
+    packageStartupMessage(paste0("coRge v", v, ".  For guides and more information please see https://github.com/chris1221/cor-ge."))
 
 
   }
