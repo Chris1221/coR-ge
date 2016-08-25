@@ -3,7 +3,7 @@
   if (interactive()) {
     v = packageVersion("coRge")
 
-    packageStartupMessage(paste0("coRge v", v, ".  For guides and more information please see https://github.com/chris1221/cor-ge."))
+    packageStartupMessage(paste0("coRge v", v, ".\nGuides, issues, and FAQ: https://github.com/Chris1221/coRge \nPrepublication:\t\t arXiv: XXXXX \nCitation:\t\t citation(\"coRge\")"))
 
 
   }
