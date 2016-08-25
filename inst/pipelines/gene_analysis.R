@@ -2,7 +2,7 @@
 
 # ------------------------------------------------------------------------------- #
 #
-# Step 1: Take input options from command line 
+# Step 1: Take input options from command line
 #	  Currently assuming that only i and j vary but the others can too
 #         Maybe put this into the makefile directly
 #
@@ -31,7 +31,7 @@ path.base <- "/scratch/hpc2862/CAMH/perm_container/container_"
 #
 # Step 2: Read in gen and summary files
 #         This has been removed from the main function to allow looping over analyze(local)
-#         Perhaps try to save as an R binary file, but not now. 
+#         Perhaps try to save as an R binary file, but not now.
 #
 # ------------------------------------------------------------------------------- #
 
