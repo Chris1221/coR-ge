@@ -17,8 +17,8 @@ foreach(h2 = seq(0.1, 0.9, by = 0.1)) %:%
 	foreach(pc = seq(0.1, 0.9, by = 0.1)) %:%
 		foreach(pnc = seq(0.1, 0.9, by = 0.1)) %:%
 			foreach(nc = seq(50,500, by =50)) %do% {
-				analyze(i = i,
-				        j = j,
+				analyze(i = 1,
+				        j = 1,
 				       	h2 = h2,
 				       	pc = pc,
 				       	pnc = pnc,
