@@ -2,7 +2,9 @@
 % Please edit documentation in R/analyze.R
 \name{analyze}
 \alias{analyze}
-\title{Correction of Genomes in R}
+\title{Calculate FDR and sFDR for a simulated GWAS
+
+Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments}
 \usage{
 analyze(i = NA, j = NA, mode = "default",
   path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
@@ -45,8 +47,5 @@ analyze(i = NA, j = NA, mode = "default",
 }
 \value{
 Flat file at specified path.
-}
-\description{
-Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments
 }
 

@@ -1,4 +1,4 @@
-#' Correction of Genomes in R
+#' @title Calculate FDR and sFDR for a simulated GWAS
 #'
 #' Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments
 #'
@@ -308,9 +308,26 @@ analyze <- function(i = NA,
 
 	#this is a major assumption so leave it
 	n_strata <- 2
-	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc, mode = "genes")
+	strata <- stratify(snp_list = snp_list, summary = summary, n_strata = n_strata, pc = pc, pnc = pnc, mode = "genes", gene_kb = gene_kb)
 
-	out <- correct(strata=strata, n_strata = n_strata, assoc = P_list, group = FALSE)
+	# Initialize a column for the LD to sit in
+	# Initiate it with 0 and then sequentially overwrite.
+	strata$ld <- 0
+
+	# Calculate the LD from ld.cpp
+	LdList <- ld_cor(snps, gen)
+
+	# Loop through each of the LD TP thresholds.
+	for(th in c(0.2, 0.4, 0.6, 0.8, 0.9, 1)){
+
+		# Create a list of SNPs which have higher than the threshold
+		# LD.
+		snp_b <- LdList$rsid[LdList$ld > th]
+
+		# Assign the threshold value to each of these SNPs.
+		strata$ld[strata$rsid %in% snp_b] <- th
+	}
+	out <- correct(strata=strata, n_strata = n_strata, assoc = P_list, group = FALSE, mode="ld")
 
 
 }
@@ -325,10 +342,10 @@ analyze <- function(i = NA,
   out$maf_l <- maf_range[1]
   out$maf_u <- maf_range[2]
 
+ write.table(out, file = output, append = T, quote = F, row.names = F, col.names = F)
+ # if(!file.exists(output)) suppressWarnings(write.table(out, output, row.names = F, col.names = TRUE, quote = F, append = T)) else if(file.exists(output)) write.table(out, output, row.names = F, col.names = F, quote = F, append = T)
 
-  if(!file.exists(output)) suppressWarnings(write.table(out, output, row.names = F, col.names = TRUE, quote = F, append = T)) else if(file.exists(output)) write.table(out, output, row.names = F, col.names = F, quote = F, append = T)
-
-
+ message("This has passed the writting")
   return(0)
 
 }
