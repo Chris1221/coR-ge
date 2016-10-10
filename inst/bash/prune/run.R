@@ -27,7 +27,7 @@ foreach(h2 = seq(0.1, 0.9, by = 0.1)) %:%
 				       	gen = gen,
 				       	summary = summary,
 				       	mode = "ld",
-				       	output = "~repos/coR-ge/data/raw/pri2.txt"
+				       	output = "~/repos/coR-ge/inst/data/raw/pruned.txt"
 					)
 			}
 
