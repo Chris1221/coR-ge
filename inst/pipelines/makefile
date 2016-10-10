@@ -34,7 +34,7 @@ pri2: $(IN)/bigrun_priority2.R
 genes: $(IN)/gene_analysis.R
 	num1=1 ; while [[ $$num1 -le 3 ]] ; do \
         num2=1 ; while [[ $$num2 -le 10 ]] ; do \
-		qsub -N gene_analysis $(B)/submit.sh $$num1 $$num2 $(IN)/bigrun_priority2.R ; \
+		qsub -N gene_analysis $(B)/submit.sh $$num1 $$num2 $(IN)/gene_analysis.R ; \
         	((num2 = num2 + 1)) ; \
         	done ; \
 	((num1 = num1 + 1)) ; \

@@ -77,10 +77,10 @@ library(foreach)
 #foreach(i = c(1:10)) %:%
 #	foreach(j = c(1:10)) %:%
 	#foreach(maf = list(c(0.1, 0.3), c(0.3, 0.5), c(0.05, 0.5))) %:%
-		foreach(h2 = c(0.5, 0.7, 0.9)) %:%
-			foreach(pc = c(0.5, 0.7, 0.9)) %:%
-				foreach(pnc = c(0.1,0.3, 0.5)) %:%
-					foreach(nc = c(20, 50)) %do% {
-						analyze(h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "genes", maf = F, output = "~/repos/coR-ge/data/raw/gene_analysis.out")
+		foreach(h2 = c(0.5,0.6, 0.7,0.8, 0.9)) %:%
+			foreach(pc = c(0.5,0.6, 0.7,0.8, 0.9)) %:%
+				#foreach(pnc = c(0.1,0.3, 0.5)) %:%
+					foreach(nc = c(20, 50, 100, 500)) %do% {
+						analyze(h2 = h2, pc = pc, pnc = 0.1, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "genes", maf = F, output = "~/repos/coR-ge/data/raw/gene_analysis_50kb.out", gene_kb = 50) 
 					}
 
