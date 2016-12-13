@@ -16,7 +16,7 @@ home=/scratch/hpc2862/CAMH/new_corge
 # Git add rule
 # 	
 git:
-	git add -A
+	cd ../../.. && git add -A
 	git commit -am "update coRge for new analysis see changelog" 
 
 
