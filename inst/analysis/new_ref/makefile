@@ -5,9 +5,8 @@
 #	This is going hopefully towards publication eventually. 
 
 # Set up some variables first.
-hapgen2=
 home=/scratch/hpc2862/CAMH/new_corge
-
+hapgen2=$(home)/bin/hapgen2
 
 # The default rule
 # 	For now just update the git repo.
@@ -32,7 +31,10 @@ $(home)/ref/.done:
 #	as opposed to any of the actual files for the sake of simplicity.
 $(home)/sim/.done: $(home)/ref/.done 
 	mkdir -p $(home)/sim
-	$(hapgen2) -h 
-	/home/hpc2862/Programs/hapgen2 -h pilot1.jun2010.b36.CEU.chr1.snpfilt.haps -l pilot1.jun2010.b36.CEU.chr1.snpfilt.legend -m genetic_map_chr1_combined_b36.txt -dl 77053 1 1.0 1.0 -n 1000 0 -int 0 500000000 -o /scratch/hpc2862/CAMH/perm_container/container_${i2}_${SGE_TASK_ID}/chr1_block_${i2}_perm_${j2}_k_${SGE_TASK_ID}
-
-
+	cd $(home)/ref && $(hapgen2) -h 1000GP_Phase3_chr1.hap.gz \
+		-l 1000GP_Phase3_chr1.legend.gz \
+		-m genetic_map_chr1_combined_b37.txt \
+		-dl 77053 1 1.0 1.0 \
+		-n 1000 \
+		-int 0 500000000 \
+		-o  ../sim/chr1_sim1
