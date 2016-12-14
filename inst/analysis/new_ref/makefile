@@ -12,6 +12,11 @@ hapgen2=$(home)/bin/hapgen2
 # 	For now just update the git repo.
 .all: $(home)/sim/.done
 
+# Submission
+#
+sub:
+	qsub -N "new_run" sub.sh
+
 # Git add rule
 # 	
 git:
