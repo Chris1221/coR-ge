@@ -36,8 +36,8 @@ $(home)/ref/.done:
 #	as opposed to any of the actual files for the sake of simplicity.
 $(home)/sim/.done: $(home)/ref/.done 
 	mkdir -p $(home)/sim
-	cd $(home)/ref && $(hapgen2) -h 1000GP_Phase3_chr1.hap.gz \
-		-l 1000GP_Phase3_chr1.legend.gz \
+	cd $(home)/ref && $(hapgen2) -h 1000GP_Phase3_chr1.hap \
+		-l 1000GP_Phase3_chr1.legend \
 		-m genetic_map_chr1_combined_b37.txt \
 		-dl 77053 1 1.0 1.0 \
 		-n 1000 \
