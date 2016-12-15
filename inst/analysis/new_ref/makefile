@@ -39,7 +39,7 @@ $(home)/sim/.done: $(home)/ref/.done
 	cd $(home)/ref && $(hapgen2) -h 1000GP_Phase3_chr1.hap \
 		-l 1000GP_Phase3_chr1.legend \
 		-m genetic_map_chr1_combined_b37.txt \
-		-dl 77053 1 1.0 1.0 \
+		-dl 723891 1 1.0 1.0 \
 		-n 1000 \
 		-int 0 500000000 \
 		-o  ../sim/chr1_sim1
