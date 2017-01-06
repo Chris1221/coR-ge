@@ -10,10 +10,12 @@ assoc_wrapper <- function(gen, samp){
 
 	phen <- samp$Z[-1] %>% as.vector %>% as.double
 
-	t <- assoc(as.matrix(gen[,-c(1:5)]), phen)
+	out <- assoc(as.matrix(gen[,-c(1:5)]), phen)
+	t <- out[,1] / out[,2]
+	
 	P <- pt(t, df = length(phen) -2, lower = FALSE)*2
 
-	return(data.frame(rsid = gen[,2], P = P))
+	return(data.frame(rsid = gen[,2], out[,1], out[,2], P = P))
 
 
 

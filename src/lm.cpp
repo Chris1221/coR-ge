@@ -24,10 +24,10 @@ using namespace arma;
 
 //' @export
 // [[Rcpp::export]]
-arma::vec assoc(arma::mat gen, arma::colvec y){
+arma::mat assoc(arma::mat gen, arma::colvec y){
 	
 	// Initialize output as a vector.
-	arma::vec outputList(gen.n_rows);
+	arma::mat outputList(gen.n_rows, 2);
 
 	// Split regression into each row of the gen file
 	// meaning each SNP is regressed seperately.
@@ -87,7 +87,8 @@ arma::vec assoc(arma::mat gen, arma::colvec y){
 
 		std::string name = patch::to_string(i);
 		
-		outputList[i] = t;
+		outputList[i,0] = coef;
+		outputList[i,1] = stderrest;
 	}
 
 	return outputList;

@@ -1,9 +1,9 @@
-#' Correct strata by group
+#' @title Correct strata by group
 #'
-#' Note that group name must be a factor
+#' @description Note that group name must be a factor
 #'
-#' @param strata Strata
-#' @param n_strata Number of strata
+#' @param strata Strata object returned from \code{stratify}.
+#' @param n_strata Number of strata you wish to consider. Note: Only 2 currently supported.
 #' @param assoc Assoc file path
 #'
 #' @importFrom data.table fread
@@ -14,6 +14,15 @@
 #' @export
 
 correct <- function(strata = NULL, n_strata = NULL, assoc = NULL, group = FALSE, group_name = NULL, mode = "default"){
+
+	if(mode == "odp"){
+	
+		flog.info("Using ODP for correction.")
+
+			
+
+	}
+
 
   if(mode == "default"){
 
