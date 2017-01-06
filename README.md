@@ -5,8 +5,8 @@
 
 | Branch | Travis-CI | Appveyor | Coverage | CRAN | Downloads | Publication |
 | :--- | :---: | :---: | :--: | :---: | :---: | :---: |
-| `master` | ![Build Status](https://travis-ci.org/Chris1221/coR-ge.svg?branch=master) | ![Build status](https://ci.appveyor.com/api/projects/status/v64oe85q29btxln9?svg=true) | [![codecov.io](https://codecov.io/github/Chris1221/coR-ge/coverage.svg?branch=master)](https://codecov.io/github/Chris1221/coR-ge?branch=master) | ![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/coRge) | ![](http://cranlogs.r-pkg.org/badges/coRge) | GitXiv |
-| `devel` |![Build Status](https://travis-ci.org/Chris1221/coR-ge.svg?branch=devel) | [![Build status](https://ci.appveyor.com/api/projects/status/v64oe85q29btxln9?svg=true)](https://ci.appveyor.com/project/Chris1221/miner) | [![codecov.io](https://codecov.io/github/Chris1221/coR-ge/coverage.svg?branch=devel)](https://codecov.io/github/Chris1221/coR-ge?branch=devel) | ![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/coRge) | ![](http://cranlogs.r-pkg.org/badges/coRge) | GitXiv | 
+| `master` | ![Build Status](https://travis-ci.org/Chris1221/coRge.svg?branch=master) | ![Build status](https://ci.appveyor.com/api/projects/status/v64oe85q29btxln9?svg=true) | [![codecov.io](https://codecov.io/github/Chris1221/coRge/coverage.svg?branch=master)](https://codecov.io/github/Chris1221/coRge?branch=master) | ![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/coRge) | ![](http://cranlogs.r-pkg.org/badges/coRge) | GitXiv |
+| `devel` |![Build Status](https://travis-ci.org/Chris1221/coRge.svg?branch=devel) | [![Build status](https://ci.appveyor.com/api/projects/status/v64oe85q29btxln9?svg=true)](https://ci.appveyor.com/project/Chris1221/miner) | [![codecov.io](https://codecov.io/github/Chris1221/coRge/coverage.svg?branch=devel)](https://codecov.io/github/Chris1221/coRge?branch=devel) | ![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/coRge) | ![](http://cranlogs.r-pkg.org/badges/coRge) | GitXiv | 
 
 -----------------------------------
 
@@ -14,7 +14,7 @@ To install:
 
 ```R
 if(!require(devtools)) install.packages("devtools")
-devtools::install_github("Chris1221/coR-ge")
+devtools::install_github("Chris1221/coRge")
 ```
 
 To run:

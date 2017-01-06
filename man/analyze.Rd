@@ -2,14 +2,17 @@
 % Please edit documentation in R/analyze.R
 \name{analyze}
 \alias{analyze}
-\title{Correction of Genomes in R}
+\title{Calculate FDR and sFDR for a simulated GWAS
+
+Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments}
 \usage{
-analyze(i = double(), j = double(), mode = "default",
+analyze(i = NA, j = NA, mode = "default",
   path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
   summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
   output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE,
   local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5, nc = 1000,
-  gen = NULL, summary = summary, maf = FALSE, maf_range = NULL)
+  gen = NULL, summary = summary, maf = FALSE, maf_range = NULL,
+  gene_kb = 0)
 }
 \arguments{
 \item{i}{i index.}
@@ -44,8 +47,5 @@ analyze(i = double(), j = double(), mode = "default",
 }
 \value{
 Flat file at specified path.
-}
-\description{
-Software for the Examination of Multiple Correction Methodologies in Accurate Genomic Environments
 }
 

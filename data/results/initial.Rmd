@@ -1,0 +1,107 @@
+---
+title: "Initial Results"
+subtitle: "coR-ge runs with limited resolution"
+author: "Christopher B. Cole"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html: default
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tufte)
+library(reshape)
+library(ggplot2)
+library(ggvis)
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
+```
+
+# Progress so far
+
+Though `coR-ge` has been running on 8 cores per node, it has still made limited progress through the range of options.  The full list of parameters attempted include:
+
+```{r, eval = F}
+foreach(maf_range = list(c(0.01, 0.05), c(0.05, 0.1), c(0.1, 0.2), c(0.2, 0.3), c(0.3, 0.4), c(0.4, 0.5), c(0.05, 0.5))) %:%
+	foreach(h2 = seq(0.1, 0.9, by = 0.1)) %:%
+		foreach(pc = seq(0.1, 0.9, by = 0.1)) %:%
+			foreach(pnc = seq(0.1, 0.9, by = 0.1)) %:%
+				foreach(nc = seq(50,500, by =50)) %do% {
+					analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "ld", maf = TRUE, maf_range = maf_range, output = "/home/hpc2862/repos/coR-ge/data/raw/maf_results.txt")
+				}
+```
+
+So far, the `nc` loop has finished, and the `pnc` loop is nearing completion.  We have limited data on the other parameters, though we can estimate the paramters for the **difference** so far:
+
+```{R, eval = TRUE}
+library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+library(pander, quietly = TRUE)
+library(magrittr)
+
+corge <- read.table("~/repos/coR-ge/data/raw/maf_results.txt", h = F, na.strings = "NaN", sep = " ")
+colnames(corge) <- c("sFDR", "FDR", "group", "LD", "h2", "pnc", "pc", "nc", "i", "j", "maf_l", "maf_u")
+corge %<>% mutate(diff = FDR - sFDR) 
+
+pander(head(corge))
+
+lm(diff ~ LD + h2 + pnc + pc + nc + maf_l + maf_u, corge) %>% 
+  summary %>% 
+  pander
+
+```
+
+And also looking at the difference between stratefied and normal FDR.
+
+```{R fig-margin}
+corge_l <- melt(corge, id = c("group", "LD", "h2", "pnc", "pc", "nc", "i", "j", "maf_l", "maf_u", "diff"), measure.vars = c("sFDR", "FDR"))
+
+lm(value ~ variable + LD + h2 + pnc + pc + nc, corge_l) %>% 
+  summary %>%
+  pander
+```
+
+And just to confirm:
+
+```{R}
+t.test(value ~ variable, corge_l, na.rm = TRUE)
+```
+
+We observe the relative densities of the samples. We additionally plot the difference by `pnc` level.
+
+```{r, fig.margin = TRUE, fig.cap = "Density of samples by pnc showing that not fully sampled at the upper range yet.", fig.width=3.5, fig.height=3.5, cache=TRUE, echo= F}
+library(ggvis)
+corge %>% filter(!(is.na(diff))) %>% ggvis(~pnc, ~diff) %>% layer_densities()
+```
+
+We look at the difference between sFDR and FDR:
+
+```{R}
+p <- ggplot(corge, aes(x = factor(pnc), y = diff))
+p + geom_boxplot()
+```
+
+And looking at the coefficicents:
+
+```{R,fig.width=5, fig.height=3.5}
+corge$pnc %<>% as.factor
+
+lm(diff ~ LD + h2 + pnc + pc + nc + maf_l + maf_u, corge) %>% 
+    summary -> s
+    
+s %>% coef %>% as.data.frame %>% mutate(var = row.names(.)) %>% slice(4:11) -> s2
+
+s2$var <- c(0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
+
+s2 %>% ggvis(~var, ~Estimate) %>% layer_lines(stroke := "blue") %>% layer_points(fill := "blue") %>% layer_model_predictions(model = "lm", se = TRUE, stroke := "red") %>% add_axis("x", title = "% Non Causal in Second Strata") %>% add_axis("y", title = "Regression coefficient (increase over 0.1)")
+```
+
+
+

@@ -1,0 +1,8 @@
+base
+tufte
+ggplot2
+dplyr
+pander
+magrittr
+ggvis
+reshape
