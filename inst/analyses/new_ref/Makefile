@@ -44,3 +44,9 @@ $(home)/sim/.done: $(home)/ref/.done
 		-int 0 500000000 \
 		-o  ../sim/chr1_sim1
 
+$(home)/summary/stats.txt: $(home)/ref/.done
+	mkdir -p $(home)/summary
+	$(home)/bin/snptest -summary_stats_only \
+		-data $(home)/sim/chr1_sim1.controls.gen $(home)/sim/chr1_sim1.controls.sample \
+		-o $(home)/summary/stats.txt
+
