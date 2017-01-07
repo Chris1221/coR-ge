@@ -1,9 +1,6 @@
 ---
 title: "Looking at the new panel"
 author: ""
-output:
-  tufte::tufte_handout: default
-  tufte::tufte_html: default
 ---
 
 First we might want to look at a simple summary of the MAF to see if there are any super weird bins that might be affecing the generation of scores to make them abnormally high or low. 
