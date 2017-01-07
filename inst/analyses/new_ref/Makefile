@@ -53,4 +53,4 @@ $(home)/summary/stats.txt: $(home)/ref/.done
 		-o $(home)/summary/stats.txt
 
 summary.html: summary.Rmd
-	Rscript -e 'rmarkdown::render("$<", "tufte_html")'
+	Rscript -e 'rmarkdown::render("$<")'
