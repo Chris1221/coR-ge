@@ -1,0 +1,164 @@
+make[1]: Entering directory `/home/hpc2862/repos/coR-ge/inst/analysis/new_ref'
+mkdir -p /scratch/hpc2862/CAMH/new_corge/sim
+cd /scratch/hpc2862/CAMH/new_corge/ref && /scratch/hpc2862/CAMH/new_corge/bin/hapgen2 -h 1000GP_Phase3_chr1.hap.gz \
+		-l 1000GP_Phase3_chr1.legend.gz \
+		-m genetic_map_chr1_combined_b37.txt \
+		-dl 77053 1 1.0 1.0 \
+		-n 1000 \
+		-int 0 500000000 \
+		-o  ../sim/chr1_sim1
+
+===================================================================
+  Welcome to HAPGEN_v2.2.0 (01/04/2011)
+  Zhan Su, Peter Donnelly, Jonathan Marchini
+===================================================================
+
+Command line input is:
+/scratch/hpc2862/CAMH/new_corge/bin/hapgen2 -h 1000GP_Phase3_chr1.hap.gz -l 1000GP_Phase3_chr1.legend.gz -m genetic_map_chr1_combined_b37.txt -dl 77053 1 1.0 1.0 -n 1000 -int 0 500000000 -o ../sim/chr1_sim1 
+
+FILE INPUTS
+                                            haplotype file: 1000GP_Phase3_chr1.hap.gz
+                                               legend file: 1000GP_Phase3_chr1.legend.gz
+                                          genetic map file: genetic_map_chr1_combined_b37.txt
+                                             tag snps file: 
+FILE OUTPUTS
+                                               output file: ../sim/chr1_sim1
+                                              summary file: ../sim/chr1_sim1.summary
+PARAMETER INPUTS
+                                  no. controls to simulate: 1000
+                                     no. cases to simulate: 0
+                                              disease loci: (1) 77053 
+                                           disease alleles: (1) 1 
+                             heterozygote/homozygote risks: (1) 1.00/1.00 
+                                                     lower: 0
+                                                     upper: 500000000
+                                                        Ne: 11418
+                                                     theta: -1
+
+Reading genetic map file ... done
+                                      number of rates read: 248796
+
+
+Reading haplotype and legend files: looking for SNPs in [0, 500000000] ... make[1]: Entering directory `/home/hpc2862/repos/coR-ge/inst/analysis/new_ref'
+mkdir -p /scratch/hpc2862/CAMH/new_corge/sim
+cd /scratch/hpc2862/CAMH/new_corge/ref && /scratch/hpc2862/CAMH/new_corge/bin/hapgen2 -h 1000GP_Phase3_chr1.hap \
+		-l 1000GP_Phase3_chr1.legend \
+		-m genetic_map_chr1_combined_b37.txt \
+		-dl 77053 1 1.0 1.0 \
+		-n 1000 \
+		-int 0 500000000 \
+		-o  ../sim/chr1_sim1
+
+===================================================================
+  Welcome to HAPGEN_v2.2.0 (01/04/2011)
+  Zhan Su, Peter Donnelly, Jonathan Marchini
+===================================================================
+
+Command line input is:
+/scratch/hpc2862/CAMH/new_corge/bin/hapgen2 -h 1000GP_Phase3_chr1.hap -l 1000GP_Phase3_chr1.legend -m genetic_map_chr1_combined_b37.txt -dl 77053 1 1.0 1.0 -n 1000 -int 0 500000000 -o ../sim/chr1_sim1 
+
+FILE INPUTS
+                                            haplotype file: 1000GP_Phase3_chr1.hap
+                                               legend file: 1000GP_Phase3_chr1.legend
+                                          genetic map file: genetic_map_chr1_combined_b37.txt
+                                             tag snps file: 
+FILE OUTPUTS
+                                               output file: ../sim/chr1_sim1
+                                              summary file: ../sim/chr1_sim1.summary
+PARAMETER INPUTS
+                                  no. controls to simulate: 1000
+                                     no. cases to simulate: 0
+                                              disease loci: (1) 77053 
+                                           disease alleles: (1) 1 
+                             heterozygote/homozygote risks: (1) 1.00/1.00 
+                                                     lower: 0
+                                                     upper: 500000000
+                                                        Ne: 11418
+                                                     theta: -1
+
+Reading genetic map file ... done
+                                      number of rates read: 248796
+
+
+Reading haplotype and legend files: looking for SNPs in [0, 500000000] ... done
+                                      number of haplotypes: 5008
+                                   number of SNPs in total: 6500358
+                                number of SNPs in interval: 6461692
+
+
+Random seed set to 0.330885
+theta not set, so setting to a default value of 0.109937
+
+Processing disease loci ... 
+cannot find snp information for position 77053, so it has been removed from the set of disease loci.
+done 
+
+No suitable disease loci. Program terminated.
+make[1]: *** [/scratch/hpc2862/CAMH/new_corge/sim/.done] Error 1
+make[1]: Leaving directory `/home/hpc2862/repos/coR-ge/inst/analysis/new_ref'
+make[1]: Entering directory `/home/hpc2862/repos/coR-ge/inst/analysis/new_ref'
+mkdir -p /scratch/hpc2862/CAMH/new_corge/sim
+cd /scratch/hpc2862/CAMH/new_corge/ref && /scratch/hpc2862/CAMH/new_corge/bin/hapgen2 -h 1000GP_Phase3_chr1.hap \
+		-l 1000GP_Phase3_chr1.legend \
+		-m genetic_map_chr1_combined_b37.txt \
+		-dl 723891 1 1.0 1.0 \
+		-n 1000 \
+		-int 0 500000000 \
+		-o  ../sim/chr1_sim1
+
+===================================================================
+  Welcome to HAPGEN_v2.2.0 (01/04/2011)
+  Zhan Su, Peter Donnelly, Jonathan Marchini
+===================================================================
+
+Command line input is:
+/scratch/hpc2862/CAMH/new_corge/bin/hapgen2 -h 1000GP_Phase3_chr1.hap -l 1000GP_Phase3_chr1.legend -m genetic_map_chr1_combined_b37.txt -dl 723891 1 1.0 1.0 -n 1000 -int 0 500000000 -o ../sim/chr1_sim1 
+
+FILE INPUTS
+                                            haplotype file: 1000GP_Phase3_chr1.hap
+                                               legend file: 1000GP_Phase3_chr1.legend
+                                          genetic map file: genetic_map_chr1_combined_b37.txt
+                                             tag snps file: 
+FILE OUTPUTS
+                                               output file: ../sim/chr1_sim1
+                                              summary file: ../sim/chr1_sim1.summary
+PARAMETER INPUTS
+                                  no. controls to simulate: 1000
+                                     no. cases to simulate: 0
+                                              disease loci: (1) 723891 
+                                           disease alleles: (1) 1 
+                             heterozygote/homozygote risks: (1) 1.00/1.00 
+                                                     lower: 0
+                                                     upper: 500000000
+                                                        Ne: 11418
+                                                     theta: -1
+
+Reading genetic map file ... done
+                                      number of rates read: 248796
+
+
+Reading haplotype and legend files: looking for SNPs in [0, 500000000] ... done
+                                      number of haplotypes: 5008
+                                   number of SNPs in total: 6500358
+                                number of SNPs in interval: 6461692
+
+
+Random seed set to 0.265364
+theta not set, so setting to a default value of 0.109937
+
+Processing disease loci ... done 
+
+
+Simulating haplotypes ... done
+
+Writing output to files 
+writing output file ../sim/chr1_sim1.controls.haps
+writing output file ../sim/chr1_sim1.cases.haps
+writing output file ../sim/chr1_sim1.legend
+writing output file ../sim/chr1_sim1.controls.gen
+writing output file ../sim/chr1_sim1.cases.gen
+writing output file ../sim/chr1_sim1.controls.sample
+writing output file ../sim/chr1_sim1.cases.sample
+
+HAPGEN took 11162 seconds to complete. Have a nice day! 
+make[1]: Leaving directory `/home/hpc2862/repos/coR-ge/inst/analysis/new_ref'

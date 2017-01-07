@@ -1,0 +1,425 @@
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+------------------------------------------------------------------------------
+data.table + dplyr code now lives in dtplyr.
+Please library(dtplyr)!
+------------------------------------------------------------------------------
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+Warning message:
+replacing previous import by ‘devtools::document’ when loading ‘coRge’ 
+Read 0.0% of 207598 rowsRead 4.8% of 207598 rowsRead 9.6% of 207598 rowsRead 14.5% of 207598 rowsRead 19.3% of 207598 rowsRead 24.1% of 207598 rowsRead 28.9% of 207598 rowsRead 33.7% of 207598 rowsRead 38.5% of 207598 rowsRead 43.4% of 207598 rowsRead 48.2% of 207598 rowsRead 53.0% of 207598 rowsRead 57.8% of 207598 rowsRead 62.6% of 207598 rowsRead 67.4% of 207598 rowsRead 72.3% of 207598 rowsRead 77.1% of 207598 rowsRead 81.9% of 207598 rowsRead 86.7% of 207598 rowsRead 91.5% of 207598 rowsRead 96.3% of 207598 rowsRead 207598 rows and 3005 (of 3005) columns from 1.165 GB file in 00:00:41
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Calculating sFDR and FDR
+Selecting Causal SNPs
+Merging together and converting from Oxford to R format...
+Calculating phenotypes...
+Done!
+Performing correction
