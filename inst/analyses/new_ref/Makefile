@@ -24,7 +24,7 @@ git:
 	cd ../../.. && git add -A
 	git commit -am "update coRge for new analysis see changelog" 
 	git push
-	ssh hpcvl 'cd repos/coR-ge; git pull'
+	ssh hpcvl 'cd repos/coR-ge; /usr/bin/git pull'
 
 # Download and unpack the reference files.
 $(home)/ref/.done: 
