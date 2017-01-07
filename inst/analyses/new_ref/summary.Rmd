@@ -21,5 +21,5 @@ hist(table$all_maf)
 Obviously this is nowhere near Uniform. We're going to git rid of all of the MAF below 0.01 and try again.  
 
 ```{R}
-table %>% filter(all_maf > 0.01) %>% hist
+table %>% filter(all_maf > 0.01) %>% select(all_maf) %>% hist
 ```
