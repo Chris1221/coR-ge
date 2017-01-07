@@ -52,3 +52,5 @@ $(home)/summary/stats.txt: $(home)/ref/.done
 		-data $(home)/sim/chr1_sim1.controls.gen $(home)/sim/chr1_sim1.controls.sample \
 		-o $(home)/summary/stats.txt
 
+summary.html: summary.Rmd
+	Rscript -e 'rmarkdown::render("$<", "tufte_html")'
