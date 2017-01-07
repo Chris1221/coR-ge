@@ -33,12 +33,23 @@
 
 
 
-analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE, local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5, nc = 1000, gen = NULL, summary = summary, maf = FALSE, maf_range = NULL){
-
-
-#message(paste0("coR-ge v", packageVersion("coRge"), " \t \t http://github.io/Chris1221/coR-ge \n \n \t Parameters in use: \n \t \t i: ",i, "\n \t \t j: ", j, "\n \t \t path.base: ", path.base,"\n \t \t summary.file: ", summary.file,"\n \t \t output: ", output,"\n \t \t th2: ", h2,"\n \t \t pc: ", pc,"\n \t \t pnc: ", pnc,"\n \t \t nc: ", nc, "\n \n \t Local options: \n \t \t local: ", local,"\n \t \t gen ", gen,"\n \t \t summary: ", summary, " \n \n \t Testing options: \n \t \t test: ", test,"\n \t \t safe: ", safe, "\n \n LOG: \n"))
-
-
+analyze <- function(i = double(),
+		    j = double(),
+		    mode = "default",
+		    path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
+		    summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
+		    output = "~/repos/coR-ge/data/test_run2.txt",
+		    test = TRUE,
+		    safe = TRUE,
+		    local = FALSE,
+		    h2 = 0.45,
+		    pc = 0.5,
+		    pnc = 0.5,
+		    nc = 1000,
+		    gen = NULL,
+		    summary = summary,
+		    maf = FALSE,
+		    maf_range = NULL){
 
 	if(local) {
 

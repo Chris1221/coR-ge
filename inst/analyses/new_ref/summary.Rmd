@@ -23,3 +23,5 @@ Obviously this is nowhere near Uniform. We're going to git rid of all of the MAF
 ```{R}
 table %>% filter(all_maf > 0.01) %>% select(all_maf) %>% unlist %>% as.double %>% hist
 ```
+
+Once we get rid of the rare variants then the MAFs look more reasonable. We're going to go forward and trim them like this going forward.
