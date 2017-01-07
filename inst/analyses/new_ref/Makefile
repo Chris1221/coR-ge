@@ -23,9 +23,8 @@ sub:
 git:
 	cd ../../.. && git add -A
 	git commit -am "update coRge for new analysis see changelog" 
-	git push
-	ssh hpcvl 'ssh swlogin1; cd repos/coR-ge; /usr/bin/git pull'
-
+	#git push
+	
 # Download and unpack the reference files.
 $(home)/ref/.done: 
 	cd $(home)/ref && wget https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.tgz 
