@@ -10,7 +10,8 @@ hapgen2=$(home)/bin/hapgen2
 
 # The default rule
 # 	For now just update the git repo.
-.all: $(home)/sim/.done
+.PHONY: all
+all: $(home)/sim/.done
 
 # Submission
 #
