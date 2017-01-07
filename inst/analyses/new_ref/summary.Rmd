@@ -3,11 +3,23 @@ title: "Looking at the new panel"
 author: ""
 ---
 
+```{r setup, include = F}
+library(dplyr)
+```
+
+
 First we might want to look at a simple summary of the MAF to see if there are any super weird bins that might be affecing the generation of scores to make them abnormally high or low. 
 
-```{r}
+```{r, message = F}
 table <- data.table::fread("/scratch/hpc2862/CAMH/new_corge/summary/stats.txt", h = T)
+```
 
+```{R}
 hist(table$all_maf)
-hist(table$missing_data_proportion)
+```
+
+Obviously this is nowhere near Uniform. We're going to git rid of all of the MAF below 0.01 and try again.  
+
+```{R}
+table %>% filter(all_maf > 0.01) %>% hist
 ```
