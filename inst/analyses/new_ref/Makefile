@@ -11,7 +11,7 @@ hapgen2=$(home)/bin/hapgen2
 # The default rule
 # 	For now just update the git repo.
 .PHONY: all
-all: $(home)/sim/.done
+all: $(home)/summary/stats.txt
 
 # Submission
 #
