@@ -8,6 +8,6 @@
 #$ -j y
 #$ -o /home/hpc2862/repos/coR-ge/inst/logs/$JOB_NAME.txt
 
-cd /home/hpc2862/repos/coR-ge/inst/analysis/new_ref
+cd /home/hpc2862/repos/coR-ge/inst/analyses/new_ref
 
 Rscript run_coRge.R
