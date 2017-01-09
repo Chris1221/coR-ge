@@ -54,3 +54,11 @@ $(home)/summary/stats.txt: $(home)/ref/.done
 
 summary.html: summary.Rmd
 	Rscript -e 'rmarkdown::render("$<")'
+
+
+# ------------------------------------------ #
+#          Analysis 			     #
+# -------------------------------------------#
+
+run_coRge:
+	
