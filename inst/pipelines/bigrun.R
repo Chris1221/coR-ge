@@ -83,3 +83,5 @@ library(foreach)
 						analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "ld", output = "~repos/coR-ge/data/raw/pri2.txt")
 					}
 
+
+
