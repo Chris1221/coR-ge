@@ -33,65 +33,45 @@
 
 
 
-analyze <- function(i = double(), j = double(), mode = "default", path.base = "/scratch/hpc2862/CAMH/perm_container/container_", summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", output = "~/repos/coR-ge/data/test_run2.txt", test = TRUE, safe = TRUE, local = FALSE, h2 = 0.45, pc = 0.5, pnc = 0.5, nc = 1000, gen = NULL, summary = summary, maf = FALSE, maf_range = NULL){
+analyze <- function(i = double(),
+		    j = double(),
+		    mode = "default",
+		    path.base = "/scratch/hpc2862/CAMH/perm_container/container_",
+		    summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out",
+		    output = "~/repos/coR-ge/data/test_run2.txt",
+		    test = TRUE,
+		    safe = TRUE,
+		    local = FALSE,
+		    h2 = 0.45,
+		    pc = 0.5,
+		    pnc = 0.5,
+		    nc = 1000,
+		    gen = NULL,
+		    summary = summary,
+		    maf = FALSE,
+		    maf_range = NULL){
 
+	if(F){ # This is just here to easily assign variables in interactive mode
 
-#message(paste0("coR-ge v", packageVersion("coRge"), " \t \t http://github.io/Chris1221/coR-ge \n \n \t Parameters in use: \n \t \t i: ",i, "\n \t \t j: ", j, "\n \t \t path.base: ", path.base,"\n \t \t summary.file: ", summary.file,"\n \t \t output: ", output,"\n \t \t th2: ", h2,"\n \t \t pc: ", pc,"\n \t \t pnc: ", pnc,"\n \t \t nc: ", nc, "\n \n \t Local options: \n \t \t local: ", local,"\n \t \t gen ", gen,"\n \t \t summary: ", summary, " \n \n \t Testing options: \n \t \t test: ", test,"\n \t \t safe: ", safe, "\n \n LOG: \n"))
-
-
-
-	if(local) {
-
-		gen <- gen
-		summary <- summary
-
-	} else if(!local){
-
-			message("Error Checking")
-
-		if(any(is.null(c(i,j,path.base, summary.file)))) stop("Please complete all input arguemnets")
-
-		path <- paste0(path.base,i,"_",j,"/")
-		setwd(path)
-
-
-			message("Deleting junk files...")
-
-		list.files(path)[!grepl("controls.gen", list.files(path))] %>%
-			file.remove
-
-			message("Reading in genotype files...")
-
-			if(!test){
-
-		for(k in 1:5){
-			if(k == 1){
-				fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() -> gen
-			} else if(k != 1){
-				fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame() %>% select(.,-V1:-V5) %>% cbind(gen, .) -> gen
-			}
-		}
-
-			} else if(test){
-			  k <- 1
-
-			  gen <- fread(paste0(path, "chr1_block_", i, "_perm_", j, "_k_", k, ".controls.gen"), h = F, sep = " ") %>% as.data.frame()
-			}
-
-		colnames(gen) <- paste0("V",1:ncol(gen))
-		summary <- fread(summary.file, h = T, sep = " ")
+	    mode = "default"
+	    path.base = "/scratch/hpc2862/CAMH/perm_container/container_"
+	    summary.file = "/scratch/hpc2862/CAMH/perm_container/snp_summary2.out"
+	    output = "~/repos/coR-ge/data/test_run2.txt"
+	    test = TRUE
+	    safe = TRUE
+	    local = FALSE
+	    h2 = 0.45
+	    pc = 0.5
+	    pnc = 0.5
+	    nc = 1000
+	    gen = NULL
+	    summary = summary
+	    maf = FALSE
+	    maf_range = NULL
 
 	}
 
-# 	     ___         __                _  _
-# 	    /   \  ___  / _|  __ _  _   _ | || |_
-# 	   / /\ / / _ \| |_  / _` || | | || || __|
-# 	  / /_// |  __/|  _|| (_| || |_| || || |_
-# 	/___,'   \___||_|   \__,_| \__,_||_| \__|
-#
-
-
-	if(is.null(mode) || mode == "default"){
+	if(mode == "default"){
 
 
     		message("Selecting Causal SNPs")
