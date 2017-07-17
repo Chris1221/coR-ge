@@ -56,9 +56,4 @@ summary.html: summary.Rmd
 	Rscript -e 'rmarkdown::render("$<")'
 
 
-# ------------------------------------------ #
-#          Analysis 			     #
-# -------------------------------------------#
 
-run_coRge:
-	
