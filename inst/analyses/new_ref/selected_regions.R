@@ -61,27 +61,53 @@ colnames(gen) <- paste0("V",1:ncol(gen))
 
 summary <- fread("/scratch/hpc2862/CAMH/perm_container/snp_summary2.out", h = T)
 
-# ------------------------------------------------------------------------------- #
-#
-# Step 3: Loop around options
-#
-# ------------------------------------------------------------------------------- #
-
-#library(doMC)
-#registerDoMC(cores = 8)
-library(foreach)
-
-# chec if all need to be par or just the top level one, probbaly all but check speed if both
+h2 = 0.5
+pc = 0.75
+pnc = 0.2
+nc = 500
 
 
-#foreach(i = c(1:10)) %:%
-#	foreach(j = c(1:10)) %:%
-		foreach(h2 = seq(0.1, 0.9, by = 0.1)) %:%
-			foreach(pc = seq(0.1, 0.9, by = 0.1)) %:%
-				foreach(pnc = seq(0.1, 0.9, by = 0.1)) %:%
-					foreach(nc = seq(50,500, by =50)) %do% {
-						analyze(i = i, j = j, h2 = h2, pc = pc, pnc = pnc, nc = nc, local = TRUE, gen = gen, summary = summary, mode = "ld", output = "~repos/coR-ge/data/raw/pri2.txt")
-					}
+for( var in c(50, 500, 5000) ){
 
+	analyze(i = i,
+		j = j,
+		h2 = h2,
+		pc = pc,
+		pnc = pnc,
+		nc = var,
+		local = TRUE,
+		gen = gen,
+		summary = summary,
+		mode = "ld",
+		output = "~repos/coR-ge/data/raw/new_panels.txt")
+}
 
+for( var in c(0.1, 0.5, 0.9) ){
 
+	analyze(i = i,
+		j = j,
+		h2 = i,
+		pc = pc,
+		pnc = pnc,
+		nc = var,
+		local = TRUE,
+		gen = gen,
+		summary = summary,
+		mode = "ld",
+		output = "~repos/coR-ge/data/raw/new_panels.txt")
+}
+
+for( var in c(0.5,0.8, 0.99) ){
+
+	analyze(i = i,
+		j = j,
+		h2 = h2,
+		pc = var,
+		pnc = pnc,
+		nc = i,
+		local = TRUE,
+		gen = gen,
+		summary = summary,
+		mode = "ld",
+		output = "~repos/coR-ge/data/raw/new_panels.txt")
+}
